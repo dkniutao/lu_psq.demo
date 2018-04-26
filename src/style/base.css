@@ -50,3 +50,16 @@ table {
 	float: right;
 }
 
+.el-button--primary, .el-button--primary.is-active, .el-button--primary:active {
+	background: #126ab5;
+	border-color: #126ab5;
+}
+.el-button--primary:focus, .el-button--primary:hover {
+	background: #4188c4;
+	border-color: #4188c4;
+}
+.el-button {
+	border-radius: 0;
+	padding: 8px 26px;
+}
+

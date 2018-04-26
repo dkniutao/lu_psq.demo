@@ -4,7 +4,7 @@
     <div class="psq-chunk">
       <el-row>
         <el-col :span="12">
-          <el-button class="fl" type="primary" icon="el-icon-search">创建问卷</el-button>
+          <el-button class="fl" type="primary" icon="el-icon-plus">创建问卷</el-button>
         </el-col>
         <el-col :span="12">
           <el-input class="fr" style="width: 280px;" placeholder="请输入内容" v-model="input4">
@@ -83,8 +83,8 @@
   }
 </script>
 <style scoped>
-  .psq-content {background: #fff;min-height: 100%;}
-  .psq-chunk{height: 60px;line-height: 60px;border-bottom: 1px solid #e8ecf0;}
+  .psq-content {background: #fff;}
+  .psq-chunk{height: 60px;line-height: 60px;border-bottom: 1px solid #e8ecf0;padding:0 20px;}
   .psq-chunk .el-row{padding-top: 10px;}
   .el-pagination{text-align: center;margin-top: 40px;}
   .psq-table{padding:10px 0 40px;}
