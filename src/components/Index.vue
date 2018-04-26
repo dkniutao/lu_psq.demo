@@ -7,7 +7,7 @@
           <el-button class="fl" type="primary" icon="el-icon-plus">创建问卷</el-button>
         </el-col>
         <el-col :span="12">
-          <el-input class="fr" style="width: 280px;" placeholder="请输入内容" v-model="input4">
+          <el-input class="fr" style="width: 280px;" placeholder="请输入搜索内容" v-model="input4">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>

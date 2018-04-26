@@ -13,53 +13,72 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .fl {
-	float: left;
+  float: left;
 }
 .fr {
-	float: right;
+  float: right;
 }
 
 .el-button--primary, .el-button--primary.is-active, .el-button--primary:active {
-	background: #126ab5;
-	border-color: #126ab5;
+  background: #126ab5;
+  border-color: #126ab5;
 }
 .el-button--primary:focus, .el-button--primary:hover {
-	background: #4188c4;
-	border-color: #4188c4;
+  background: #4188c4;
+  border-color: #4188c4;
 }
 .el-button {
-	border-radius: 0;
-	padding: 8px 26px;
+  border-radius: 0;
+  padding: 7px 24px;
+}
+
+.el-input__inner{
+  height: 36px;
+  line-height: 36px;
+  border-color: #126ab5 !important;
+  border-right:none;
+  border-radius: 20px;
+}
+.el-input-group__append{
+  border-color: #126ab5 !important;
+  background: #fff;
+  border-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 4px 10px 0;
+}
+.el-input-group__append .el-icon-search{
+	font-size:20px;
 }
 
