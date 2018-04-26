@@ -16,7 +16,6 @@
     <div class="psq-table">
       <el-table
         :data="tableData3"
-        border
         style="width: 100%">
         <el-table-column
           prop="date"
@@ -38,6 +37,7 @@
         @current-change="handleCurrentChange"
         :current-page.sync="currentPage1"
         :page-size="100"
+        background
         layout="total, prev, pager, next"
         :total="1000">
       </el-pagination>
