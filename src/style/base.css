@@ -50,15 +50,15 @@ table {
   float: right;
 }
 
-.el-button--primary, .el-button--primary.is-active, .el-button--primary:active {
+.add-psq.el-button--primary, .add-psq.el-button--primary.is-active, .add-psq.el-button--primary:active {
   background: #126ab5;
   border-color: #126ab5;
 }
-.el-button--primary:focus, .el-button--primary:hover {
+.add-psq.el-button--primary:focus, .add-psq.el-button--primary:hover {
   background: #4188c4;
   border-color: #4188c4;
 }
-.el-button {
+.add-psq.el-button {
   border-radius: 0;
   padding: 7px 24px;
 }

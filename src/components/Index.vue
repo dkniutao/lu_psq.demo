@@ -4,11 +4,11 @@
     <div class="psq-chunk">
       <el-row>
         <el-col :span="12">
-          <el-button class="fl" type="primary" icon="el-icon-plus">创建问卷</el-button>
+          <el-button class="fl add-psq" type="primary" icon="el-icon-plus">创建问卷</el-button>
         </el-col>
         <el-col :span="12">
           <el-input class="fr" style="width: 280px;" placeholder="请输入搜索内容" v-model="keyword">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -20,6 +20,7 @@
         @sort-change="sortChange"
         style="width: 100%">
         <el-table-column
+          width="100"
           prop="id"
           label="排序">
         </el-table-column>
@@ -28,11 +29,13 @@
           label="标题">
         </el-table-column>
         <el-table-column
-          prop="create_time"
+          width="260"
           sortable
+          prop="create_time"
           label="发布日期">
         </el-table-column>
         <el-table-column
+          width="140"
           :filters="[
             { text: '未发布', value: 0 },
             { text: '进行中', value: 1 },
@@ -50,6 +53,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="130"
           prop="answer_count"
           label="答卷数">
         </el-table-column>
@@ -96,7 +100,7 @@ export default {
       mylib.axios({
         url: 'questionnaire/list',
         params: {
-          keyword: '',
+          keyword: this.keyword,
           page: this.currentPage,
           status: this.status.length ? this.status.join(',') : '',
           sort: this.create_time ? 'create_time ' + this.create_time : ''
@@ -121,6 +125,9 @@ export default {
     },
     sortChange (sort) {
       this.create_time = sort.order ? sort.order.replace(/ending/ig, '') : ''
+      this.resetTable()
+    },
+    search () {
       this.resetTable()
     }
   },
