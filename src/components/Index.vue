@@ -74,7 +74,7 @@ export default {
       keyword: '',
       currentPage: 1,
       pageSize: 20,
-      total: 100,
+      total: 0,
       tableData: []
     }
   },
@@ -90,9 +90,12 @@ export default {
         keyword: ''
       },
       done (res) {
-        console.log(res)
+        this.tableData = res.data.items
+        this.currentPage = +res.data._meta.currentPage
+        this.pageSize = +res.data._meta.perPage
+        this.total = +res.data._meta.totalCount
       }
-    })
+    }, this)
   }
 }
 </script>
