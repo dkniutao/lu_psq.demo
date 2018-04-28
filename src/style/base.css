@@ -50,6 +50,15 @@ table {
   float: right;
 }
 
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
 .add-psq.el-button--primary, .add-psq.el-button--primary.is-active, .add-psq.el-button--primary:active {
   background: #126ab5;
   border-color: #126ab5;
@@ -63,14 +72,16 @@ table {
   padding: 7px 24px;
 }
 
-.el-input__inner{
+.search-psq .el-input__inner{
   height: 36px;
   line-height: 36px;
   border-color: #126ab5 !important;
   border-right:none;
   border-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
-.el-input-group__append{
+.search-psq .el-input-group__append{
   border-color: #126ab5 !important;
   background: #fff;
   border-radius: 20px;
@@ -78,7 +89,7 @@ table {
   border-bottom-left-radius: 0;
   padding: 4px 10px 0;
 }
-.el-input-group__append .el-icon-search{
+.search-psq .el-input-group__append .el-icon-search{
 	font-size:20px;
 }
 

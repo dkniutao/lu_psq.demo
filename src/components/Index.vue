@@ -1,17 +1,11 @@
 <template>
   <div class="psq-content">
     <div class="psq-chunk">问卷调查系统</div>
-    <div class="psq-chunk">
-      <el-row>
-        <el-col :span="12">
-          <el-button class="fl add-psq" type="primary" icon="el-icon-plus">创建问卷</el-button>
-        </el-col>
-        <el-col :span="12">
-          <el-input class="fr" style="width: 280px;" placeholder="请输入搜索内容" v-model="keyword">
-            <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
-          </el-input>
-        </el-col>
-      </el-row>
+    <div class="psq-chunk clearfix">
+      <el-button class="fl add-psq" type="primary" icon="el-icon-plus">创建问卷</el-button>
+      <el-input class="fr search-psq" style="width: 280px;" placeholder="请输入搜索内容" v-model="keyword">
+        <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+      </el-input>
     </div>
     <div class="psq-table">
       <el-table
@@ -151,8 +145,7 @@ export default {
 </script>
 <style scoped>
   .psq-content {background: #fff;}
-  .psq-chunk{height: 60px;line-height: 60px;border-bottom: 1px solid #e8ecf0;padding:0 20px;}
-  .psq-chunk .el-row{padding-top: 10px;}
+  .psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
   .el-pagination{text-align: center;margin-top: 40px;}
   .psq-table{padding:10px 0 40px;}
 </style>
