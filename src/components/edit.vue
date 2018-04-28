@@ -477,7 +477,7 @@
         </div>
       </div>
 
-            <!-- 多项评分题 -->
+      <!-- 多项评分题 -->
       <div class="question-item">
         <div class="item-header">
           <input class="title-input" type="text" placeholder="请输入问题标题【多项评分题】" />
@@ -616,6 +616,140 @@
           <el-button class="question-submit" type="primary">完成编辑</el-button>
         </div>
       </div>
+
+      <!-- 排序题 -->
+      <div class="question-item">
+        <div class="item-header">
+          <input class="title-input" type="text" placeholder="请输入问题标题【排序题】" />
+          <div class="clearfix">
+
+          </div>
+        </div>
+
+        <div class="item-operate clearfix">
+          <el-button class="fl operate-btn">在此题后插入新题</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-zhidingdel"></i>最后</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-icon_zhiding"></i>最前</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-xiayi"></i>下移</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-shangyi"></i>上移</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-iconless"></i>删除</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-fuzhi"></i>复制</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-shuru"></i>编辑</el-button>
+        </div>
+
+        <div class="item-edit">
+          <el-row>
+            <el-col :span="12">
+              <quill-editor v-model="content"
+                ref="myQuillEditor"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)">
+              </quill-editor>
+            </el-col>
+            <el-col :span="12">
+
+            </el-col>
+            <el-col :span="24">
+              <el-table
+                :data="tableData"
+                style="width: 100%">
+                <el-table-column
+                  prop="text"
+                  label="选项文字">
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.text" placeholder="请输入选项内容"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="text"
+                  label="图片">
+                  <template slot-scope="scope">
+                    <i class="iconfont icon-tupian2" style="color:#126ab5;font-size: 25px;"></i>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="operate"
+                  label="操作">
+                  <template slot-scope="scope">
+                    <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jia1"></i></el-button>
+                    <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jian1"></i></el-button>
+                    <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-xiayi"></i></el-button>
+                    <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-shangyi"></i></el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="item-submit">
+          <el-button class="question-submit" type="primary">完成编辑</el-button>
+        </div>
+      </div>
+
+      <!-- 滑动条题 -->
+      <div class="question-item">
+        <div class="item-header">
+          <input class="title-input" type="text" placeholder="请输入问题标题【滑动条题】" />
+          <div class="clearfix">
+            <el-slider v-model="value2"></el-slider>
+          </div>
+        </div>
+
+        <div class="item-operate clearfix">
+          <el-button class="fl operate-btn">在此题后插入新题</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-zhidingdel"></i>最后</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-icon_zhiding"></i>最前</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-xiayi"></i>下移</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-shangyi"></i>上移</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-iconless"></i>删除</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-fuzhi"></i>复制</el-button>
+          <el-button class="fr operate-btn"><i class="iconfont icon-shuru"></i>编辑</el-button>
+        </div>
+
+        <div class="item-edit">
+          <el-row>
+            <el-col :span="12">
+              <quill-editor v-model="content"
+                ref="myQuillEditor"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)">
+              </quill-editor>
+            </el-col>
+            <el-col :span="12">
+
+            </el-col>
+            <el-col :span="24">
+              <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                <el-row>
+                  <el-col :span=24>
+                    <el-form-item label="最小值">
+                      <el-input-number v-model="formInline.region" :controls="false"></el-input-number>
+                    </el-form-item>
+                    <el-form-item label="最小值显示文本">
+                      <el-input v-model="formInline.user" placeholder="最小值显示文本"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span=24>
+                    <el-form-item label="最大值">
+                      <el-input-number v-model="formInline.region" :controls="false"></el-input-number>
+                    </el-form-item>
+                    <el-form-item label="最大值显示文本">
+                      <el-input v-model="formInline.user" placeholder="最大值显示文本"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-form>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="item-submit">
+          <el-button class="question-submit" type="primary">完成编辑</el-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -635,6 +769,7 @@ export default {
       tableData10: [{title: '外观'}, {title: '功能'}],
       radio1: '',
       checkedCities1: '',
+      value2: 20,
       questionType: [],
       content: '<h2>I am Example</h2>',
       editorOption: {
