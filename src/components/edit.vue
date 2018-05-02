@@ -31,7 +31,7 @@
       <xz-question-item index="1" type="checkbox"></xz-question-item>
 
       <!-- 标题 -->
-      <div class="question-item">
+      <!-- <div class="question-item">
         <div class="item-header">
           <input class="title-input" type="text" placeholder="请输入标题" />
         </div>
@@ -61,9 +61,9 @@
         <div class="item-submit">
           <el-button class="question-submit" type="primary">完成编辑</el-button>
         </div>
-      </div>
+      </div> -->
       <!-- 段落说明 -->
-      <div class="question-item">
+      <!-- <div class="question-item">
         <div class="item-header">
           <input class="title-input" type="text" placeholder="请输入段落说明" />
         </div>
@@ -93,27 +93,27 @@
         <div class="item-submit">
           <el-button class="question-submit" type="primary">完成编辑</el-button>
         </div>
-      </div>
+      </div> -->
       <!-- 单选 -->
-        <div class="question-item">
-          <div class="item-header">
-            <input class="title-input" type="text" placeholder="请输入问题标题【单选题】" />
-            <div>
-             <el-radio-group v-model="radio1">
-               <el-row>
-                 <el-col :span="24">
-                   <el-radio :label="3">备选项</el-radio>
-                 </el-col>
-                 <el-col :span="24">
-                   <el-radio :label="6">备选项</el-radio>
-                 </el-col>
-                 <el-col :span="24">
-                   <el-radio :label="9">备选项</el-radio>
-                 </el-col>
-               </el-row>
-             </el-radio-group>
-           </div>
+      <div class="question-item">
+        <div class="item-header">
+          <input class="title-input" type="text" placeholder="请输入问题标题【单选题】" />
+          <div>
+           <el-radio-group v-model="radio1">
+             <el-row>
+               <el-col :span="24">
+                 <el-radio :label="3">备选项</el-radio>
+               </el-col>
+               <el-col :span="24">
+                 <el-radio :label="6">备选项</el-radio>
+               </el-col>
+               <el-col :span="24">
+                 <el-radio :label="9">备选项</el-radio>
+               </el-col>
+             </el-row>
+           </el-radio-group>
          </div>
+       </div>
 
          <div class="item-operate clearfix">
            <el-button class="fl operate-btn">在此题后插入新题</el-button>
@@ -168,15 +168,15 @@
            <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-xiayi"></i></el-button>
            <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-shangyi"></i></el-button>
          </template>
-       </el-table-column>
-      </el-table>
-      </el-col>
-      </el-row>
-      </div>
+        </el-table-column>
+        </el-table>
+        </el-col>
+        </el-row>
+        </div>
 
-      <div class="item-submit">
-       <el-button class="question-submit" type="primary">完成编辑</el-button>
-      </div>
+        <div class="item-submit">
+         <el-button class="question-submit" type="primary">完成编辑</el-button>
+        </div>
       </div>
       <!-- 多选 -->
       <div class="question-item">
