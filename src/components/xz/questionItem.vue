@@ -8,6 +8,8 @@
       <div>
         <xz-question-item-radio :source="source" v-if="type == 'radio'"></xz-question-item-radio>
         <xz-question-item-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-checkbox>
+        <xz-question-item-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-gapfill>
+        <xz-question-item-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-multigapfill>
       </div>
     </div>
 
@@ -26,6 +28,8 @@
     <div class="item-edit">
       <xz-question-item-edit-radio :source="source" v-if="type == 'radio'"></xz-question-item-edit-radio>
       <xz-question-item-edit-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-edit-checkbox>
+      <xz-question-item-edit-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-edit-gapfill>
+      <xz-question-item-edit-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-edit-multigapfill>
     </div>
 
     <div class="item-submit">
@@ -38,6 +42,10 @@ import questionItemRadio from './questionItemRadio.vue'
 import questionItemEditRadio from './questionItemEditRadio.vue'
 import questionItemCheckbox from './questionItemCheckbox.vue'
 import questionItemEditCheckbox from './questionItemEditCheckbox.vue'
+import questionItemGapFill from './questionItemGapFill.vue'
+import questionItemEditGapFill from './questionItemEditGapFill.vue'
+import questionItemMultiGapFill from './questionItemMultiGapFill.vue'
+import questionItemEditMultiGapFill from './questionItemEditMultiGapFill.vue'
 
 export default {
   components: {
@@ -45,6 +53,10 @@ export default {
     'xz-question-item-edit-radio': questionItemEditRadio,
     'xz-question-item-checkbox': questionItemCheckbox,
     'xz-question-item-edit-checkbox': questionItemEditCheckbox,
+    'xz-question-item-gapfill': questionItemGapFill,
+    'xz-question-item-edit-gapfill': questionItemEditGapFill,
+    'xz-question-item-multigapfill': questionItemMultiGapFill,
+    'xz-question-item-edit-multigapfill': questionItemEditMultiGapFill,
   },
   props: ['index', 'type'],
   data () {
