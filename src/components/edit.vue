@@ -18,11 +18,13 @@
       </el-menu>
     </div>
 
-    <div class="question-header">
-      <div class="title" v-html="qTitle"></div>
-      <div class="desc" v-html="qDesc"></div>
-    </div>
+    <!-- 问卷头部标题 -->
+    <xz-question-header></xz-question-header>
 
+    <!-- 问卷分割线 -->
+    <div class="question-line"></div>
+
+    <!-- 问卷问题列表 -->
     <div class="question-list">
       <!-- 标题 -->
       <div class="question-item">
@@ -761,11 +763,13 @@
 
 <script>
 import mylib from '../mylib.js'
+import questionHeader from './xz/questionHeader.vue'
 export default {
+  components: {
+    'xz-question-header': questionHeader
+  },
   data () {
     return {
-      qTitle: '企业员工满意度调查问卷',
-      qDesc: '添加问卷说明',
 
       form: {
 
@@ -800,7 +804,7 @@ export default {
     },
     onEditorChange ({ quill, html, text }) {
       console.log('editor change!', quill, html, text)
-      this.content = html
+      // this.content = html
     }
   },
   computed: {
@@ -830,7 +834,7 @@ export default {
   .question-item{
     box-sizing: border-box;
     border: 1px solid #126ab5;
-    margin: 60px;
+    margin: 0 60px 20px;
     padding:20px;
   }
   .question-item .item-header{
@@ -867,11 +871,7 @@ export default {
     border-radius: 0;
     padding: 7px 24px;
   }
-
-  /*问卷头部标题 start*/
-  .question-header{box-sizing: border-box;border: 1px solid #fff;margin: 60px;padding:20px;}
-  .question-header:hover{border-color:#126ab5;cursor: pointer;}
-  .question-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;color: #333333;}
-  .question-header .desc{font-size: 14px;line-height: 30px;color: #666666;margin-top: 10px;}
-  /*问卷头部标题 end*/
+  /*问卷分割线 start*/
+  .question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
+  /*问卷分割线 end*/
 </style>
