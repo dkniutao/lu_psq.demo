@@ -26,6 +26,9 @@
 
     <!-- 问卷问题列表 -->
     <div class="question-list">
+      <!-- 单选 -->
+      <xz-question-item type="radio"></xz-question-item>
+
       <!-- 标题 -->
       <div class="question-item">
         <div class="item-header">
@@ -91,90 +94,89 @@
         </div>
       </div>
       <!-- 单选 -->
-      <div class="question-item">
-        <div class="item-header">
-          <input class="title-input" type="text" placeholder="请输入问题标题【单选题】" />
-          <div>
-            <el-radio-group v-model="radio1">
-              <el-row>
-                <el-col :span="24">
-                  <el-radio :label="3">备选项</el-radio>
-                </el-col>
-                <el-col :span="24">
-                  <el-radio :label="6">备选项</el-radio>
-                </el-col>
-                <el-col :span="24">
-                  <el-radio :label="9">备选项</el-radio>
-                </el-col>
-              </el-row>
-            </el-radio-group>
-          </div>
-        </div>
+        <div class="question-item">
+          <div class="item-header">
+            <input class="title-input" type="text" placeholder="请输入问题标题【单选题】" />
+            <div>
+             <el-radio-group v-model="radio1">
+               <el-row>
+                 <el-col :span="24">
+                   <el-radio :label="3">备选项</el-radio>
+                 </el-col>
+                 <el-col :span="24">
+                   <el-radio :label="6">备选项</el-radio>
+                 </el-col>
+                 <el-col :span="24">
+                   <el-radio :label="9">备选项</el-radio>
+                 </el-col>
+               </el-row>
+             </el-radio-group>
+           </div>
+         </div>
 
-        <div class="item-operate clearfix">
-          <el-button class="fl operate-btn">在此题后插入新题</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-zhidingdel"></i>最后</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-icon_zhiding"></i>最前</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-xiayi"></i>下移</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-shangyi"></i>上移</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-iconless"></i>删除</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-fuzhi"></i>复制</el-button>
-          <el-button class="fr operate-btn"><i class="iconfont icon-shuru"></i>编辑</el-button>
-        </div>
+         <div class="item-operate clearfix">
+           <el-button class="fl operate-btn">在此题后插入新题</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-zhidingdel"></i>最后</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-icon_zhiding"></i>最前</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-xiayi"></i>下移</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-shangyi"></i>上移</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-iconless"></i>删除</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-fuzhi"></i>复制</el-button>
+           <el-button class="fr operate-btn"><i class="iconfont icon-shuru"></i>编辑</el-button>
+         </div>
 
-        <div class="item-edit">
-          <el-row>
-            <el-col :span="12">
-              <quill-editor v-model="content"
-                ref="myQuillEditor"
-                :options="editorOption"
-                @blur="onEditorBlur($event)"
-                @focus="onEditorFocus($event)"
-                @ready="onEditorReady($event)">
-              </quill-editor>
-            </el-col>
-            <el-col :span="12">
+         <div class="item-edit">
+           <el-row>
+             <el-col :span="12">
+               <quill-editor v-model="content"
+               ref="myQuillEditor"
+               :options="editorOption"
+               @blur="onEditorBlur($event)"
+               @focus="onEditorFocus($event)"
+               @ready="onEditorReady($event)">
+             </quill-editor>
+           </el-col>
+           <el-col :span="12">
 
-            </el-col>
-            <el-col :span="24">
-              <el-table
-                :data="tableData"
-                style="width: 100%">
-                <el-table-column
-                  prop="text"
-                  label="选项文字">
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.text" placeholder="请输入选项内容"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="img"
-                  label="图片"
-                  width="180">
-                  <template slot-scope="scope">
-                    <i class="iconfont icon-tupian2" style="color:#126ab5;font-size: 25px;"></i>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="operate"
-                  label="操作">
-                  <template slot-scope="scope">
-                    <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jia1"></i></el-button>
-                    <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jian1"></i></el-button>
-                    <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-xiayi"></i></el-button>
-                    <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-shangyi"></i></el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-col>
-          </el-row>
-        </div>
-
-        <div class="item-submit">
-          <el-button class="question-submit" type="primary">完成编辑</el-button>
-        </div>
+           </el-col>
+           <el-col :span="24">
+             <el-table
+             :data="tableData"
+             style="width: 100%">
+             <el-table-column
+             prop="text"
+             label="选项文字">
+             <template slot-scope="scope">
+               <el-input v-model="scope.row.text" placeholder="请输入选项内容"></el-input>
+             </template>
+           </el-table-column>
+           <el-table-column
+           prop="img"
+           label="图片"
+           width="180">
+           <template slot-scope="scope">
+             <i class="iconfont icon-tupian2" style="color:#126ab5;font-size: 25px;"></i>
+           </template>
+         </el-table-column>
+         <el-table-column
+         prop="operate"
+         label="操作">
+         <template slot-scope="scope">
+           <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jia1"></i></el-button>
+           <el-button type="text" style="float:left;"><i style="font-size:20px;color:#126ab5" class="iconfont icon-jian1"></i></el-button>
+           <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-xiayi"></i></el-button>
+           <el-button type="text" style="float:left;"><i style="font-size:24px;color:#126ab5" class="iconfont icon-shangyi"></i></el-button>
+         </template>
+       </el-table-column>
+      </el-table>
+      </el-col>
+      </el-row>
       </div>
 
+      <div class="item-submit">
+       <el-button class="question-submit" type="primary">完成编辑</el-button>
+      </div>
+      </div>
       <!-- 多选 -->
       <div class="question-item">
         <div class="item-header">
@@ -764,16 +766,15 @@
 <script>
 import mylib from '../mylib.js'
 import questionHeader from './xz/questionHeader.vue'
+import questionItem from './xz/questionItem.vue'
 export default {
   components: {
-    'xz-question-header': questionHeader
+    'xz-question-header': questionHeader,
+    'xz-question-item': questionItem
   },
   data () {
     return {
-
-      form: {
-
-      },
+      form: {},
       formInline: {
         region: 1
       },
