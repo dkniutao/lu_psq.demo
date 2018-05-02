@@ -7,6 +7,7 @@
       </div>
       <div>
         <xz-question-item-radio :source="source" v-if="type == 'radio'"></xz-question-item-radio>
+        <xz-question-item-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-checkbox>
       </div>
     </div>
 
@@ -24,6 +25,7 @@
 
     <div class="item-edit">
       <xz-question-item-edit-radio :source="source" v-if="type == 'radio'"></xz-question-item-edit-radio>
+      <xz-question-item-edit-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-edit-checkbox>
     </div>
 
     <div class="item-submit">
@@ -34,11 +36,15 @@
 <script>
 import questionItemRadio from './questionItemRadio.vue'
 import questionItemEditRadio from './questionItemEditRadio.vue'
+import questionItemCheckbox from './questionItemCheckbox.vue'
+import questionItemEditCheckbox from './questionItemEditCheckbox.vue'
 
 export default {
   components: {
+    'xz-question-item-radio': questionItemRadio,
     'xz-question-item-edit-radio': questionItemEditRadio,
-    'xz-question-item-radio': questionItemRadio
+    'xz-question-item-checkbox': questionItemCheckbox,
+    'xz-question-item-edit-checkbox': questionItemEditCheckbox,
   },
   props: ['index', 'type'],
   data () {

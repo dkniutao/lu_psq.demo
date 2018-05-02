@@ -179,7 +179,7 @@
         </div>
       </div>
       <!-- 多选 -->
-      <div class="question-item">
+     <!--  <div class="question-item">
         <div class="item-header">
           <input class="title-input" type="text" placeholder="请输入问题标题【多选题】" />
           <div>
@@ -209,13 +209,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <!-- <quill-editor v-model="content"
+              <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor> -->
+              </quill-editor>
             </el-col>
             <el-col :span="12">
 
@@ -257,7 +257,7 @@
         <div class="item-submit">
           <el-button class="question-submit" type="primary">完成编辑</el-button>
         </div>
-      </div>
+      </div> -->
 
       <!-- 单项填空题 -->
       <div class="question-item">

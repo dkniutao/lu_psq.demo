@@ -2,10 +2,12 @@
 <div>
   <el-row>
     <el-col :span="12">
-      <quill-editor v-model="source.title" ref="myQuillEditor">
+      <quill-editor v-model="source.title"
+        ref="myQuillEditor">
       </quill-editor>
     </el-col>
     <el-col :span="12">
+
     </el-col>
     <el-col :span="24">
       <el-table :data="source.options" style="width: 100%">
@@ -40,7 +42,6 @@
       </el-table>
     </el-col>
   </el-row>
-  <xz-upload-img :visible.sync="uploadImgVisible"></xz-upload-img>
 </div>
 </template>
 

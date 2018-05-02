@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 export default {
+  ROOT: '//test.api.backend.xingzhijishu.com/',
   URL: 'http://test.api.backend.xingzhijishu.com/v1/',
   ACCESS_TOKEN: '5890516ceca05bf50e44e8da65f48244',
   axios (opt, _this) {
