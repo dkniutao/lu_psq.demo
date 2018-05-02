@@ -36,7 +36,19 @@ export default {
       title: '企业员工满意度调查问卷',
       desc: '添加问卷说明',
       visible: false,
-      editorOption: {}
+      editorOption: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': [] }]
+          ]
+        }
+      }
     }
   },
   methods: {

@@ -27,7 +27,8 @@
     <!-- 问卷问题列表 -->
     <div class="question-list">
       <!-- 单选 -->
-      <xz-question-item type="radio"></xz-question-item>
+      <xz-question-item index="0" type="radio"></xz-question-item>
+      <xz-question-item index="1" type="checkbox"></xz-question-item>
 
       <!-- 标题 -->
       <div class="question-item">
@@ -208,13 +209,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -285,13 +286,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -350,13 +351,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -414,7 +415,7 @@
           <input class="title-input" type="text" placeholder="请输入问题标题【单项评分题】" />
           <div class="clearfix">
             <span class="fl">很不满意</span>
-            <el-radio-group class="fl" v-model="radio2">
+            <el-radio-group class="fl">
               <el-radio :label="3">1</el-radio>
               <el-radio :label="6">2</el-radio>
               <el-radio :label="9">3</el-radio>
@@ -437,13 +438,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -554,13 +555,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -649,13 +650,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -720,13 +721,13 @@
         <div class="item-edit">
           <el-row>
             <el-col :span="12">
-              <quill-editor v-model="content"
+              <!-- <quill-editor v-model="content"
                 ref="myQuillEditor"
                 :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
                 @ready="onEditorReady($event)">
-              </quill-editor>
+              </quill-editor> -->
             </el-col>
             <el-col :span="12">
 
@@ -793,19 +794,6 @@ export default {
   methods: {
     addQuestion (type) {
       console.log(type)
-    },
-    onEditorBlur (quill) {
-      console.log('editor blur!', quill)
-    },
-    onEditorFocus (quill) {
-      console.log('editor focus!', quill)
-    },
-    onEditorReady (quill) {
-      console.log('editor ready!', quill)
-    },
-    onEditorChange ({ quill, html, text }) {
-      console.log('editor change!', quill, html, text)
-      // this.content = html
     }
   },
   computed: {
@@ -824,55 +812,20 @@ export default {
 }
 </script>
 <style scoped>
-  .psq-content {background: #fff;width:1200px; margin:0 auto;}
-  .psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
+.psq-content {background: #fff;width:1200px; margin:0 auto;}
+.psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
 
-  .el-menu-item i{color: #fff;margin-right: 10px;position: relative;top: -1.5px;}
-  .el-menu--horizontal{border-bottom: none;}
-  .el-menu--horizontal>.el-menu-item{border-bottom: none;height: 40px;line-height: 40px;width: 120px;text-align: center;padding:0;}
+/*题型按钮组 start*/
+.el-menu-item i{color: #fff;margin-right: 10px;position: relative;top: -1.5px;}
+.el-menu--horizontal{border-bottom: none;}
+.el-menu--horizontal>.el-menu-item{border-bottom: none;height: 40px;line-height: 40px;width: 120px;text-align: center;padding:0;}
+/*题型按钮组 end*/
 
-  .question-list{overflow:hidden;}
-  .question-item{
-    box-sizing: border-box;
-    border: 1px solid #126ab5;
-    margin: 0 60px 20px;
-    padding:20px;
-  }
-  .question-item .item-header{
-    padding-bottom:20px;
-    margin-bottom:20px;
-    border-bottom:1px solid #f3f3f3;
-  }
-  .question-item .item-operate{
-    padding-bottom:20px;
-    margin-bottom:20px;
-    border-bottom:1px solid #f3f3f3;
-  }
+/*问卷分割线 start*/
+.question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
+/*问卷分割线 end*/
 
-  .question-item .item-edit{
-    margin-bottom: 20px;
-  }
-
-  .title-input{width:100%;color:#333;font-size: 14px;line-height: 30px;border:none;outline: none;font-weight: bold;}
-
-  .operate-btn.el-button{border:1px solid #126ab5;border-radius: 0;color: #126ab5;padding:0 12px;font-size: 12px;height: 22px;line-height: 22px;}
-  .operate-btn.el-button:hover{background:#d0e1f0;}
-  .operate-btn.el-button .iconfont{float:left;margin-right: 6px;}
-
-  .item-submit{text-align: center;}
-  .question-submit.el-button--primary, .question-submit.el-button--primary.is-active, .question-submit.el-button--primary:active {
-    background: #126ab5;
-    border-color: #126ab5;
-  }
-  .question-submit.el-button--primary:focus, .question-submit.el-button--primary:hover {
-    background: #4188c4;
-    border-color: #4188c4;
-  }
-  .question-submit.el-button {
-    border-radius: 0;
-    padding: 7px 24px;
-  }
-  /*问卷分割线 start*/
-  .question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
-  /*问卷分割线 end*/
+/*问卷列表 start*/
+.question-list{overflow:hidden;}
+/*问卷列表 end*/
 </style>
