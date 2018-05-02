@@ -14,8 +14,13 @@
         background-color="#126ab5"
         text-color="#fff"
         active-text-color="#fff">
-        <el-menu-item v-for="type in questionType" :index="type.id"><i class="iconfont icon-tianjia1"></i>{{type.name}}</el-menu-item>
+        <el-menu-item v-for="type in questionType" :index="type.id" :key="type.id"><i class="iconfont icon-tianjia1"></i>{{type.name}}</el-menu-item>
       </el-menu>
+    </div>
+
+    <div class="question-header">
+      <div class="title" v-html="qTitle"></div>
+      <div class="desc" v-html="qDesc"></div>
     </div>
 
     <div class="question-list">
@@ -759,6 +764,9 @@ import mylib from '../mylib.js'
 export default {
   data () {
     return {
+      qTitle: '企业员工满意度调查问卷',
+      qDesc: '添加问卷说明',
+
       form: {
 
       },
@@ -781,22 +789,22 @@ export default {
     addQuestion (type) {
       console.log(type)
     },
-    onEditorBlur(quill) {
+    onEditorBlur (quill) {
       console.log('editor blur!', quill)
     },
-    onEditorFocus(quill) {
+    onEditorFocus (quill) {
       console.log('editor focus!', quill)
     },
-    onEditorReady(quill) {
+    onEditorReady (quill) {
       console.log('editor ready!', quill)
     },
-    onEditorChange({ quill, html, text }) {
+    onEditorChange ({ quill, html, text }) {
       console.log('editor change!', quill, html, text)
       this.content = html
     }
   },
   computed: {
-    editor() {
+    editor () {
       return this.$refs.myQuillEditor.quill
     }
   },
@@ -859,4 +867,11 @@ export default {
     border-radius: 0;
     padding: 7px 24px;
   }
+
+  /*问卷头部标题 start*/
+  .question-header{box-sizing: border-box;border: 1px solid #fff;margin: 60px;padding:20px;}
+  .question-header:hover{border-color:#126ab5;cursor: pointer;}
+  .question-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;color: #333333;}
+  .question-header .desc{font-size: 14px;line-height: 30px;color: #666666;margin-top: 10px;}
+  /*问卷头部标题 end*/
 </style>
