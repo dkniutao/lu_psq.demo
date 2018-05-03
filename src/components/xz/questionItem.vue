@@ -6,10 +6,10 @@
         <div v-html="source.title"></div>
       </div>
       <div>
-        <xz-question-item-radio :source="source" v-if="type == 'radio'"></xz-question-item-radio>
-        <xz-question-item-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-checkbox>
-        <xz-question-item-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-gapfill>
-        <xz-question-item-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-multigapfill>
+        <xz-question-item-show-radio :source="source" v-if="type == 'radio'"></xz-question-item-show-radio>
+        <xz-question-item-show-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-show-checkbox>
+        <xz-question-item-show-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-show-gapfill>
+        <xz-question-item-show-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-show-multigapfill>
       </div>
     </div>
 
@@ -38,24 +38,24 @@
   </div>
 </template>
 <script>
-import questionItemRadio from './questionItemRadio.vue'
+import questionItemShowRadio from './questionItemRadio.vue'
 import questionItemEditRadio from './questionItemEditRadio.vue'
-import questionItemCheckbox from './questionItemCheckbox.vue'
+import questionItemShowCheckbox from './questionItemCheckbox.vue'
 import questionItemEditCheckbox from './questionItemEditCheckbox.vue'
-import questionItemGapFill from './questionItemGapFill.vue'
+import questionItemShowGapFill from './questionItemGapFill.vue'
 import questionItemEditGapFill from './questionItemEditGapFill.vue'
-import questionItemMultiGapFill from './questionItemMultiGapFill.vue'
+import questionItemShowMultiGapFill from './questionItemMultiGapFill.vue'
 import questionItemEditMultiGapFill from './questionItemEditMultiGapFill.vue'
 
 export default {
   components: {
-    'xz-question-item-radio': questionItemRadio,
+    'xz-question-item-show-radio': questionItemShowRadio,
     'xz-question-item-edit-radio': questionItemEditRadio,
-    'xz-question-item-checkbox': questionItemCheckbox,
+    'xz-question-item-show-checkbox': questionItemShowCheckbox,
     'xz-question-item-edit-checkbox': questionItemEditCheckbox,
-    'xz-question-item-gapfill': questionItemGapFill,
+    'xz-question-item-show-gapfill': questionItemShowGapFill,
     'xz-question-item-edit-gapfill': questionItemEditGapFill,
-    'xz-question-item-multigapfill': questionItemMultiGapFill,
+    'xz-question-item-show-multigapfill': questionItemShowMultiGapFill,
     'xz-question-item-edit-multigapfill': questionItemEditMultiGapFill,
   },
   props: ['index', 'type'],
