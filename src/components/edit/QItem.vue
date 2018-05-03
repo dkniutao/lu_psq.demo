@@ -72,7 +72,7 @@
             </el-col>
             <el-col :span="19" v-show="logic[1].checked">
               填写此题后跳转到第
-              <el-select v-model="logic[1].option" placeholder="请选择">
+              <el-select v-model="logic[1].rule" placeholder="请选择">
                 <el-option
                   v-for="Q in list"
                   :key="Q.order"
@@ -88,9 +88,9 @@
               <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
             </el-col>
             <el-col :span="19" v-show="logic[2].checked">
-              <el-row :gutter="10">
+              <el-row :gutter="10" v-for="(rule, index) in logic[2].rule" :key="index">
                 <el-col :span="8">
-                  <el-select v-model="logic[2].option" placeholder="请选择">
+                  <el-select v-model="rule.option" placeholder="请选择">
                     <el-option
                       v-for="option in item.content"
                       :key="option.key"
@@ -100,7 +100,7 @@
                   </el-select>
                 </el-col>
                 <el-col :span="12">
-                  <el-select v-model="logic[2].question" placeholder="请选择">
+                  <el-select v-model="rule.question" placeholder="请选择">
                     <el-option
                       v-for="Q in list"
                       :key="Q.order"
@@ -110,7 +110,8 @@
                   </el-select>
                 </el-col>
                 <el-col :span="4">
-                  <el-button type="text">+更多</el-button>
+                  <el-button type="text" v-if="index == 0">+更多</el-button>
+                  <el-button type="text" v-else>-取消</el-button>
                 </el-col>
               </el-row>
             </el-col>
@@ -120,29 +121,31 @@
               <el-checkbox v-model="logic[3].checked">关联逻辑</el-checkbox>
             </el-col>
             <el-col :span="19" v-show="logic[3].checked">
-              <el-col :span="12">
-                <el-select v-model="logic[2].question" placeholder="请选择">
-                  <el-option
-                    v-for="Q in list"
-                    :key="Q.order"
-                    :label="Q.order + '.' + Q.item.title"
-                    :value="Q.order">
-                  </el-option>
-                </el-select>
-              </el-col>
-              <el-col :span="8">
-                <el-select v-model="logic[2].option" placeholder="请选择">
-                  <el-option
-                    v-for="option in item.content"
-                    :key="option.key"
-                    :label="option.key + '.' + option.title"
-                    :value="option.key">
-                  </el-option>
-                </el-select>
-              </el-col>
-              <el-col :span="4">
-                <el-button type="text">+更多</el-button>
-              </el-col>
+              <el-row :gutter="10" v-for="(rule, index) in logic[3].rule" :key="index">
+                <el-col :span="12">
+                  <el-select v-model="rule.question" placeholder="请选择" @change="logicQuestionChange(rule)">
+                    <el-option
+                      v-for="Q in list"
+                      :key="Q.order"
+                      :label="Q.order + '.' + Q.item.title"
+                      :value="Q.order">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="8">
+                  <el-select v-model="rule.option" placeholder="请选择">
+                    <el-option
+                      v-for="option in rule.content"
+                      :key="option.key"
+                      :label="option.key + '.' + option.title"
+                      :value="option.key">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="4">
+                  <el-button type="text">+更多</el-button>
+                </el-col>
+              </el-row>
             </el-col>
           </el-row>
         </el-col>
@@ -176,6 +179,8 @@
 </template>
 <script>
 import mylib from '../../mylib.js'
+import _ from 'lodash'
+
 import xzQuestionItemShowRadio from './QItemShowRadio.vue'
 import xzQuestionItemEditRadio from './QItemEditRadio.vue'
 import xzQuestionItemShowCheckbox from './QItemShowCheckbox.vue'
@@ -202,17 +207,25 @@ export default {
       isExpand: true,
       logic: {
         '1': {
-          checked: false,
-          option: ''
+          checked: true,
+          rule: ''
         },
         '2': {
-          checked: false,
-          option: '',
-          question: ''
+          checked: true,
+          rule: [{
+            option: '',
+            question: ''
+          }, {
+            option: '',
+            question: ''
+          }]
         },
         '3': {
-          checked: false,
-          rule: ''
+          checked: true,
+          rule: [{
+            question: '',
+            option: ''
+          }]
         }
       }
     }
@@ -223,6 +236,15 @@ export default {
     }
   },
   methods: {
+    // 关联逻辑选择问题
+    logicQuestionChange (rule) {
+      let target = _.find(this.list, function(v) {
+        return v.order == rule.question
+      })
+
+      rule.option = ''
+      rule.content = target ? target.item.content : []
+    },
     edit () {
       this.isExpand = true
     },
