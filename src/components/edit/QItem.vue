@@ -68,11 +68,11 @@
           <div>当前题型：<strong v-html="typeName"></strong></div>
           <el-row>
             <el-col :span="5">
-              <el-checkbox v-model="logic[1]">无条件跳题</el-checkbox>
+              <el-checkbox v-model="logic[1].checked">无条件跳题</el-checkbox>
             </el-col>
-            <el-col :span="19" v-show="logic[1]">
+            <el-col :span="19" v-show="logic[1].checked">
               填写此题后跳转到第
-              <el-select v-model="value" placeholder="请选择">
+              <el-select v-model="logic[1].option" placeholder="请选择">
                 <el-option
                   v-for="Q in list"
                   :key="Q.order"
@@ -85,18 +85,64 @@
           </el-row>
           <el-row>
             <el-col :span="5">
-              <el-checkbox v-model="logic[2]">有条件跳题</el-checkbox>
+              <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
             </el-col>
-            <el-col :span="19">
-
+            <el-col :span="19" v-show="logic[2].checked">
+              <el-row :gutter="10">
+                <el-col :span="8">
+                  <el-select v-model="logic[2].option" placeholder="请选择">
+                    <el-option
+                      v-for="option in item.content"
+                      :key="option.key"
+                      :label="option.key + '.' + option.title"
+                      :value="option.key">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="12">
+                  <el-select v-model="logic[2].question" placeholder="请选择">
+                    <el-option
+                      v-for="Q in list"
+                      :key="Q.order"
+                      :label="Q.order + '.' + Q.item.title"
+                      :value="Q.order">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="4">
+                  <el-button type="text">+更多</el-button>
+                </el-col>
+              </el-row>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="10">
             <el-col :span="5">
-              <el-checkbox v-model="logic[3]">关联逻辑</el-checkbox>
+              <el-checkbox v-model="logic[3].checked">关联逻辑</el-checkbox>
             </el-col>
-            <el-col :span="19">
-
+            <el-col :span="19" v-show="logic[3].checked">
+              <el-col :span="12">
+                <el-select v-model="logic[2].question" placeholder="请选择">
+                  <el-option
+                    v-for="Q in list"
+                    :key="Q.order"
+                    :label="Q.order + '.' + Q.item.title"
+                    :value="Q.order">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="8">
+                <el-select v-model="logic[2].option" placeholder="请选择">
+                  <el-option
+                    v-for="option in item.content"
+                    :key="option.key"
+                    :label="option.key + '.' + option.title"
+                    :value="option.key">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="4">
+                <el-button type="text">+更多</el-button>
+              </el-col>
             </el-col>
           </el-row>
         </el-col>
@@ -155,26 +201,20 @@ export default {
     return {
       isExpand: true,
       logic: {
-        '1': false,
-        '2': false,
-        '3': false
-      },options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+        '1': {
+          checked: false,
+          option: ''
+        },
+        '2': {
+          checked: false,
+          option: '',
+          question: ''
+        },
+        '3': {
+          checked: false,
+          rule: ''
+        }
+      }
     }
   },
   computed: {
