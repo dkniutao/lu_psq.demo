@@ -2,19 +2,19 @@
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
       <div class="clearfix">
-        <div class="fl" style="padding-right: 10px;">{{+index + 1}}. </div>
-        <div v-html="source.title"></div>
+        <div class="fl" style="padding-right: 10px;">{{order}}. </div>
+        <div v-html="item.title"></div>
       </div>
       <div>
-        <xz-question-item-show-radio :source="source" v-if="type == 'radio'"></xz-question-item-show-radio>
-        <xz-question-item-show-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-show-checkbox>
-        <xz-question-item-show-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-show-gapfill>
-        <xz-question-item-show-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-show-multigapfill>
+        <xz-question-item-show-radio :item="item" v-if="Qtype == 'radio'"></xz-question-item-show-radio>
+        <xz-question-item-show-checkbox :item="item" v-if="Qtype == 'checkbox'"></xz-question-item-show-checkbox>
+        <xz-question-item-show-input :item="item" v-if="Qtype == 'input'"></xz-question-item-show-input>
+        <xz-question-item-show-input-multi :item="item" v-if="Qtype == 'inputMulti'"></xz-question-item-show-input-multi>
       </div>
     </div>
 
     <div class="item-operate clearfix">
-      <el-button v-show="index != '0'" class="fl operate-btn">在此题后插入新题</el-button>
+      <el-button v-show="order != '0'" class="fl operate-btn">在此题后插入新题</el-button>
       <el-button class="fr operate-btn"><i class="iconfont icon-zhidingdel"></i>最后</el-button>
       <el-button class="fr operate-btn"><i class="iconfont icon-icon_zhiding"></i>最前</el-button>
       <el-button class="fr operate-btn"><i class="iconfont icon-xiayi"></i>下移</el-button>
@@ -26,10 +26,19 @@
     </div>
 
     <div class="item-edit">
-      <xz-question-item-edit-radio :source="source" v-if="type == 'radio'"></xz-question-item-edit-radio>
-      <xz-question-item-edit-checkbox :source="source" v-if="type == 'checkbox'"></xz-question-item-edit-checkbox>
-      <xz-question-item-edit-gapfill :source="source" v-if="type == 'gapfill'"></xz-question-item-edit-gapfill>
-      <xz-question-item-edit-multigapfill :source="source" v-if="type == 'multigapfill'"></xz-question-item-edit-multigapfill>
+      <el-row>
+        <el-col :span="12">
+          <quill-editor v-model="item.title" ref="myQuillEditor">
+          </quill-editor>
+        </el-col>
+        <el-col :span="12">
+        </el-col>
+      </el-row>
+
+      <xz-question-item-edit-radio :item="item" v-if="Qtype == 'radio'"></xz-question-item-edit-radio>
+      <xz-question-item-edit-checkbox :item="item" v-if="Qtype == 'checkbox'"></xz-question-item-edit-checkbox>
+      <xz-question-item-edit-input :item="item" v-if="Qtype == 'input'"></xz-question-item-edit-input>
+      <xz-question-item-edit-input-multi :item="item" v-if="Qtype == 'inputMulti'"></xz-question-item-edit-input-multi>
     </div>
 
     <div class="item-submit">
@@ -38,40 +47,36 @@
   </div>
 </template>
 <script>
-import questionItemShowRadio from './questionItemRadio.vue'
-import questionItemEditRadio from './questionItemEditRadio.vue'
-import questionItemShowCheckbox from './questionItemCheckbox.vue'
-import questionItemEditCheckbox from './questionItemEditCheckbox.vue'
-import questionItemShowGapFill from './questionItemGapFill.vue'
-import questionItemEditGapFill from './questionItemEditGapFill.vue'
-import questionItemShowMultiGapFill from './questionItemMultiGapFill.vue'
-import questionItemEditMultiGapFill from './questionItemEditMultiGapFill.vue'
+import mylib from '../../mylib.js'
+import xzQuestionItemShowRadio from './QItemShowRadio.vue'
+import xzQuestionItemEditRadio from './QItemEditRadio.vue'
+import xzQuestionItemShowCheckbox from './QItemShowCheckbox.vue'
+import xzQuestionItemEditCheckbox from './QItemEditCheckbox.vue'
+import xzQuestionItemShowInput from './QItemShowInput.vue'
+import xzQuestionItemEditInput from './QItemEditInput.vue'
+import xzQuestionItemShowInputMulti from './QItemShowInputMulti.vue'
+import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
 
 export default {
   components: {
-    'xz-question-item-show-radio': questionItemShowRadio,
-    'xz-question-item-edit-radio': questionItemEditRadio,
-    'xz-question-item-show-checkbox': questionItemShowCheckbox,
-    'xz-question-item-edit-checkbox': questionItemEditCheckbox,
-    'xz-question-item-show-gapfill': questionItemShowGapFill,
-    'xz-question-item-edit-gapfill': questionItemEditGapFill,
-    'xz-question-item-show-multigapfill': questionItemShowMultiGapFill,
-    'xz-question-item-edit-multigapfill': questionItemEditMultiGapFill,
+    xzQuestionItemShowRadio,
+    xzQuestionItemEditRadio,
+    xzQuestionItemShowCheckbox,
+    xzQuestionItemEditCheckbox,
+    xzQuestionItemShowInput,
+    xzQuestionItemEditInput,
+    xzQuestionItemShowInputMulti,
+    xzQuestionItemEditInputMulti
   },
-  props: ['index', 'type'],
+  props: ['order', 'type', 'item'],
   data () {
     return {
-      isExpand: true,
-      source: {
-        title: '请输入问题标题1',
-        options: [{
-          id: '1',
-          title: '选项1'
-        }, {
-          id: '2',
-          title: '选项2'
-        }]
-      }
+      isExpand: true
+    }
+  },
+  computed: {
+    Qtype () {
+      return mylib.Q_TYPE[this.type]
     }
   },
   methods: {

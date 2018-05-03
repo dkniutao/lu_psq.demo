@@ -1,17 +1,9 @@
 <template>
 <div>
   <el-row>
-    <el-col :span="12">
-      <quill-editor v-model="source.title"
-        ref="myQuillEditor">
-      </quill-editor>
-    </el-col>
-    <el-col :span="12">
-
-    </el-col>
     <el-col :span="24">
       <el-table
-        :data="source.options"
+        :data="item.content"
         style="width: 100%">
         <el-table-column
           prop="text"
@@ -54,7 +46,7 @@
 
 <script>
 export default {
-  props: ['source'],
+  props: ['item'],
   data () {
     return {
       formInline: {}

@@ -1,14 +1,6 @@
 <template>
 <div>
   <el-row>
-    <el-col :span="12">
-      <quill-editor v-model="source.title"
-        ref="myQuillEditor">
-      </quill-editor>
-    </el-col>
-    <el-col :span="12">
-
-    </el-col>
     <el-col :span="24">
       <el-table :data="source.options" style="width: 100%">
         <el-table-column prop="text" label="选项文字">
@@ -46,10 +38,10 @@
 </template>
 
 <script>
-import uploadImg from '../tool/uploadImg.vue'
+import xzUploadImg from './uploadImg.vue'
 export default {
   components: {
-    'xz-upload-img': uploadImg
+    xzUploadImg
   },
   props: ['source'],
   data () {

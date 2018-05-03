@@ -1,0 +1,174 @@
+[
+{
+  "type": "1",
+  "order": "1",
+  "item":
+  {
+    "title": "请输入问题标题【单选题】",
+    "content": [
+    {
+      "key": "A",
+      "title": "选项1",
+      "img": ""
+    },
+    {
+      "key": "B",
+      "title": "选项2",
+      "img": ""
+    }]
+  }
+}, {
+  "type": "2",
+  "order": "2",
+  "item":
+  {
+    "title": "请输入问题标题【多选题】",
+    "content": [
+    {
+      "key": "A",
+      "title": "多项1",
+      "img": ""
+    },
+    {
+      "key": "B",
+      "title": "多项2",
+      "img": ""
+    }]
+  }
+},
+{
+  "type": "3",
+  "order": "3",
+  "item":
+  {
+    "title": "请输入问题标题【单项填空题】",
+    "setting":
+    {
+      "height": "1",
+      "min": "2",
+      "max": "5"
+    }
+  }
+},
+{
+  "type": "4",
+  "order": "4",
+  "item":
+  {
+    "title": "请输入问题标题【多项填空题】",
+    "content": [
+    {
+      "title": "标题1"
+    },
+    {
+      "title": "标题2"
+    }],
+    "setting":
+    {
+      "height": "1",
+      "min": "2",
+      "max": "5"
+    }
+  }
+},
+{
+  "type": "5",
+  "item":
+  {
+    "title": "请输入问题标题【单选评分】",
+    "content": [
+    {
+      "title": "很不满意",
+      "score": "1"
+    },
+    {
+      "title": "不满意",
+      "score": "2"
+    },
+    {
+      "title": "一般",
+      "score": "3"
+    },
+    {
+      "title": "满意",
+      "score": "4"
+    },
+    {
+      "title": "很满意",
+      "score": "5"
+    }]
+  }
+},
+{
+  "type": "6",
+  "item":
+  {
+    "title": "请输入问题标题【多选评分】",
+    "content": [
+    {
+      "title": "很不满意",
+      "score": "1"
+    },
+    {
+      "title": "不满意",
+      "score": "2"
+    },
+    {
+      "title": "一般",
+      "score": "3"
+    },
+    {
+      "title": "满意",
+      "score": "4"
+    },
+    {
+      "title": "很满意",
+      "score": "5"
+    }],
+    "setting": [
+    {
+      "title": "外观"
+    },
+    {
+      "title": "功能"
+    }]
+  }
+},
+{
+  "type": "10",
+  "item":
+  {
+    "title": "请输入问题标题【排序题】",
+    "content": [
+    {
+      "key": "1",
+      "title": "选项1",
+      "img": ""
+    },
+    {
+      "key": "2",
+      "title": "选项2",
+      "img": ""
+    }]
+  }
+},
+{
+  "type": "9",
+  "item":
+  {
+    "title": "请输入问题标题【滑动条题】",
+    "content":
+    {
+      "min":
+      {
+        "val": "0",
+        "title": "不满意"
+      },
+      "max":
+      {
+        "val": "100",
+        "title": "满意"
+      }
+    }
+  }
+}]

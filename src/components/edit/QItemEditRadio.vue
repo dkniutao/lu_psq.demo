@@ -1,14 +1,8 @@
 <template>
 <div>
   <el-row>
-    <el-col :span="12">
-      <quill-editor v-model="source.title" ref="myQuillEditor">
-      </quill-editor>
-    </el-col>
-    <el-col :span="12">
-    </el-col>
     <el-col :span="24">
-      <el-table :data="source.options" style="width: 100%">
+      <el-table :data="item.content" style="width: 100%">
         <el-table-column prop="text" label="选项文字">
           <template slot-scope="scope">
             <el-input v-model="scope.row.title" placeholder="请输入选项内容"></el-input>
@@ -45,12 +39,12 @@
 </template>
 
 <script>
-import uploadImg from '../tool/uploadImg.vue'
+import xzUploadImg from './uploadImg.vue'
 export default {
   components: {
-    'xz-upload-img': uploadImg
+    xzUploadImg
   },
-  props: ['source'],
+  props: ['item'],
   data () {
     return {
       uploadImgVisible: false,
@@ -61,13 +55,13 @@ export default {
       this.uploadImgVisible = true
     },
     add (scope) {
-      this.source.options.splice(scope.$index + 1, 0, {
-        id: '1',
+      this.item.content.splice(scope.$index + 1, 0, {
+        key: '1',
         title: scope.$index + 1
       })
     },
     del (scope) {
-      this.source.options.splice(scope.$index, 1)
+      this.item.content.splice(scope.$index, 1)
     }
   }
 }
