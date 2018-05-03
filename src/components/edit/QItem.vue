@@ -6,55 +6,121 @@
         <div v-html="item.title"></div>
       </div>
       <div>
-        <xz-question-item-show-radio :item="item" v-if="Qtype == 'radio'"></xz-question-item-show-radio>
-        <xz-question-item-show-checkbox :item="item" v-if="Qtype == 'checkbox'"></xz-question-item-show-checkbox>
-        <xz-question-item-show-input :item="item" v-if="Qtype == 'input'"></xz-question-item-show-input>
-        <xz-question-item-show-input-multi :item="item" v-if="Qtype == 'inputMulti'"></xz-question-item-show-input-multi>
+        <xz-question-item-show-radio
+        :item="item"
+        v-if="Qtype == 'radio'">
+        </xz-question-item-show-radio>
+
+        <xz-question-item-show-checkbox
+        :item="item"
+        v-if="Qtype == 'checkbox'">
+        </xz-question-item-show-checkbox>
+
+        <xz-question-item-show-input
+        :item="item"
+        v-if="Qtype == 'input'">
+        </xz-question-item-show-input>
+
+        <xz-question-item-show-input-multi
+        :item="item"
+        v-if="Qtype == 'inputMulti'">
+        </xz-question-item-show-input-multi>
       </div>
     </div>
 
     <div class="item-operate clearfix">
-      <el-button v-show="order != '0'" class="fl operate-btn">在此题后插入新题</el-button>
-      <el-button class="fr operate-btn">
-        <i class="iconfont icon-zhidingdel"></i>最后
+      <el-button v-show="order != '0'" class="fl operate-btn">
+        在此题后插入新题
       </el-button>
       <el-button class="fr operate-btn">
-        <i class="iconfont icon-icon_zhiding"></i>最前
+        <i class="icon iconfont icon-zhidingdel"></i>最后
       </el-button>
       <el-button class="fr operate-btn">
-        <i class="iconfont icon-xiayi"></i>下移
+        <i class="icon iconfont icon-icon_zhiding"></i>最前
       </el-button>
       <el-button class="fr operate-btn">
-        <i class="iconfont icon-shangyi"></i>上移
+        <i class="icon iconfont icon-xiayi"></i>下移
       </el-button>
       <el-button class="fr operate-btn">
-        <i class="iconfont icon-iconless"></i>删除
+        <i class="icon iconfont icon-shangyi"></i>上移
       </el-button>
       <el-button class="fr operate-btn">
-        <i class="iconfont icon-fuzhi"></i>复制
+        <i class="icon iconfont icon-iconless"></i>删除
+      </el-button>
+      <el-button class="fr operate-btn">
+        <i class="icon iconfont icon-fuzhi"></i>复制
       </el-button>
       <el-button v-show="!isExpand" class="fr operate-btn" @click="edit">
-        <i class="iconfont icon-shuru"></i>编辑
+        <i class="icon iconfont icon-shuru"></i>编辑
       </el-button>
       <el-button v-show="isExpand" class="fr operate-btn" @click="complete">
-        <i class="iconfont icon-wancheng"></i>完成
+        <i class="icon iconfont icon-wancheng"></i>完成
       </el-button>
     </div>
 
     <div class="item-edit">
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <quill-editor v-model="item.title" ref="myQuillEditor">
           </quill-editor>
         </el-col>
         <el-col :span="12">
+          <div>当前题型：<strong v-html="typeName"></strong></div>
+          <el-row>
+            <el-col :span="5">
+              <el-checkbox v-model="logic[1]">无条件跳题</el-checkbox>
+            </el-col>
+            <el-col :span="19" v-show="logic[1]">
+              填写此题后跳转到第
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="Q in list"
+                  :key="Q.order"
+                  :label="Q.order + '.' + Q.item.title"
+                  :value="Q.order">
+                </el-option>
+              </el-select>
+              题
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="5">
+              <el-checkbox v-model="logic[2]">有条件跳题</el-checkbox>
+            </el-col>
+            <el-col :span="19">
+
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="5">
+              <el-checkbox v-model="logic[3]">关联逻辑</el-checkbox>
+            </el-col>
+            <el-col :span="19">
+
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
 
-      <xz-question-item-edit-radio :item="item" v-if="Qtype == 'radio'"></xz-question-item-edit-radio>
-      <xz-question-item-edit-checkbox :item="item" v-if="Qtype == 'checkbox'"></xz-question-item-edit-checkbox>
-      <xz-question-item-edit-input :item="item" v-if="Qtype == 'input'"></xz-question-item-edit-input>
-      <xz-question-item-edit-input-multi :item="item" v-if="Qtype == 'inputMulti'"></xz-question-item-edit-input-multi>
+      <xz-question-item-edit-radio
+        :item="item"
+        v-if="Qtype == 'radio'">
+      </xz-question-item-edit-radio>
+
+      <xz-question-item-edit-checkbox
+        :item="item"
+        v-if="Qtype == 'checkbox'">
+      </xz-question-item-edit-checkbox>
+
+      <xz-question-item-edit-input
+        :item="item"
+        v-if="Qtype == 'input'">
+      </xz-question-item-edit-input>
+
+      <xz-question-item-edit-input-multi
+        :item="item"
+        v-if="Qtype == 'inputMulti'">
+      </xz-question-item-edit-input-multi>
     </div>
 
     <div class="item-submit">
@@ -84,10 +150,31 @@ export default {
     xzQuestionItemShowInputMulti,
     xzQuestionItemEditInputMulti
   },
-  props: ['order', 'type', 'item'],
+  props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
     return {
-      isExpand: true
+      isExpand: true,
+      logic: {
+        '1': false,
+        '2': false,
+        '3': false
+      },options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: ''
     }
   },
   computed: {
@@ -122,7 +209,9 @@ export default {
 
 /*展开 start*/
 .question-item.expand{border-color:#126ab5;cursor: initial;}
-.question-item.expand .item-operate,.question-item.expand .item-edit,.question-item.expand .item-submit{display: block;}
+.question-item.expand .item-operate,
+.question-item.expand .item-edit,
+.question-item.expand .item-submit{display: block;}
 /*展开 end*/
 
 /*操作按钮 start*/
@@ -132,8 +221,13 @@ export default {
 /*操作按钮 end*/
 
 /*提交按钮 start*/
-.question-submit.el-button--primary, .question-submit.el-button--primary.is-active, .question-submit.el-button--primary:active {background: #126ab5;border-color: #126ab5;}
-.question-submit.el-button--primary:focus, .question-submit.el-button--primary:hover {background: #4188c4;border-color: #4188c4;}
+.question-submit.el-button--primary,
+.question-submit.el-button--primary.is-active,
+.question-submit.el-button--primary:active {background: #126ab5;border-color: #126ab5;}
+
+.question-submit.el-button--primary:focus,
+.question-submit.el-button--primary:hover {background: #4188c4;border-color: #4188c4;}
+
 .question-submit.el-button {border-radius: 0;padding: 7px 24px;}
 /*提交按钮 end*/
 </style>

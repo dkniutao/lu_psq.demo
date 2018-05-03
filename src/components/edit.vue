@@ -29,7 +29,7 @@
     <!-- 问卷问题列表 -->
     <div class="question-list">
       <!-- 单选 -->
-      <xz-question-item v-for="item in QList" :order="item.order" :type="item.type" :item="item.item" :key="item.order"></xz-question-item>
+      <xz-question-item v-for="item in QList" :order="item.order" :type="item.type" :type-name="getTypeName(item.type)" :item="item.item" :key="item.order" :list="QList"></xz-question-item>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@
 <script>
 import QList from '../assets/question.json'
 import mylib from '../mylib.js'
+import _ from 'lodash'
 
 import xzQuestionHeader from './edit/QHeader.vue'
 import xzQuestionItem from './edit/QItem.vue'
@@ -53,6 +54,13 @@ export default {
     }
   },
   methods: {
+    getTypeName (type) {
+      var target = _.find(this.QType, (v) => {
+        return v.id == type
+      })
+
+      return target ? target.name : ''
+    },
     addQuestion (type) {
       console.log(type)
     }
