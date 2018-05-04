@@ -151,15 +151,10 @@
         </el-col>
       </el-row>
 
-      <xz-question-item-edit-radio
+      <xz-question-item-edit-select
         :item="item"
-        v-if="typeAlias == 'radio'">
-      </xz-question-item-edit-radio>
-
-      <xz-question-item-edit-checkbox
-        :item="item"
-        v-if="typeAlias == 'checkbox'">
-      </xz-question-item-edit-checkbox>
+        v-if="typeAlias == 'radio' || typeAlias == 'checkbox'">
+      </xz-question-item-edit-select>
 
       <xz-question-item-edit-input
         :item="item"
@@ -181,10 +176,9 @@
 import mylib from '../../mylib.js'
 import _ from 'lodash'
 
+import xzQuestionItemEditSelect from './QItemEditSelect.vue'
 import xzQuestionItemShowRadio from './QItemShowRadio.vue'
-import xzQuestionItemEditRadio from './QItemEditRadio.vue'
 import xzQuestionItemShowCheckbox from './QItemShowCheckbox.vue'
-import xzQuestionItemEditCheckbox from './QItemEditCheckbox.vue'
 import xzQuestionItemShowInput from './QItemShowInput.vue'
 import xzQuestionItemEditInput from './QItemEditInput.vue'
 import xzQuestionItemShowInputMulti from './QItemShowInputMulti.vue'
@@ -192,10 +186,9 @@ import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
 
 export default {
   components: {
+    xzQuestionItemEditSelect,
     xzQuestionItemShowRadio,
-    xzQuestionItemEditRadio,
     xzQuestionItemShowCheckbox,
-    xzQuestionItemEditCheckbox,
     xzQuestionItemShowInput,
     xzQuestionItemEditInput,
     xzQuestionItemShowInputMulti,

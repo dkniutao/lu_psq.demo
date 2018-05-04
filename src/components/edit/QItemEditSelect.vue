@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getImgName (url) {
-      return url.split('/').slice(-1)[0]
+      return url ? url.split('/').slice(-1)[0] : ''
     },
     uploadImg (row, index) {
       this.uploadImgRow = row
