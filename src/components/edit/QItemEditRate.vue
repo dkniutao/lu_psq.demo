@@ -3,20 +3,22 @@
   <el-row>
     <el-col :span="24">
       <el-table :data="item.content" style="width: 100%">
-        <el-table-column prop="text" label="选项文字">
+        <el-table-column label="选项文字">
           <template slot-scope="scope">
             <el-input v-model="scope.row.title" placeholder="请输入选项文字"></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="img" label="图片" width="240">
+        <el-table-column label="分数" width="240">
           <template slot-scope="scope">
-            <el-button type="text" @click="uploadImg(scope.row, scope.$index)">
-              <i class="iconfont icon-tupian2" style="font-size: 25px;"></i>
-              <span v-text="getImgName(scope.row.img)"></span>
-            </el-button>
+            <el-input-number
+              v-model="scope.row.score"
+              :controls="false"
+              :min="0"
+              :max="9999">
+            </el-input-number>
           </template>
         </el-table-column>
-        <el-table-column prop="operate" label="操作">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button class="fl" type="text" @click="add(scope.row, scope.$index)">
               <i class="iconfont icon-jia1"></i>
@@ -35,35 +37,20 @@
       </el-table>
     </el-col>
   </el-row>
-  <xz-upload-img :row="uploadImgRow" :visible.sync="uploadImgVisible"></xz-upload-img>
 </div>
 </template>
 
 <script>
-import xzUploadImg from './uploadImg.vue'
 export default {
-  components: {
-    xzUploadImg
-  },
   props: ['item'],
   data () {
-    return {
-      uploadImgRow: {},
-      uploadImgVisible: false,
-    }
+    return {}
   },
   methods: {
-    getImgName (url) {
-      return url ? url.split('/').slice(-1)[0] : ''
-    },
-    uploadImg (row, index) {
-      this.uploadImgRow = row
-      this.uploadImgVisible = true
-    },
     add (row, index) {
       let len = this.item.content.length
       this.item.content.splice(index + 1, 0, {
-        key: len,
+        score: index + 2,
         title: '新选项' + len
       })
     },

@@ -18,10 +18,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="最小字数">
-          <el-input-number v-model="item.setting.min" :controls="false" @blur="checkNumber('min')" :min="0" :max="99999999"></el-input-number>
+          <el-input-number v-model="item.setting.min" :controls="false" @blur="checkNumber('min')" :min="0" :max="99999"></el-input-number>
         </el-form-item>
          <el-form-item label="最大字数">
-          <el-input-number v-model="item.setting.max" :controls="false" @blur="checkNumber('max')" :min="0" :max="99999999"></el-input-number>
+          <el-input-number v-model="item.setting.max" :controls="false" @blur="checkNumber('max')" :min="0" :max="99999"></el-input-number>
         </el-form-item>
       </el-form>
     </el-col>
