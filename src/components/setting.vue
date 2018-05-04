@@ -97,12 +97,15 @@ export default {
   ],
   data () {
     return {
-      time: '', // 时间设置按钮
+      time: false, // 时间设置按钮
       timeShow: false, // 时间设置显示隐藏
       start_time: '', // 开始时 model
       start_check: 'true', // 开始时间状态
       end_time: '', // 结束时间 model
       end_check: 'true', // 开始时间状态
+      password:false,
+      power:false,
+      checked:false,
       passwordShow: false, // 密码设置显示隐藏
       set_password: '', // 写入密码 model
       sure_password: '',  // 确认密码 model
@@ -115,8 +118,8 @@ export default {
   methods: {
     /**
      * [时间设置显示隐藏]
-     * @param  {[type]} $event [description]
-     * @return {[type]}        [description]
+     * @param  {[type]} $event    [布尔值判断当前设置显示隐藏]
+     * @return {[number]}   num   [1:时间设置,2]
      */
     setting_time ($event) {
       console.log('$event', $event)
