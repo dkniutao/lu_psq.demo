@@ -46,7 +46,7 @@ export default {
   props: ['source'],
   data () {
     return {
-      uploadImgVisible: false,
+      uploadImgVisible: false
     }
   },
   methods: {
