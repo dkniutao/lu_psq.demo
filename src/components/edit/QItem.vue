@@ -40,6 +40,11 @@
         :item="item"
         v-if="typeAlias == 'sort'">
         </xz-question-item-show-sort>
+
+        <xz-question-item-show-slider
+        :item="item"
+        v-if="typeAlias == 'slider'">
+        </xz-question-item-show-slider>
       </div>
     </div>
 
@@ -195,6 +200,11 @@
         :item="item"
         v-if="typeAlias == 'sort'">
       </xz-question-item-edit-sort>
+
+      <xz-question-item-edit-slider
+        :item="item"
+        v-if="typeAlias == 'slider'">
+      </xz-question-item-edit-slider>
     </div>
 
     <div class="item-submit">
@@ -219,6 +229,8 @@ import xzQuestionItemShowRateMulti from './QItemShowRateMulti.vue'
 import xzQuestionItemEditRateMulti from './QItemEditRateMulti.vue'
 import xzQuestionItemShowSort from './QItemShowSort.vue'
 import xzQuestionItemEditSort from './QItemEditSort.vue'
+import xzQuestionItemShowSlider from './QItemShowSlider.vue'
+import xzQuestionItemEditSlider from './QItemEditSlider.vue'
 
 export default {
   components: {
@@ -234,7 +246,9 @@ export default {
     xzQuestionItemShowRateMulti,
     xzQuestionItemEditRateMulti,
     xzQuestionItemShowSort,
-    xzQuestionItemEditSort
+    xzQuestionItemEditSort,
+    xzQuestionItemShowSlider,
+    xzQuestionItemEditSlider
   },
   props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
