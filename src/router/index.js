@@ -16,10 +16,6 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: Edit
-    }, {
-      path: '/set',
-      name: 'set',
-      component: Set
     }
   ]
 })
