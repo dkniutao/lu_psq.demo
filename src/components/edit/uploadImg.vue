@@ -2,7 +2,8 @@
 <el-dialog title="上传图片" width="800px" :visible.sync="myVisible">
   <div style="margin-bottom: 15px;">
     <el-input placeholder="可直接粘贴图片地址" :value="row.img">
-      <el-button slot="append">确定</el-button>
+      <i v-if="row.img" slot="suffix" class="el-input__icon el-icon-delete" @click="delImg"></i>
+      <el-button slot="append" @click="myVisible = false">确定</el-button>
     </el-input>
   </div>
 
@@ -53,7 +54,13 @@ export default {
   methods: {
     success (response, file, fileList) {
       this.row.img = mylib.ROOT + response.data.item[0]
+    },
+    delImg () {
+      this.row.img = ''
     }
   }
 }
 </script>
+<style scoped>
+.el-input .el-input__icon{cursor: pointer;}
+</style>
