@@ -49,7 +49,7 @@
     </div>
 
     <div class="item-operate clearfix">
-      <el-button v-show="order != '0'" class="fl operate-btn">
+      <el-button v-show="order != 1" class="fl operate-btn">
         在此题后插入新题
       </el-button>
       <el-button class="fr operate-btn">
