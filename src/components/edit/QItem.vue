@@ -35,6 +35,11 @@
         :item="item"
         v-if="typeAlias == 'rateMulti'">
         </xz-question-item-show-rate-multi>
+
+        <xz-question-item-show-sort
+        :item="item"
+        v-if="typeAlias == 'sort'">
+        </xz-question-item-show-sort>
       </div>
     </div>
 
@@ -185,6 +190,11 @@
         :item="item"
         v-if="typeAlias == 'rateMulti'">
       </xz-question-item-edit-rate-multi>
+
+      <xz-question-item-edit-sort
+        :item="item"
+        v-if="typeAlias == 'sort'">
+      </xz-question-item-edit-sort>
     </div>
 
     <div class="item-submit">
@@ -205,9 +215,10 @@ import xzQuestionItemShowInputMulti from './QItemShowInputMulti.vue'
 import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
 import xzQuestionItemShowRate from './QItemShowRate.vue'
 import xzQuestionItemEditRate from './QItemEditRate.vue'
-
 import xzQuestionItemShowRateMulti from './QItemShowRateMulti.vue'
 import xzQuestionItemEditRateMulti from './QItemEditRateMulti.vue'
+import xzQuestionItemShowSort from './QItemShowSort.vue'
+import xzQuestionItemEditSort from './QItemEditSort.vue'
 
 export default {
   components: {
@@ -221,7 +232,9 @@ export default {
     xzQuestionItemShowRate,
     xzQuestionItemEditRate,
     xzQuestionItemShowRateMulti,
-    xzQuestionItemEditRateMulti
+    xzQuestionItemEditRateMulti,
+    xzQuestionItemShowSort,
+    xzQuestionItemEditSort
   },
   props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
