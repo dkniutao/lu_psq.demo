@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import axios from 'axios'
 export default {
-  Q_TYPE: {
+  ABC: ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+  TYPE_ALIAS: {
     '1': 'radio',
     '2': 'checkbox',
     '3': 'input',

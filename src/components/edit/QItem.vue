@@ -3,27 +3,27 @@
     <div class="item-header">
       <div class="clearfix">
         <div class="fl" style="padding-right: 10px;">{{order}}. </div>
-        <div v-html="item.title"></div>
+        <div class="fl" v-html="item.title"></div>
       </div>
       <div>
         <xz-question-item-show-radio
         :item="item"
-        v-if="Qtype == 'radio'">
+        v-if="typeAlias == 'radio'">
         </xz-question-item-show-radio>
 
         <xz-question-item-show-checkbox
         :item="item"
-        v-if="Qtype == 'checkbox'">
+        v-if="typeAlias == 'checkbox'">
         </xz-question-item-show-checkbox>
 
         <xz-question-item-show-input
         :item="item"
-        v-if="Qtype == 'input'">
+        v-if="typeAlias == 'input'">
         </xz-question-item-show-input>
 
         <xz-question-item-show-input-multi
         :item="item"
-        v-if="Qtype == 'inputMulti'">
+        v-if="typeAlias == 'inputMulti'">
         </xz-question-item-show-input-multi>
       </div>
     </div>
@@ -83,7 +83,7 @@
               题
             </el-col>
           </el-row>
-          <el-row>
+          <el-row v-if="typeAlias == 'radio'">
             <el-col :span="5">
               <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
             </el-col>
@@ -153,22 +153,22 @@
 
       <xz-question-item-edit-radio
         :item="item"
-        v-if="Qtype == 'radio'">
+        v-if="typeAlias == 'radio'">
       </xz-question-item-edit-radio>
 
       <xz-question-item-edit-checkbox
         :item="item"
-        v-if="Qtype == 'checkbox'">
+        v-if="typeAlias == 'checkbox'">
       </xz-question-item-edit-checkbox>
 
       <xz-question-item-edit-input
         :item="item"
-        v-if="Qtype == 'input'">
+        v-if="typeAlias == 'input'">
       </xz-question-item-edit-input>
 
       <xz-question-item-edit-input-multi
         :item="item"
-        v-if="Qtype == 'inputMulti'">
+        v-if="typeAlias == 'inputMulti'">
       </xz-question-item-edit-input-multi>
     </div>
 
@@ -231,8 +231,8 @@ export default {
     }
   },
   computed: {
-    Qtype () {
-      return mylib.Q_TYPE[this.type]
+    typeAlias () {
+      return mylib.TYPE_ALIAS[this.type]
     }
   },
   methods: {
