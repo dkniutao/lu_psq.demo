@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
 import Edit from '@/components/Edit'
-import Set from '@/components/Set'
 
 Vue.use(Router)
 
