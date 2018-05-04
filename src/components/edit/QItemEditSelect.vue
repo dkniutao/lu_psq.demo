@@ -5,7 +5,7 @@
       <el-table :data="item.content" style="width: 100%">
         <el-table-column prop="text" label="选项文字">
           <template slot-scope="scope">
-            <el-input v-model="scope.row.title" placeholder="请输入选项内容"></el-input>
+            <el-input v-model="scope.row.title" placeholder="请输入选项文字"></el-input>
           </template>
         </el-table-column>
         <el-table-column prop="img" label="图片" width="240">
