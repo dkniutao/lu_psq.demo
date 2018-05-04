@@ -98,7 +98,7 @@ export default {
   data () {
     return {
       time: false, // 时间设置按钮
-      timeShow: false, // 时间设置显示隐藏
+      timeShow: true, // 时间设置显示隐藏
       start_time: '', // 开始时 model
       start_check: 'true', // 开始时间状态
       end_time: '', // 结束时间 model
