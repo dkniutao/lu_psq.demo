@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-table :data="content" style="width: 100%">
+  <el-table :data="data" style="width: 100%">
     <!--表格列信息-->
     <slot></slot>
     <el-table-column v-if="hasUpload" prop="img" label="图片" width="240">
@@ -56,7 +56,7 @@ export default {
   components: {
     xzUploadImg
   },
-  props: ['content', 'hasUpload'],
+  props: ['data', 'hasUpload'],
   data () {
     return {
       uploadImgRow: {},
@@ -72,28 +72,28 @@ export default {
       this.uploadImgVisible = true
     },
     add (row, index) {
-      let len = this.content.length
-      this.content.splice(index + 1, 0, {
+      let len = this.data.length
+      this.data.splice(index + 1, 0, {
         key: len,
         title: '新选项' + len
       })
     },
     del (row, index) {
-      if (this.content.length <= 1) return;
+      if (this.data.length <= 1) return;
 
-      this.content.splice(index, 1)
+      this.data.splice(index, 1)
     },
     down (row, index) {
-      if (index >= this.content.length - 1) return;
+      if (index >= this.data.length - 1) return;
 
-      this.content.splice(index, 1)
-      this.content.splice(index + 1, 0, row)
+      this.data.splice(index, 1)
+      this.data.splice(index + 1, 0, row)
     },
     up (row, index) {
       if (index <= 0) return;
 
-      this.content.splice(index, 1)
-      this.content.splice(index - 1, 0, row)
+      this.data.splice(index, 1)
+      this.data.splice(index - 1, 0, row)
     }
   }
 }

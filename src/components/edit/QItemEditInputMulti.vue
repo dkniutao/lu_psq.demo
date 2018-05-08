@@ -3,7 +3,7 @@
   <el-row>
     <el-col :span="24">
       <xz-sort-table
-        :content="item.content">
+        :data="item.content">
         <el-table-column
           prop="text"
           label="标题文字">
@@ -76,7 +76,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.el-table .el-button .iconfont{line-height: 20px;font-size:20px;color:#126ab5}
-.el-table .el-button .iconfont:hover{color:#4188c4}
-</style>

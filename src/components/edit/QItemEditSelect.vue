@@ -3,8 +3,8 @@
   <el-row>
     <el-col :span="24">
       <xz-sort-table
-        :content="item.content"
-        :hasUpload="true">
+        :data="item.content"
+        :has-upload="true">
         <el-table-column prop="text" label="选项文字">
           <template slot-scope="scope">
             <el-input
@@ -28,8 +28,3 @@ export default {
   props: ['item']
 }
 </script>
-
-<style scoped>
-.el-table .el-button .iconfont{line-height: 20px;font-size:20px;color:#126ab5}
-.el-table .el-button .iconfont:hover{color:#4188c4}
-</style>
