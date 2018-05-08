@@ -58,6 +58,9 @@ export default {
     },
     delImg () {
       this.row.img = ''
+    },
+    render() {
+      this.visible = true
     }
   }
 }
