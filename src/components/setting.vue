@@ -3,11 +3,12 @@
     <div class="head">问卷设置</div>
     <div class="button">
       <div class="fl">
-        <el-button class="fl add-psq back" type="primary"><img src="../assets/back.png" alt="">返回</el-button>
+        <el-button class="fl add-psq back" type="primary"><i class="iconfont icon-fanhui1"></i>返回</el-button>
       </div>
       <div class="fr">
         <el-button class="fl add-psq" type="primary">保存</el-button>
-        <el-button class="fl add-psq" type="primary">保存并发布</el-button>
+        <el-button class="fl add-psq" type="primary"
+        @click="publish">保存并发布</el-button>
       </div>
     </div>
     <div class="content">
@@ -18,19 +19,21 @@
             <el-switch
               v-model="time"
               active-color="#13ce66"
-              inactive-color="#ff4949"
-              @change="setting($event,1)">
+              inactive-color="#ff4949">
             </el-switch>
           </div>
         </div>
-        <div class="list_content" v-show="timeShow">
+        <div class="list_content" v-show="time">
           <div class="start_time">
             <el-checkbox v-model="start_check">开始时间</el-checkbox>
             <el-date-picker
               prefix-icon="el-icon-date"
               v-model="start_time"
               type="datetime"
-              placeholder="选择日期时间">
+              prop="travelStartTime"
+              placeholder="选择日期时间"
+              :disabled="start_check == false"
+              @change="time_focus">
             </el-date-picker>
           </div>
           <div class="end_time">
@@ -39,7 +42,9 @@
               prefix-icon="el-icon-date"
               v-model="end_time"
               type="datetime"
-              placeholder="选择日期时间">
+              placeholder="选择日期时间"
+              :disabled="end_check == false"
+              @change="time_focus">
             </el-date-picker>
           </div>
         </div>
@@ -51,19 +56,20 @@
             <el-switch
               v-model="password"
               active-color="#13ce66"
-              inactive-color="#ff4949"
-              @change="setting($event, 2)">
+              inactive-color="#ff4949">
             </el-switch>
           </div>
         </div>
-        <div class="list_content" v-show="passwordShow">
+        <div class="list_content" v-show="password">
           <div class="setting_password">
             <div>设置密码</div>
-            <el-input v-model="set_password" placeholder="请输入内容"></el-input>
+            <el-input v-model="set_password" type="password" placeholder="请输入内容"
+            @blur="passwords"></el-input>
           </div>
           <div class="sure_password">
             <div>再次确认</div>
-            <el-input v-model="sure_password" placeholder="请输入内容"></el-input>
+            <el-input v-model="sure_password" type="password" placeholder="请输入内容"
+            @blur="passwords"></el-input>
           </div>
         </div>
       </div>
@@ -74,13 +80,12 @@
             <el-switch
               v-model="power"
               active-color="#13ce66"
-              inactive-color="#ff4949"
-              @change="setting($event, 3)">
+              inactive-color="#ff4949">
             </el-switch>
           </div>
         </div>
         <div class="list_content"
-        v-show="powerShow">
+        v-show="power">
           <el-checkbox v-model="checked">每个IP限答一次</el-checkbox>
           <span class="hint">提示：移动网络同一地区会存在使用同一个IP的情况，不推荐使用</span>
         </div>
@@ -98,18 +103,17 @@ export default {
   data () {
     return {
       time: false, // 时间设置按钮
-      timeShow: false, // 时间设置显示隐藏
       start_time: '', // 开始时 model
-      start_check: 'true', // 开始时间状态
+      start_check: true, // 开始时间状态
       end_time: '', // 结束时间 model
-      end_check: 'true', // 开始时间状态
-      password:false,
-      power:false,
-      checked:false,
-      passwordShow: false, // 密码设置显示隐藏
+      end_check: true, // 开始时间状态
+      password: false, // 密码设置显示隐藏
       set_password: '', // 写入密码 model
-      sure_password: '',  // 确认密码 model
-      powerShow: false, //权限设置显示隐藏
+      sure_password: '', // 确认密码 model
+      power: false, // 权限设置显示隐藏
+      checked: false, // IP勾选
+      time_num: 0, // 判断时间是否正确填写，0错误;1正确
+      password_num: 0 // 判断密码是否正确填写，0错误;1正确
 
     }
   },
@@ -117,12 +121,64 @@ export default {
   },
   methods: {
     /**
-     * [时间设置显示隐藏]
-     * @param  {[type]} $event    [布尔值判断当前设置显示隐藏]
-     * @return {[number]}   num   [1:时间设置,2]
+     * [time_focus 对比时间]
+     * @param  {[]}     []
+     * @return {[]}     []
      */
-    setting_time ($event) {
-      console.log('$event', $event)
+    time_focus (val) {
+      if (this.startTime !== '' && this.startTime !== null && this.endtTime !== '' && this.endtTime !== null) {
+        this.timeNum = 0
+
+        if (this.endTime) {
+          if (this.startTime >= this.endTime) {
+            this.$message('开始时间大于结束时间,请重新填写')
+          } else {
+            this.timeNum = 1
+          }
+        }
+      } else {
+        this.$message('开始时间未填写')
+        this.timeNum = 0
+      }
+    },
+
+    /**
+     * [passwords 对比密码]
+     * @param  {[]}     []
+     * @return {[]}     []
+     */
+    passwords () {
+      if (this.setPassword !== '' && this.surePassword !== '') {
+        if (this.setPassword !== this.surePassword) {
+          this.$message('密码填写有误')
+          this.passwordNum = 0
+        } else {
+          this.passwordNum = 1
+        }
+      } else {
+        this.passwordNum = 0
+      }
+    },
+    publish () {
+      if (this.timeNum === 1 && this.passwordNum === 1) {
+        var startTime = this.startTime.toLocaleString()
+        var endTime = this.endTime.toLocaleString()
+        var password = this.surePassword
+        if (this.checked) {
+          var ipLimit = 1
+        } else {
+          var ipLimit = 0
+        }
+        var data = {
+          startTime: startTime,
+          endTime: endTime,
+          password: password,
+          ipLimit: ipLimit
+        }
+        console.log(data)
+      } else {
+        this.$message('填写有误,请重新填写')
+      }
     }
   },
   created () {
@@ -157,15 +213,12 @@ export default {
   .setting .button .back{
     width: 130px;
   }
-  .setting .button .back img{
-    float: left;
-    position: relative;
-    top: -1px;
-    left: 14px;
+  .setting .button .back .iconfont .icon-fanhui1{
     margin-right: 15px
   }
   .setting .content .setting_list .list_head{
     overflow: hidden;
+    font-size: 14px;
   }
   .setting .content .setting_list .list_head div{
     float: left;
@@ -219,5 +272,8 @@ export default {
     height: 30px;
     margin-left: 68px;
     padding-left: 0px;
+  }
+  .setting .content .setting_list .list_content .el-input__suffix{
+    right:20px;
   }
 </style>

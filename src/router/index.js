@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Edit from '@/components/Edit'
 
 import Setting from '@/components/setting'
+import Release from '@/components/release'
 
 Vue.use(Router)
 
@@ -21,7 +22,10 @@ export default new Router({
       path: '/setting',
       name: 'setting',
       component: Setting
+    }, {
+      path: '/release',
+      name: 'Release',
+      component: Release
     }
-
   ]
 })
