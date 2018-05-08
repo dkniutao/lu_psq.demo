@@ -1,20 +1,6 @@
 {
   "question": [
   {
-    "type": "7",
-    "item":
-    {
-      "title": "<strong>请输入标题</strong>"
-    }
-  },
-  {
-    "type": "8",
-    "item":
-    {
-      "title": "请输入段落说明"
-    }
-  },
-  {
     "type": "1",
     "order": "1",
     "item":

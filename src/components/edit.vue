@@ -79,6 +79,30 @@ export default {
         this.QType = res.data
       }
     }, this)
+
+    this.QList = QData.question
+
+    _.each(QData.section, (v, k) => {
+      let index = v.item.split(',')[0]
+      if (v.description) {
+        this.QList.splice(index - 1, 0, {
+          "type": "8",
+          "item":
+          {
+            "title": "请输入段落说明"
+          }
+        })
+      }
+      if (v.name) {
+        this.QList.splice(index - 1, 0, {
+          "type": "7",
+          "item":
+          {
+            "title": "<strong>请输入标题</strong>"
+          }
+        })
+      }
+    })
   }
 }
 </script>
