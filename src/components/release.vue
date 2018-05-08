@@ -119,7 +119,8 @@ export default {
       } else if (index === 3) {
         window.window.open ("http://service.weibo.com/share/mobile.php?url={{URL}}&title={{DESC}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}")
       }
-    }
+    },
+
   },
   created () {
   },

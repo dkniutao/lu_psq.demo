@@ -24,26 +24,26 @@
           </div>
         </div>
         <div class="list_content" v-show="time">
-          <div class="start_time">
-            <el-checkbox v-model="start_check">开始时间</el-checkbox>
+          <div class="startTime">
+            <el-checkbox v-model="startCheck">开始时间</el-checkbox>
             <el-date-picker
               prefix-icon="el-icon-date"
-              v-model="start_time"
+              v-model="startTime"
               type="datetime"
               prop="travelStartTime"
               placeholder="选择日期时间"
-              :disabled="start_check == false"
+              :disabled="startCheck == false"
               @change="time_focus">
             </el-date-picker>
           </div>
-          <div class="end_time">
-            <el-checkbox v-model="end_check">结束时间</el-checkbox>
+          <div class="endTime">
+            <el-checkbox v-model="endCheck">结束时间</el-checkbox>
             <el-date-picker
               prefix-icon="el-icon-date"
-              v-model="end_time"
+              v-model="endTime"
               type="datetime"
               placeholder="选择日期时间"
-              :disabled="end_check == false"
+              :disabled="endCheck == false"
               @change="time_focus">
             </el-date-picker>
           </div>
@@ -63,12 +63,12 @@
         <div class="list_content" v-show="password">
           <div class="setting_password">
             <div>设置密码</div>
-            <el-input v-model="set_password" type="password" placeholder="请输入内容"
+            <el-input v-model="setPassword" type="password" placeholder="请输入内容"
             @blur="passwords"></el-input>
           </div>
-          <div class="sure_password">
+          <div class="surePassword">
             <div>再次确认</div>
-            <el-input v-model="sure_password" type="password" placeholder="请输入内容"
+            <el-input v-model="surePassword" type="password" placeholder="请输入内容"
             @blur="passwords"></el-input>
           </div>
         </div>
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import mylib from '../mylib.js'
 export default {
   components: {
   },
@@ -103,13 +104,13 @@ export default {
   data () {
     return {
       time: false, // 时间设置按钮
-      start_time: '', // 开始时 model
-      start_check: true, // 开始时间状态
-      end_time: '', // 结束时间 model
-      end_check: true, // 开始时间状态
+      startTime: '', // 开始时 model
+      startCheck: true, // 开始时间状态
+      endTime: '', // 结束时间 model
+      endCheck: true, // 开始时间状态
       password: false, // 密码设置显示隐藏
-      set_password: '', // 写入密码 model
-      sure_password: '', // 确认密码 model
+      setPassword: '', // 写入密码 model
+      surePassword: '', // 确认密码 model
       power: false, // 权限设置显示隐藏
       checked: false, // IP勾选
       time_num: 0, // 判断时间是否正确填写，0错误;1正确
@@ -125,10 +126,10 @@ export default {
      * @param  {[]}     []
      * @return {[]}     []
      */
-    time_focus (val) {
+    time_focus () {
+      console.log(this.startTime)
       if (this.startTime !== '' && this.startTime !== null && this.endtTime !== '' && this.endtTime !== null) {
         this.timeNum = 0
-
         if (this.endTime) {
           if (this.startTime >= this.endTime) {
             this.$message('开始时间大于结束时间,请重新填写')
@@ -148,8 +149,11 @@ export default {
      * @return {[]}     []
      */
     passwords () {
+      console.log(111)
       if (this.setPassword !== '' && this.surePassword !== '') {
+        console.log(2)
         if (this.setPassword !== this.surePassword) {
+          console.log(3)
           this.$message('密码填写有误')
           this.passwordNum = 0
         } else {
@@ -170,12 +174,21 @@ export default {
           var ipLimit = 0
         }
         var data = {
+          id: '12',
+          status: '0',
           startTime: startTime,
           endTime: endTime,
           password: password,
           ipLimit: ipLimit
         }
         console.log(data)
+        mylib.axios({
+          url: 'questionnaire/editsetting',
+          done (res) {
+            console.log('res', res)
+            this.$message(res.data.message)
+          }
+        }, this)
       } else {
         this.$message('填写有误,请重新填写')
       }
@@ -234,20 +247,20 @@ export default {
   .setting .content .setting_list .list_content{
     padding-left: 137px;
   }
-  .setting .content .setting_list .list_content .start_time{
+  .setting .content .setting_list .list_content .startTime{
     margin-top:15px;
   }
-    .setting .content .setting_list .list_content .end_time{
+    .setting .content .setting_list .list_content .endTime{
     margin-top:30px;
   }
   .setting .content .setting_list .list_content .el-date-editor.el-input{
     margin-left: 41px;
   }
-  .setting .content .setting_list .list_content .setting_password,.sure_password{
+  .setting .content .setting_list .list_content .setting_password,.surePassword{
     overflow: hidden;
     line-height: 60px;
   }
-  .setting .content .setting_list .list_content .setting_password div, .sure_password div{
+  .setting .content .setting_list .list_content .setting_password div, .surePassword div{
     font-size: 14px;
     float: left;
   }
@@ -267,7 +280,7 @@ export default {
     line-height: 30px;
     font-size: 16px;
   }
-  .setting .content .setting_list .list_content .setting_password .el-input, .sure_password .el-input{
+  .setting .content .setting_list .list_content .setting_password .el-input, .surePassword .el-input{
     width: 200px;
     height: 30px;
     margin-left: 68px;
