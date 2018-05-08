@@ -1,0 +1,229 @@
+{
+  "question": [
+  {
+    "type": "7",
+    "item":
+    {
+      "title": "<strong>请输入标题</strong>"
+    }
+  },
+  {
+    "type": "8",
+    "item":
+    {
+      "title": "请输入段落说明"
+    }
+  },
+  {
+    "type": "1",
+    "order": "1",
+    "item":
+    {
+      "title": "请输入问题标题【单选题】",
+      "content": [
+      {
+        "key": "A",
+        "title": "选项1",
+        "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
+      },
+      {
+        "key": "B",
+        "title": "选项2",
+        "img": ""
+      }]
+    }
+  },
+  {
+    "type": "2",
+    "order": "2",
+    "item":
+    {
+      "title": "请输入问题标题【多选题】",
+      "content": [
+      {
+        "key": "A",
+        "title": "多项1",
+        "img": ""
+      },
+      {
+        "key": "B",
+        "title": "多项2",
+        "img": ""
+      }]
+    }
+  },
+  {
+    "type": "3",
+    "order": "3",
+    "item":
+    {
+      "title": "请输入问题标题【单项填空题】",
+      "setting":
+      {
+        "height": "1",
+        "min": "2",
+        "max": "5"
+      }
+    }
+  },
+  {
+    "type": "4",
+    "order": "4",
+    "item":
+    {
+      "title": "请输入问题标题【多项填空题】",
+      "content": [
+      {
+        "title": "标题1"
+      },
+      {
+        "title": "标题2"
+      }],
+      "setting":
+      {
+        "height": "1",
+        "min": "2",
+        "max": "5"
+      }
+    }
+  },
+  {
+    "type": "5",
+    "order": "5",
+    "item":
+    {
+      "title": "请输入问题标题【单选评分】",
+      "content": [
+      {
+        "title": "很不满意",
+        "score": "1"
+      },
+      {
+        "title": "不满意",
+        "score": "2"
+      },
+      {
+        "title": "一般",
+        "score": "3"
+      },
+      {
+        "title": "满意",
+        "score": "4"
+      },
+      {
+        "title": "很满意",
+        "score": "5"
+      }]
+    }
+  },
+  {
+    "type": "6",
+    "order": "6",
+    "item":
+    {
+      "title": "请输入问题标题【多选评分】",
+      "content": [
+      {
+        "title": "很不满意",
+        "score": "1"
+      },
+      {
+        "title": "不满意",
+        "score": "2"
+      },
+      {
+        "title": "一般",
+        "score": "3"
+      },
+      {
+        "title": "满意",
+        "score": "4"
+      },
+      {
+        "title": "很满意",
+        "score": "5"
+      }],
+      "setting": [
+      {
+        "title": "外观"
+      },
+      {
+        "title": "功能"
+      }]
+    }
+  },
+  {
+    "type": "10",
+    "order": "7",
+    "item":
+    {
+      "title": "请输入问题标题【排序题】",
+      "content": [
+      {
+        "key": "1",
+        "title": "选项1",
+        "img": ""
+      },
+      {
+        "key": "2",
+        "title": "选项2",
+        "img": ""
+      }]
+    }
+  },
+  {
+    "type": "9",
+    "order": "8",
+    "item":
+    {
+      "title": "请输入问题标题【滑动条题】",
+      "content":
+      {
+        "min":
+        {
+          "val": "0",
+          "title": "不满意"
+        },
+        "max":
+        {
+          "val": "100",
+          "title": "满意"
+        }
+      }
+    }
+  }],
+  "section": [
+  {
+    "name": "基本信息",
+    "item": "1,2,3,4,5,6",
+    "description": "参与问卷的结果只做统计用途"
+  },
+  {
+    "name": "附加信息",
+    "item": "7,8",
+    "description": "调查结果只做统计用途"
+  }],
+  "logic": [
+  {
+    "order": "1",
+    "action": "1",
+    "rule": "3"
+  },
+  {
+    "order": "4",
+    "action": "2",
+    "rule":
+    {
+      "A": "5",
+      "B": "6"
+    }
+  },
+  {
+    "order": "5",
+    "action": "3",
+    "rule":
+    {
+      "3": "A,B"
+    }
+  }]
+}

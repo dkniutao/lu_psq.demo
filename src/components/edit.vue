@@ -29,12 +29,12 @@
     <!-- 问卷问题列表 -->
     <div class="question-list">
       <!-- 单选 -->
-      <xz-question-item 
-        v-for="item in QList" 
-        :order="item.order" 
-        :type="item.type" 
-        :type-name="getTypeName(item.type)" 
-        :item="item.item" :key="item.order" 
+      <xz-question-item
+        v-for="item in QList"
+        :order="item.order"
+        :type="item.type"
+        :type-name="getTypeName(item.type)"
+        :item="item.item" :key="item.order"
         :list="QList">
       </xz-question-item>
     </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import QList from '../assets/question.json'
+import QData from '../assets/editData.json'
 import mylib from '../mylib.js'
 import _ from 'lodash'
 
@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       QType: [],
-      QList: QList
+      QList: QData.question
     }
   },
   methods: {
