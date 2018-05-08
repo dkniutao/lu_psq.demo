@@ -1,9 +1,9 @@
 <template>
-<el-dialog title="上传图片" width="800px" :visible.sync="myVisible">
+<el-dialog title="上传图片" width="800px" :visible.sync="visible">
   <div style="margin-bottom: 15px;">
     <el-input placeholder="可直接粘贴图片地址" :value="row.img">
       <i v-if="row.img" slot="suffix" class="el-input__icon el-icon-delete" @click="delImg"></i>
-      <el-button slot="append" @click="myVisible = false">确定</el-button>
+      <el-button slot="append" @click="visible = false">确定</el-button>
     </el-input>
   </div>
 
@@ -27,8 +27,8 @@
   </div>
 
   <div slot="footer" class="dialog-footer">
-    <el-button @click="myVisible = false">取 消</el-button>
-    <el-button type="primary" @click="myVisible = false">确 定</el-button>
+    <el-button @click="visible = false">取 消</el-button>
+    <el-button type="primary" @click="visible = false">确 定</el-button>
   </div>
 </el-dialog>
 </template>
@@ -37,19 +37,11 @@
 import mylib from '../../mylib.js'
 //@todo 添加供外部使用的弹窗显示方法
 export default {
-  props: ['visible', 'row'],
   data () {
     return {
-      myVisible: this.visible,
+      visible: false,
+      row: {},
       url: mylib.URL + 'questionnaire/upload?access-token=' + mylib.ACCESS_TOKEN
-    }
-  },
-  watch: {
-    visible () {
-      this.myVisible = this.visible
-    },
-    myVisible () {
-      this.$emit('update:visible', this.myVisible)
     }
   },
   methods: {
@@ -59,7 +51,8 @@ export default {
     delImg () {
       this.row.img = ''
     },
-    render() {
+    render(row) {
+      this.row = row
       this.visible = true
     }
   }

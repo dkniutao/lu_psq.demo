@@ -3,7 +3,11 @@
   <el-table :data="data" style="width: 100%">
     <!--表格列信息-->
     <slot></slot>
-    <el-table-column v-if="hasUpload" prop="img" label="图片" width="240">
+    <el-table-column
+      v-if="hasUpload"
+      prop="img"
+      label="图片"
+      width="240">
       <template slot-scope="scope">
         <el-button
           type="text"
@@ -43,10 +47,10 @@
     </el-table-column>
   </el-table>
   <xz-upload-img
-    v-if="hasUpload"
-    :row="uploadImgRow"
-    :visible.sync="uploadImgVisible">
+    ref="uploadImg">
   </xz-upload-img>
+   <!--  :row="uploadImgRow"
+    :visible.sync="uploadImgVisible" -->
 </div>
 </template>
 
@@ -57,19 +61,14 @@ export default {
     xzUploadImg
   },
   props: ['data', 'hasUpload'],
-  data () {
-    return {
-      uploadImgRow: {},
-      uploadImgVisible: false,
-    }
-  },
   methods: {
     getImgName (url) {
       return url ? url.split('/').slice(-1)[0] : ''
     },
     uploadImg (row, index) {
-      this.uploadImgRow = row
-      this.uploadImgVisible = true
+      console.log(this.$ref);
+      console.log(this.$refs);
+      this.$refs['uploadImg'].render(row)
     },
     add (row, index) {
       let len = this.data.length
