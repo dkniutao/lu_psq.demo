@@ -10,7 +10,9 @@ export default {
     '5': 'rate',
     '6': 'rateMulti',
     '10': 'sort',
-    '9': 'slider'
+    '9': 'slider',
+    '7': 'title',
+    '8': 'desc'
   },
   ROOT: '//test.api.backend.xingzhijishu.com/',
   URL: '//test.api.backend.xingzhijishu.com/v1/',

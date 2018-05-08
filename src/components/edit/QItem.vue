@@ -1,51 +1,60 @@
 <template>
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
-      <div class="clearfix">
-        <div class="fl" style="padding-right: 10px;">{{order}}. </div>
-        <div class="fl" v-html="item.title"></div>
-      </div>
-      <div>
-        <xz-question-item-show-radio
-        :item="item"
-        v-if="typeAlias == 'radio'">
-        </xz-question-item-show-radio>
+      <!-- 标题和段落 -->
+      <template v-if="typeAlias == 'title' || typeAlias == 'desc'">
+        <div class="clearfix">
+          <div class="fl" v-html="item.title"></div>
+        </div>
+      </template>
+      <!-- 其他题型 -->
+      <template v-else>
+        <div class="clearfix">
+          <div class="fl" style="padding-right: 10px;">{{order}}. </div>
+          <div class="fl" v-html="item.title"></div>
+        </div>
+        <div>
+          <xz-question-item-show-radio
+          :item="item"
+          v-if="typeAlias == 'radio'">
+          </xz-question-item-show-radio>
 
-        <xz-question-item-show-checkbox
-        :item="item"
-        v-if="typeAlias == 'checkbox'">
-        </xz-question-item-show-checkbox>
+          <xz-question-item-show-checkbox
+          :item="item"
+          v-if="typeAlias == 'checkbox'">
+          </xz-question-item-show-checkbox>
 
-        <xz-question-item-show-input
-        :item="item"
-        v-if="typeAlias == 'input'">
-        </xz-question-item-show-input>
+          <xz-question-item-show-input
+          :item="item"
+          v-if="typeAlias == 'input'">
+          </xz-question-item-show-input>
 
-        <xz-question-item-show-input-multi
-        :item="item"
-        v-if="typeAlias == 'inputMulti'">
-        </xz-question-item-show-input-multi>
+          <xz-question-item-show-input-multi
+          :item="item"
+          v-if="typeAlias == 'inputMulti'">
+          </xz-question-item-show-input-multi>
 
-        <xz-question-item-show-rate
-        :item="item"
-        v-if="typeAlias == 'rate'">
-        </xz-question-item-show-rate>
+          <xz-question-item-show-rate
+          :item="item"
+          v-if="typeAlias == 'rate'">
+          </xz-question-item-show-rate>
 
-        <xz-question-item-show-rate-multi
-        :item="item"
-        v-if="typeAlias == 'rateMulti'">
-        </xz-question-item-show-rate-multi>
+          <xz-question-item-show-rate-multi
+          :item="item"
+          v-if="typeAlias == 'rateMulti'">
+          </xz-question-item-show-rate-multi>
 
-        <xz-question-item-show-sort
-        :item="item"
-        v-if="typeAlias == 'sort'">
-        </xz-question-item-show-sort>
+          <xz-question-item-show-sort
+          :item="item"
+          v-if="typeAlias == 'sort'">
+          </xz-question-item-show-sort>
 
-        <xz-question-item-show-slider
-        :item="item"
-        v-if="typeAlias == 'slider'">
-        </xz-question-item-show-slider>
-      </div>
+          <xz-question-item-show-slider
+          :item="item"
+          v-if="typeAlias == 'slider'">
+          </xz-question-item-show-slider>
+        </div>
+      </template>
     </div>
 
     <div class="item-operate clearfix">
@@ -79,132 +88,145 @@
     </div>
 
     <div class="item-edit">
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <quill-editor v-model="item.title" ref="myQuillEditor">
-          </quill-editor>
-        </el-col>
-        <el-col :span="12">
-          <div>当前题型：<strong v-html="typeName"></strong></div>
-          <el-row>
-            <el-col :span="5">
-              <el-checkbox v-model="logic[1].checked">无条件跳题</el-checkbox>
-            </el-col>
-            <el-col :span="19" v-show="logic[1].checked">
-              填写此题后跳转到第
-              <el-select v-model="logic[1].rule" placeholder="请选择">
-                <el-option
-                  v-for="Q in list"
-                  :key="Q.order"
-                  :label="Q.order + '.' + Q.item.title"
-                  :value="Q.order">
-                </el-option>
-              </el-select>
-              题
-            </el-col>
-          </el-row>
-          <el-row v-if="typeAlias == 'radio'">
-            <el-col :span="5">
-              <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
-            </el-col>
-            <el-col :span="19" v-show="logic[2].checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic[2].rule" :key="index">
-                <el-col :span="8">
-                  <el-select v-model="rule.option" placeholder="请选择">
-                    <el-option
-                      v-for="option in item.content"
-                      :key="option.key"
-                      :label="option.key + '.' + option.title"
-                      :value="option.key">
-                    </el-option>
-                  </el-select>
-                </el-col>
-                <el-col :span="12">
-                  <el-select v-model="rule.question" placeholder="请选择">
-                    <el-option
-                      v-for="Q in list"
-                      :key="Q.order"
-                      :label="Q.order + '.' + Q.item.title"
-                      :value="Q.order">
-                    </el-option>
-                  </el-select>
-                </el-col>
-                <el-col :span="4">
-                  <el-button type="text" v-if="index == 0">+更多</el-button>
-                  <el-button type="text" v-else>-取消</el-button>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-          <el-row :gutter="10">
-            <el-col :span="5">
-              <el-checkbox v-model="logic[3].checked">关联逻辑</el-checkbox>
-            </el-col>
-            <el-col :span="19" v-show="logic[3].checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic[3].rule" :key="index">
-                <el-col :span="12">
-                  <el-select v-model="rule.question" placeholder="请选择" @change="logicQuestionChange(rule)">
-                    <el-option
-                      v-for="Q in list"
-                      :key="Q.order"
-                      :label="Q.order + '.' + Q.item.title"
-                      :value="Q.order">
-                    </el-option>
-                  </el-select>
-                </el-col>
-                <el-col :span="8">
-                  <el-select v-model="rule.option" placeholder="请选择">
-                    <el-option
-                      v-for="option in rule.content"
-                      :key="option.key"
-                      :label="option.key + '.' + option.title"
-                      :value="option.key">
-                    </el-option>
-                  </el-select>
-                </el-col>
-                <el-col :span="4">
-                  <el-button type="text">+更多</el-button>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
+      <!-- 标题和段落 -->
+      <template v-if="typeAlias == 'title' || typeAlias == 'desc'">
+        <el-row>
+          <el-col :span="24">
+            <quill-editor v-model="item.title" ref="myQuillEditor">
+            </quill-editor>
+          </el-col>
+        </el-row>
+      </template>
+      <!-- 其他题型 -->
+      <template v-else>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <quill-editor v-model="item.title" ref="myQuillEditor">
+            </quill-editor>
+          </el-col>
+          <el-col :span="12">
+            <div>当前题型：<strong v-html="typeName"></strong></div>
+            <el-row>
+              <el-col :span="5">
+                <el-checkbox v-model="logic[1].checked">无条件跳题</el-checkbox>
+              </el-col>
+              <el-col :span="19" v-show="logic[1].checked">
+                填写此题后跳转到第
+                <el-select v-model="logic[1].rule" placeholder="请选择">
+                  <el-option
+                    v-for="Q in list"
+                    :key="Q.order"
+                    :label="Q.order + '.' + Q.item.title"
+                    :value="Q.order">
+                  </el-option>
+                </el-select>
+                题
+              </el-col>
+            </el-row>
+            <el-row v-if="typeAlias == 'radio'">
+              <el-col :span="5">
+                <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
+              </el-col>
+              <el-col :span="19" v-show="logic[2].checked">
+                <el-row :gutter="10" v-for="(rule, index) in logic[2].rule" :key="index">
+                  <el-col :span="8">
+                    <el-select v-model="rule.option" placeholder="请选择">
+                      <el-option
+                        v-for="option in item.content"
+                        :key="option.key"
+                        :label="option.key + '.' + option.title"
+                        :value="option.key">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-select v-model="rule.question" placeholder="请选择">
+                      <el-option
+                        v-for="Q in list"
+                        :key="Q.order"
+                        :label="Q.order + '.' + Q.item.title"
+                        :value="Q.order">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                  <el-col :span="4">
+                    <el-button type="text" v-if="index == 0">+更多</el-button>
+                    <el-button type="text" v-else>-取消</el-button>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+            <el-row :gutter="10">
+              <el-col :span="5">
+                <el-checkbox v-model="logic[3].checked">关联逻辑</el-checkbox>
+              </el-col>
+              <el-col :span="19" v-show="logic[3].checked">
+                <el-row :gutter="10" v-for="(rule, index) in logic[3].rule" :key="index">
+                  <el-col :span="12">
+                    <el-select v-model="rule.question" placeholder="请选择" @change="logicQuestionChange(rule)">
+                      <el-option
+                        v-for="Q in list"
+                        :key="Q.order"
+                        :label="Q.order + '.' + Q.item.title"
+                        :value="Q.order">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-select v-model="rule.option" placeholder="请选择">
+                      <el-option
+                        v-for="option in rule.content"
+                        :key="option.key"
+                        :label="option.key + '.' + option.title"
+                        :value="option.key">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                  <el-col :span="4">
+                    <el-button type="text">+更多</el-button>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
 
-      <xz-question-item-edit-select
-        :item="item"
-        v-if="typeAlias == 'radio' || typeAlias == 'checkbox'">
-      </xz-question-item-edit-select>
+        <xz-question-item-edit-select
+          :item="item"
+          v-if="typeAlias == 'radio' || typeAlias == 'checkbox'">
+        </xz-question-item-edit-select>
 
-      <xz-question-item-edit-input
-        :item="item"
-        v-if="typeAlias == 'input'">
-      </xz-question-item-edit-input>
+        <xz-question-item-edit-input
+          :item="item"
+          v-if="typeAlias == 'input'">
+        </xz-question-item-edit-input>
 
-      <xz-question-item-edit-input-multi
-        :item="item"
-        v-if="typeAlias == 'inputMulti'">
-      </xz-question-item-edit-input-multi>
+        <xz-question-item-edit-input-multi
+          :item="item"
+          v-if="typeAlias == 'inputMulti'">
+        </xz-question-item-edit-input-multi>
 
-      <xz-question-item-edit-rate
-        :item="item"
-        v-if="typeAlias == 'rate'">
-      </xz-question-item-edit-rate>
+        <xz-question-item-edit-rate
+          :item="item"
+          v-if="typeAlias == 'rate'">
+        </xz-question-item-edit-rate>
 
-      <xz-question-item-edit-rate-multi
-        :item="item"
-        v-if="typeAlias == 'rateMulti'">
-      </xz-question-item-edit-rate-multi>
+        <xz-question-item-edit-rate-multi
+          :item="item"
+          v-if="typeAlias == 'rateMulti'">
+        </xz-question-item-edit-rate-multi>
 
-      <xz-question-item-edit-sort
-        :item="item"
-        v-if="typeAlias == 'sort'">
-      </xz-question-item-edit-sort>
+        <xz-question-item-edit-sort
+          :item="item"
+          v-if="typeAlias == 'sort'">
+        </xz-question-item-edit-sort>
 
-      <xz-question-item-edit-slider
-        :item="item"
-        v-if="typeAlias == 'slider'">
-      </xz-question-item-edit-slider>
+        <xz-question-item-edit-slider
+          :item="item"
+          v-if="typeAlias == 'slider'">
+        </xz-question-item-edit-slider>
+      </template>
+
     </div>
 
     <div class="item-submit">
@@ -253,7 +275,7 @@ export default {
   props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
     return {
-      isExpand: true,
+      isExpand: false,
       logic: {
         '1': {
           checked: true,
