@@ -1,7 +1,13 @@
 <template>
 <el-row>
   <el-col :span="24">
-    <el-input type="textarea" :rows="item.setting.height" :minlength="item.setting.min" :maxlength="item.setting.max" :placeholder="placeholder"></el-input>
+    <el-input 
+      type="textarea" 
+      :rows="item.setting.height" 
+      :minlength="item.setting.min" 
+      :maxlength="item.setting.max" 
+      :placeholder="placeholder">
+    </el-input>
   </el-col>
 </el-row>
 </template>

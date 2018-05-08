@@ -30,11 +30,26 @@
         :item="item"
         v-if="typeAlias == 'rate'">
         </xz-question-item-show-rate>
+
+        <xz-question-item-show-rate-multi
+        :item="item"
+        v-if="typeAlias == 'rateMulti'">
+        </xz-question-item-show-rate-multi>
+
+        <xz-question-item-show-sort
+        :item="item"
+        v-if="typeAlias == 'sort'">
+        </xz-question-item-show-sort>
+
+        <xz-question-item-show-slider
+        :item="item"
+        v-if="typeAlias == 'slider'">
+        </xz-question-item-show-slider>
       </div>
     </div>
 
     <div class="item-operate clearfix">
-      <el-button v-show="order != '0'" class="fl operate-btn">
+      <el-button v-show="order != 1" class="fl operate-btn">
         在此题后插入新题
       </el-button>
       <el-button class="fr operate-btn">
@@ -175,6 +190,21 @@
         :item="item"
         v-if="typeAlias == 'rate'">
       </xz-question-item-edit-rate>
+
+      <xz-question-item-edit-rate-multi
+        :item="item"
+        v-if="typeAlias == 'rateMulti'">
+      </xz-question-item-edit-rate-multi>
+
+      <xz-question-item-edit-sort
+        :item="item"
+        v-if="typeAlias == 'sort'">
+      </xz-question-item-edit-sort>
+
+      <xz-question-item-edit-slider
+        :item="item"
+        v-if="typeAlias == 'slider'">
+      </xz-question-item-edit-slider>
     </div>
 
     <div class="item-submit">
@@ -195,6 +225,12 @@ import xzQuestionItemShowInputMulti from './QItemShowInputMulti.vue'
 import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
 import xzQuestionItemShowRate from './QItemShowRate.vue'
 import xzQuestionItemEditRate from './QItemEditRate.vue'
+import xzQuestionItemShowRateMulti from './QItemShowRateMulti.vue'
+import xzQuestionItemEditRateMulti from './QItemEditRateMulti.vue'
+import xzQuestionItemShowSort from './QItemShowSort.vue'
+import xzQuestionItemEditSort from './QItemEditSort.vue'
+import xzQuestionItemShowSlider from './QItemShowSlider.vue'
+import xzQuestionItemEditSlider from './QItemEditSlider.vue'
 
 export default {
   components: {
@@ -207,6 +243,12 @@ export default {
     xzQuestionItemEditInputMulti,
     xzQuestionItemShowRate,
     xzQuestionItemEditRate,
+    xzQuestionItemShowRateMulti,
+    xzQuestionItemEditRateMulti,
+    xzQuestionItemShowSort,
+    xzQuestionItemEditSort,
+    xzQuestionItemShowSlider,
+    xzQuestionItemEditSlider
   },
   props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {

@@ -56,33 +56,65 @@
           width="400"
           label="操作">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.status == 0 || scope.row.status == 2" type="text"><i class="iconfont icon-fabu"></i>发布</el-button>
-            <el-button v-if="scope.row.status == 1" type="text"><i class="iconfont icon-zanting"></i>暂停</el-button>
-            <el-button type="text"><i class="iconfont icon-tongji"></i>统计</el-button>
+            <el-button 
+              v-if="scope.row.status == 0 || scope.row.status == 2" 
+              type="text">
+              <i class="iconfont icon-fabu"></i>
+              发布
+            </el-button>
+            <el-button 
+              v-if="scope.row.status == 1" 
+              type="text">
+              <i class="iconfont icon-zanting"></i>
+              暂停
+            </el-button>
+            <el-button type="text">
+              <i class="iconfont icon-tongji"></i>
+              统计
+            </el-button>
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">
-                <i class="iconfont icon-gengduo1"></i>更多
+                <i class="iconfont icon-gengduo1"></i>
+                更多
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><i class="iconfont icon-daochu"></i>导出word格式</el-dropdown-item>
-                <el-dropdown-item><i class="iconfont icon-tubiao212"></i>分享问卷</el-dropdown-item>
-                <el-dropdown-item><i class="iconfont icon-daochu1"></i>设为模板</el-dropdown-item>
-                <el-dropdown-item><i class="iconfont icon-fuzhi"></i>复制</el-dropdown-item>
-                <el-dropdown-item><i class="iconfont icon-shuru"></i>编辑</el-dropdown-item>
-                <el-dropdown-item><i class="iconfont icon-iconless"></i>删除</el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-daochu"></i>
+                  导出word格式
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-tubiao212"></i>
+                  分享问卷
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-daochu1"></i>
+                  设为模板
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-fuzhi"></i>
+                  复制
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-shuru"></i>
+                  编辑
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <i class="iconfont icon-iconless"></i>
+                  删除
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="pageSize"
         background
         layout="total, prev, pager, next"
-        :total="total">
+        :total="total"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
       </el-pagination>
     </div>
   </div>
