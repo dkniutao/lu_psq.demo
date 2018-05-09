@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import QData from '../assets/editData.json'
 import mylib from '../mylib.js'
 import _ from 'lodash'
@@ -58,15 +57,14 @@ export default {
   },
   data () {
     return {
-      QType: [], //题目类型
+      QType: [], // 题目类型
       QSection: {}, // 标题和段落说明
-      Question: [], //问题列表
-      Target: 1 //当前插入题目的位置
+      Question: [], // 问题列表
+      Target: 1 // 当前插入题目的位置
     }
   },
   computed: {
     QList () {
-      console.log('render');
       let list = _.clone(this.Question)
 
       _.each(this.QSection, (v, k) => {
@@ -74,16 +72,16 @@ export default {
         if (v.name) item.push(v.name)
         if (v.desc) item.push(v.desc)
         // 放在最后
-        if (k == this.Question.length + 1) {
+        if (k === this.Question.length + 1) {
           list.push(item)
           return
         }
         // 放在题目前
         let index = _.findIndex(list, (l) => {
-          return l.order == k
+          return l.order === k
         })
 
-        if (index != -1) {
+        if (index !== -1) {
           list.splice(index, 0, item)
         }
       })
@@ -94,7 +92,7 @@ export default {
   methods: {
     getTypeName (type) {
       var target = _.find(this.QType, (v) => {
-        return v.id == type
+        return v.id === type
       })
 
       return target ? target.name : ''
@@ -120,7 +118,6 @@ export default {
               num: this.Target + 1,
               type: type
             }
-
           }
           if (alias === 'desc' && !section['desc']) {
             section['desc'] = {
@@ -179,7 +176,7 @@ export default {
 
     // 设置标题和段落
     _.each(QData.section, (v) => {
-      let num = v.item.split(',')[0] //题号
+      let num = v.item.split(',')[0] // 题号
       let section = []
       let setSection = (title, type) => {
         return title ? {

@@ -49,9 +49,45 @@
           </el-checkbox-group>
         </el-row>
     </template>
+
+    <template v-else-if="alias === 'input'">
+      <el-row>
+        <el-col :span="24">
+          <el-input
+            type="textarea"
+            :rows="item.question.setting.height"
+            v-model="input">
+          </el-input>
+        </el-col>
+      </el-row>
+    </template>
+
+    <template v-else-if="alias === 'inputMulti'">
+      <el-row class="inputMulti">
+        <el-col :span="24">
+          <el-form
+            v-model="inputMulti"
+            ref="form"
+            label-width="100px"
+            label-position="left">
+            <el-form-item
+              v-for="option in item.question.content"
+              :label="option.title">
+              <el-input
+                type="textarea"
+                :rows="item.question.setting.height"
+                :minlength="item.question.setting.min"
+                :maxlength="item.question.setting.max">
+              </el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+    </template>
   </div>
 </div>
 </template>
+
 <script>
 import _ from 'lodash'
 import mylib from '@/mylib.js'
@@ -60,7 +96,9 @@ export default {
   data () {
     return {
       radio: '',
-      checkbox: []
+      checkbox: [],
+      input: '',
+      inputMulti: ''
     }
   },
   computed: {
@@ -78,4 +116,6 @@ export default {
 
 .item-content{margin-left: 30px;}
 .el-col{padding-top:20px;}
+
+.el-textarea {width: 800px;}
 </style>

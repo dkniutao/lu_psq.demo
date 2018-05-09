@@ -24,13 +24,14 @@ export default {
         'title': '请输入问题标题',
         'content': [
           {
-          'key': 'A',
-          'title': '选项1'
-        },
-        {
-          'key': 'B',
-          'title': '选项2'
-        }]
+            'key': 'A',
+            'title': '选项1'
+          },
+          {
+            'key': 'B',
+            'title': '选项2'
+          }
+        ]
       }
     },
     '2': {
@@ -38,14 +39,15 @@ export default {
       'item': {
         'title': '请输入问题标题',
         'content': [
-        {
-          'key': 'A',
-          'title': '选项1'
-        },
-        {
-          'key': 'B',
-          'title': '选项2'
-        }]
+          {
+            'key': 'A',
+            'title': '选项1'
+          },
+          {
+            'key': 'B',
+            'title': '选项2'
+          }
+        ]
       }
     },
     '3': {
@@ -65,12 +67,13 @@ export default {
       'item': {
         'title': '请输入问题标题',
         'content': [
-        {
-          'title': '标题1'
-        },
-        {
-          'title': '标题2'
-        }],
+          {
+            'title': '标题1'
+          },
+          {
+            'title': '标题2'
+          }
+        ],
         'setting':
         {
           'height': '1',
@@ -84,26 +87,27 @@ export default {
       'item': {
         'title': '请输入问题标题',
         'content': [
-        {
-          'title': '很不满意',
-          'score': '1'
-        },
-        {
-          'title': '不满意',
-          'score': '2'
-        },
-        {
-          'title': '一般',
-          'score': '3'
-        },
-        {
-          'title': '满意',
-          'score': '4'
-        },
-        {
-          'title': '很满意',
-          'score': '5'
-        }]
+          {
+            'title': '很不满意',
+            'score': '1'
+          },
+          {
+            'title': '不满意',
+            'score': '2'
+          },
+          {
+            'title': '一般',
+            'score': '3'
+          },
+          {
+            'title': '满意',
+            'score': '4'
+          },
+          {
+            'title': '很满意',
+            'score': '5'
+          }
+        ]
       }
     },
     '6': {
@@ -111,33 +115,34 @@ export default {
       'item': {
         'title': '请输入问题标题',
         'content': [
-        {
-          'title': '很不满意',
-          'score': '1'
-        },
-        {
-          'title': '不满意',
-          'score': '2'
-        },
-        {
-          'title': '一般',
-          'score': '3'
-        },
-        {
-          'title': '满意',
-          'score': '4'
-        },
-        {
-          'title': '很满意',
-          'score': '5'
-        }],
-        'setting': [
-        {
-          'title': '外观'
-        },
-        {
-          'title': '功能'
-        }]
+          {
+            'title': '很不满意',
+            'score': '1'
+          },
+          {
+            'title': '不满意',
+            'score': '2'
+          },
+          {
+            'title': '一般',
+            'score': '3'
+          },
+          {
+            'title': '满意',
+            'score': '4'
+          },
+          {
+            'title': '很满意',
+            'score': '5'
+          }],
+          'setting': [
+          {
+            'title': '外观'
+          },
+          {
+            'title': '功能'
+          }
+        ]
       }
     },
     '10': {
@@ -145,14 +150,15 @@ export default {
       'item': {
         'title': '请输入问题标题',
         'content': [
-        {
-          'key': '1',
-          'title': '选项1'
-        },
-        {
-          'key': '2',
-          'title': '选项2'
-        }]
+          {
+            'key': '1',
+            'title': '选项1'
+          },
+          {
+            'key': '2',
+            'title': '选项2'
+          }
+        ]
       }
     },
     '9': {

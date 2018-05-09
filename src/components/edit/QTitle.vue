@@ -3,7 +3,7 @@
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
       <!-- 标题和段落 -->
-      <template v-if="typeAlias === 'title' || typeAlias === 'desc'">
+      <template v-if="typeAlias == 'title' || typeAlias == 'desc'">
         <div class="clearfix">
           <div class="fl" v-html="item.title"></div>
         </div>
@@ -17,42 +17,42 @@
         <div>
           <xz-question-item-show-radio
           :item="item"
-          v-if="typeAlias === 'radio'">
+          v-if="typeAlias == 'radio'">
           </xz-question-item-show-radio>
 
           <xz-question-item-show-checkbox
           :item="item"
-          v-if="typeAlias === 'checkbox'">
+          v-if="typeAlias == 'checkbox'">
           </xz-question-item-show-checkbox>
 
           <xz-question-item-show-input
           :item="item"
-          v-if="typeAlias === 'input'">
+          v-if="typeAlias == 'input'">
           </xz-question-item-show-input>
 
           <xz-question-item-show-input-multi
           :item="item"
-          v-if="typeAlias === 'inputMulti'">
+          v-if="typeAlias == 'inputMulti'">
           </xz-question-item-show-input-multi>
 
           <xz-question-item-show-rate
           :item="item"
-          v-if="typeAlias === 'rate'">
+          v-if="typeAlias == 'rate'">
           </xz-question-item-show-rate>
 
           <xz-question-item-show-rate-multi
           :item="item"
-          v-if="typeAlias === 'rateMulti'">
+          v-if="typeAlias == 'rateMulti'">
           </xz-question-item-show-rate-multi>
 
           <xz-question-item-show-sort
           :item="item"
-          v-if="typeAlias === 'sort'">
+          v-if="typeAlias == 'sort'">
           </xz-question-item-show-sort>
 
           <xz-question-item-show-slider
           :item="item"
-          v-if="typeAlias === 'slider'">
+          v-if="typeAlias == 'slider'">
           </xz-question-item-show-slider>
         </div>
       </template>
@@ -62,43 +62,35 @@
       <el-button v-show="order != 1" class="fl operate-btn">
         在此题后插入新题
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="last">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-zhidingdel"></i>最后
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="first">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-icon_zhiding"></i>最前
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="down">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-xiayi"></i>下移
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="up">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-shangyi"></i>上移
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="del">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-iconless"></i>删除
       </el-button>
-      <el-button class="fr operate-btn"
-        @click="copy">
+      <el-button class="fr operate-btn">
         <i class="icon iconfont icon-fuzhi"></i>复制
       </el-button>
-      <el-button v-show="!isExpand" class="fr operate-btn"
-        @click="edit">
+      <el-button v-show="!isExpand" class="fr operate-btn" @click="edit">
         <i class="icon iconfont icon-shuru"></i>编辑
       </el-button>
-      <el-button v-show="isExpand" class="fr operate-btn"
-        @click="complete">
+      <el-button v-show="isExpand" class="fr operate-btn" @click="complete">
         <i class="icon iconfont icon-wancheng"></i>完成
       </el-button>
     </div>
 
     <div class="item-edit">
       <!-- 标题和段落 -->
-      <template v-if="typeAlias === 'title' || typeAlias === 'desc'">
+      <template v-if="typeAlias == 'title' || typeAlias == 'desc'">
         <el-row>
           <el-col :span="24">
             <quill-editor v-model="item.title" ref="myQuillEditor">
@@ -132,7 +124,7 @@
                 题
               </el-col>
             </el-row>
-            <el-row v-if="typeAlias === 'radio'">
+            <el-row v-if="typeAlias == 'radio'">
               <el-col :span="5">
                 <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
               </el-col>
@@ -159,7 +151,7 @@
                     </el-select>
                   </el-col>
                   <el-col :span="4">
-                    <el-button type="text" v-if="index === 0">+更多</el-button>
+                    <el-button type="text" v-if="index == 0">+更多</el-button>
                     <el-button type="text" v-else>-取消</el-button>
                   </el-col>
                 </el-row>
@@ -202,37 +194,37 @@
 
         <xz-question-item-edit-select
           :item="item"
-          v-if="typeAlias === 'radio' || typeAlias === 'checkbox'">
+          v-if="typeAlias == 'radio' || typeAlias == 'checkbox'">
         </xz-question-item-edit-select>
 
         <xz-question-item-edit-input
           :item="item"
-          v-if="typeAlias === 'input'">
+          v-if="typeAlias == 'input'">
         </xz-question-item-edit-input>
 
         <xz-question-item-edit-input-multi
           :item="item"
-          v-if="typeAlias === 'inputMulti'">
+          v-if="typeAlias == 'inputMulti'">
         </xz-question-item-edit-input-multi>
 
         <xz-question-item-edit-rate
           :item="item"
-          v-if="typeAlias === 'rate'">
+          v-if="typeAlias == 'rate'">
         </xz-question-item-edit-rate>
 
         <xz-question-item-edit-rate-multi
           :item="item"
-          v-if="typeAlias === 'rateMulti'">
+          v-if="typeAlias == 'rateMulti'">
         </xz-question-item-edit-rate-multi>
 
         <xz-question-item-edit-sort
           :item="item"
-          v-if="typeAlias === 'sort'">
+          v-if="typeAlias == 'sort'">
         </xz-question-item-edit-sort>
 
         <xz-question-item-edit-slider
           :item="item"
-          v-if="typeAlias === 'slider'">
+          v-if="typeAlias == 'slider'">
         </xz-question-item-edit-slider>
       </template>
 
@@ -281,7 +273,7 @@ export default {
     xzQuestionItemShowSlider,
     xzQuestionItemEditSlider
   },
-  props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
+  props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
     return {
       isExpand: false,
@@ -312,17 +304,14 @@ export default {
   },
   computed: {
     typeAlias () {
-      return mylib.TYPE_DATA[this.type]['alias']
-    },
-    isTitle () {
-      return this.typeAlias === 'title' || this.typeAlias === 'desc'
+      return mylib.TYPE_ALIAS[this.type]
     }
   },
   methods: {
     // 关联逻辑选择问题
     logicQuestionChange (rule) {
       let target = _.find(this.list, function(v) {
-        return v.order === rule.question
+        return v.order == rule.question
       })
 
       rule.option = ''
@@ -333,91 +322,6 @@ export default {
     },
     complete () {
       this.isExpand = false
-    },
-    updateList () {
-      _.each(this.list, (v, k) => {
-        v.order = k + 1
-      })
-    },
-    up () {
-      if (this.isTitle) {
-        return
-      }
-
-      let index = this.order - 1
-      if (index <= 0) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(index - 1, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
-    },
-    down () {
-      if (this.isTitle) {
-        return
-      }
-
-      let index = this.order - 1
-      if (index >= this.list.length - 1) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(index + 1, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
-    },
-    last () {
-      let index = this.order - 1
-      if (index >= this.list.length - 1) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(this.list.length, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
-    },
-    first () {
-      let index = this.order - 1
-      if (index <= 0) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(0, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
-    },
-    del () {
-      let index = this.order - 1
-      this.list.splice(index, 1)
-
-      this.updateList()
-    },
-    copy () {
-      let index = this.order - 1
-      this.list.splice(index + 1, 0, {
-        item: _.clone(this.item),
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     }
   }
 }

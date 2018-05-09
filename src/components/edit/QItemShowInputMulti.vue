@@ -2,14 +2,14 @@
 <el-row>
   <el-col :span="24">
     <el-form ref="form" label-width="100px">
-      <el-form-item 
-        v-for="option in item.content" 
+      <el-form-item
+        v-for="option in item.content"
         :label="option.title">
-        <el-input 
-          type="textarea" 
-          :rows="item.setting.height" 
-          :minlength="item.setting.min" 
-          :maxlength="item.setting.max" 
+        <el-input
+          type="textarea"
+          :rows="item.setting.height"
+          :minlength="item.setting.min"
+          :maxlength="item.setting.max"
           :placeholder="placeholder">
         </el-input>
       </el-form-item>

@@ -5,7 +5,9 @@
     <div class="desc" v-html="data.description"></div>
 </div>
 <div class="psq-section">
-  <template v-for="(section, index) in data.section">
+  <div
+    v-for="(section, index) in data.section"
+    :key="index">
     <div
       v-if="section.name"
       v-html="(index + 1)  + '、' + section.name"
@@ -21,16 +23,17 @@
       <xz-item
         class="psq-chunk"
         v-for="Q in section.questions"
-        :item="Q">
+        :item="Q"
+        :key="Q.id">
       </xz-item>
     </div>
-  </template>
+  </div>
 </div>
 </div>
 </template>
 <script>
-import _ from 'lodash'
-import mylib from '../mylib.js'
+// import _ from 'lodash'
+// import mylib from '../mylib.js'
 import data from '../assets/previewData.json'
 import xzItem from './preview/QItem.vue'
 
