@@ -62,28 +62,36 @@
       <el-button v-show="order != 1" class="fl operate-btn">
         在此题后插入新题
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="last">
         <i class="icon iconfont icon-zhidingdel"></i>最后
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="first">
         <i class="icon iconfont icon-icon_zhiding"></i>最前
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="down">
         <i class="icon iconfont icon-xiayi"></i>下移
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="up">
         <i class="icon iconfont icon-shangyi"></i>上移
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="del">
         <i class="icon iconfont icon-iconless"></i>删除
       </el-button>
-      <el-button class="fr operate-btn">
+      <el-button class="fr operate-btn"
+        @click="copy">
         <i class="icon iconfont icon-fuzhi"></i>复制
       </el-button>
-      <el-button v-show="!isExpand" class="fr operate-btn" @click="edit">
+      <el-button v-show="!isExpand" class="fr operate-btn"
+        @click="edit">
         <i class="icon iconfont icon-shuru"></i>编辑
       </el-button>
-      <el-button v-show="isExpand" class="fr operate-btn" @click="complete">
+      <el-button v-show="isExpand" class="fr operate-btn"
+        @click="complete">
         <i class="icon iconfont icon-wancheng"></i>完成
       </el-button>
     </div>
@@ -273,7 +281,7 @@ export default {
     xzQuestionItemShowSlider,
     xzQuestionItemEditSlider
   },
-  props: ['order', 'type', 'typeName', 'item', 'list'],
+  props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
   data () {
     return {
       isExpand: false,
@@ -305,6 +313,9 @@ export default {
   computed: {
     typeAlias () {
       return mylib.TYPE_ALIAS[this.type]
+    },
+    isTitle () {
+      return this.typeAlias == 'title' || this.typeAlias == 'desc'
     }
   },
   methods: {
@@ -322,6 +333,82 @@ export default {
     },
     complete () {
       this.isExpand = false
+    },
+    updateList () {
+      _.each(this.list, (v, k) => {
+        v.order = k + 1
+      })
+    },
+    up () {
+      if (this.isTitle) {
+        return
+      }
+
+      let index = this.order - 1
+      if (index <= 0) return
+
+      this.list.splice(index, 1)
+
+      this.list.splice(index - 1, 0, {
+        item: this.item,
+        type: this.type,
+        order: this.order
+      })
+
+      this.updateList()
+    },
+    down () {
+      if (this.isTitle) {
+        return
+      }
+
+      let index = this.order - 1
+      if (index >= this.list.length - 1) return
+
+      this.list.splice(index, 1)
+
+      this.list.splice(index + 1, 0, {
+        item: this.item,
+        type: this.type,
+        order: this.order
+      })
+
+      this.updateList()
+    },
+    last () {
+      let index = this.order - 1
+      if (index >= this.list.length - 1) return
+
+      this.list.splice(index, 1)
+
+      this.list.splice(this.list.length, 0, {
+        item: this.item,
+        type: this.type,
+        order: this.order
+      })
+
+      this.updateList()
+    },
+    first () {
+      let index = this.order - 1
+      if (index <= 0) return
+
+      this.list.splice(index, 1)
+
+      this.list.splice(0, 0, {
+        item: this.item,
+        type: this.type,
+        order: this.order
+      })
+
+      this.updateList()
+    },
+    del () {
+      let index = this.order - 1
+      this.list.splice(index, 1)
+    },
+    copy () {
+
     }
   }
 }

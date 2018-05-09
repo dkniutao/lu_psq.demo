@@ -66,8 +66,6 @@ export default {
       return url ? url.split('/').slice(-1)[0] : ''
     },
     uploadImg (row, index) {
-      console.log(this.$ref);
-      console.log(this.$refs);
       this.$refs['uploadImg'].render(row)
     },
     add (row, index) {
@@ -78,18 +76,18 @@ export default {
       })
     },
     del (row, index) {
-      if (this.data.length <= 1) return;
+      if (this.data.length <= 1) return
 
       this.data.splice(index, 1)
     },
     down (row, index) {
-      if (index >= this.data.length - 1) return;
+      if (index >= this.data.length - 1) return
 
       this.data.splice(index, 1)
       this.data.splice(index + 1, 0, row)
     },
     up (row, index) {
-      if (index <= 0) return;
+      if (index <= 0) return
 
       this.data.splice(index, 1)
       this.data.splice(index - 1, 0, row)

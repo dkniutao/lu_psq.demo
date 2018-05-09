@@ -35,7 +35,8 @@
         :type="item.type"
         :type-name="getTypeName(item.type)"
         :item="item.item" :key="item.order"
-        :list="QList">
+        :list="Question"
+        :section="QSection">
       </xz-question-item>
     </div>
   </div>
