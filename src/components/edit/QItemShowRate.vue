@@ -2,10 +2,11 @@
 <div class="clearfix">
   <span class="fl">{{item.content[0]['title']}}</span>
   <el-radio-group class="fl">
-    <el-radio 
-      v-for="option in item.content" 
-      :label="option.score" 
-      :title="option.title">
+    <el-radio
+      v-for="(option, index) in item.content"
+      :label="option.score"
+      :title="option.title"
+      :key="index">
       {{option.score}}
     </el-radio>
   </el-radio-group>

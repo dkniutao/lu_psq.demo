@@ -312,7 +312,7 @@ export default {
   },
   computed: {
     typeAlias () {
-      return mylib.TYPE_ALIAS[this.type]
+      return mylib.TYPE_DATA[this.type]['alias']
     },
     isTitle () {
       return this.typeAlias == 'title' || this.typeAlias == 'desc'
@@ -406,9 +406,18 @@ export default {
     del () {
       let index = this.order - 1
       this.list.splice(index, 1)
+
+      this.updateList()
     },
     copy () {
+      let index = this.order - 1
+      this.list.splice(index + 1, 0, {
+        item: _.clone(this.item),
+        type: this.type,
+        order: this.order
+      })
 
+      this.updateList()
     }
   }
 }

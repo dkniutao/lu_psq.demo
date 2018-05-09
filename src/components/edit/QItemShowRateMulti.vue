@@ -10,8 +10,9 @@
       width="180">
     </el-table-column>
     <el-table-column
-      v-for="column in item.content"
-      :label="column.title + '(分值:' + column.score + ')'">
+      v-for="(column, index) in item.content"
+      :label="column.title + '(分值:' + column.score + ')'"
+      :key="index">
       <template slot-scope="scope">
         <el-radio :label="column.score">&nbsp;</el-radio>
       </template>
