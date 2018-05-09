@@ -30,12 +30,13 @@
     <div class="question-list">
       <!-- 单选 -->
       <xz-question-item
-        v-for="item in QList"
+        v-for="item in QLIST"
+        :section="item.section"
         :order="item.order"
         :type="item.type"
         :type-name="getTypeName(item.type)"
         :item="item.item" :key="item.order"
-        :list="QList">
+        :list="QLIST">
       </xz-question-item>
     </div>
   </div>
@@ -60,6 +61,38 @@ export default {
       QList: QData.question
     }
   },
+  computed: {
+    QLIST () {
+      let list = QData.question
+
+      _.each(QData.section, (v) => {
+        let num = v.item.split(',')[0] //题号
+        let section = []
+        if (v.name) {
+          section.push({
+            item: {
+              title: v.name
+            },
+            num: num,
+            type: '7'
+          })
+        }
+        if (v.description) {
+          section.push({
+            item: {
+              title: v.description
+            },
+            num: num,
+            type: '8'
+          })
+        }
+
+        list[num - 1]['section'] = section
+      })
+      console.log(list);
+      return list
+    }
+  },
   methods: {
     getTypeName (type) {
       var target = _.find(this.QType, (v) => {
@@ -79,30 +112,6 @@ export default {
         this.QType = res.data
       }
     }, this)
-
-    this.QList = QData.question
-
-    _.each(QData.section, (v, k) => {
-      let index = v.item.split(',')[0]
-      if (v.description) {
-        this.QList.splice(index - 1, 0, {
-          "type": "8",
-          "item":
-          {
-            "title": "请输入段落说明"
-          }
-        })
-      }
-      if (v.name) {
-        this.QList.splice(index - 1, 0, {
-          "type": "7",
-          "item":
-          {
-            "title": "<strong>请输入标题</strong>"
-          }
-        })
-      }
-    })
   }
 }
 </script>

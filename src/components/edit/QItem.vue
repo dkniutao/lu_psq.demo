@@ -1,4 +1,12 @@
 <template>
+<div>
+  <xz-question-item
+    v-for="(sec, index) in section"
+    :order="index"
+    :type="sec.type"
+    :item="sec.item" :key="index">
+  </xz-question-item>
+
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
       <!-- 标题和段落 -->
@@ -233,11 +241,11 @@
       <el-button  class="question-submit" type="primary" @click="complete">完成编辑</el-button>
     </div>
   </div>
+</div>
 </template>
 <script>
 import mylib from '../../mylib.js'
 import _ from 'lodash'
-
 import xzQuestionItemEditSelect from './QItemEditSelect.vue'
 import xzQuestionItemShowRadio from './QItemShowRadio.vue'
 import xzQuestionItemShowCheckbox from './QItemShowCheckbox.vue'
@@ -270,9 +278,10 @@ export default {
     xzQuestionItemShowSort,
     xzQuestionItemEditSort,
     xzQuestionItemShowSlider,
-    xzQuestionItemEditSlider
+    xzQuestionItemEditSlider,
+    xzQuestionItem: () => import('./QItem.vue')
   },
-  props: ['order', 'type', 'typeName', 'item', 'list'],
+  props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
   data () {
     return {
       isExpand: false,
