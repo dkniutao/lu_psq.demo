@@ -57,7 +57,7 @@ export default {
 }
 </script>
 <style scoped>
-.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;}
+.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;line-height: 30px;}
 .psq-chunk{border-bottom: 1px solid #f3f3f3;margin:0 20px;padding:20px 0;}
 
 /*问卷说明 start*/
@@ -67,8 +67,7 @@ export default {
 /*问卷说明 end*/
 
 /*标题和段落 start*/
-.psq-section-title{font-weight: bold;line-height: 30px;padding-top:40px;}
-.psq-section-desc{ine-height: 30px;}
+.psq-section-title{font-weight: bold;padding-top:40px;}
 /*标题和段落 end*/
 
 /*问题列表 start*/
