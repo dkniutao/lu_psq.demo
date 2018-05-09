@@ -13,40 +13,65 @@
     </el-row>
   </div>
   <div class="item-content">
-    <template v-if="alias == 'radio'">
-      <el-radio-group v-model="radio">
-        <el-row>
-          <el-col :span="24" v-for="option in item.question.content" :key="option.key">
+    <template v-if="alias === 'radio'">
+      <el-row>
+        <el-radio-group v-model="radio">
+          <el-col
+            :span="24"
+            v-for="option in item.question.content"
+            :key="option.key">
             <el-radio :label="option.key">
-              <img v-if="option.img" :src="option.img" alt="">
               {{option.title}}
+              <div v-if="option.img">
+                <img class="fl" v-if="option.img" :src="option.img" alt="">
+              </div>
             </el-radio>
           </el-col>
+        </el-radio-group>
+      </el-row>
+    </template>
+
+    <template v-else-if="alias === 'checkbox'">
+      <el-row>
+        <el-checkbox-group
+          v-model="checkbox">
+            <el-col
+              :span="24"
+              v-for="option in item.question.content"
+              >
+              <el-checkbox :label="option.key">
+                {{option.title}}
+                <div v-if="option.img">
+                  <img class="fl" v-if="option.img" :src="option.img">
+                </div>
+              </el-checkbox>
+            </el-col>
+          </el-checkbox-group>
         </el-row>
-      </el-radio-group>
     </template>
   </div>
 </div>
 </template>
 <script>
-  import _ from 'lodash'
-  import mylib from '@/mylib.js'
-  export default {
-    props: ['item'],
-    data () {
-      return {
-        radio: ''
-      }
-    },
-    computed: {
-      alias () {
-        return mylib.TYPE_DATA[this.item.type]['alias']
-      }
-    },
-    methods: {
-
+import _ from 'lodash'
+import mylib from '@/mylib.js'
+export default {
+  props: ['item'],
+  data () {
+    return {
+      radio: '',
+      checkbox: []
     }
+  },
+  computed: {
+    alias () {
+      return mylib.TYPE_DATA[this.item.type]['alias']
+    }
+  },
+  methods: {
+
   }
+}
 </script>
 <style scoped>
 .item-title .order{width:10px;margin-right: 20px;}

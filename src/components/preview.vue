@@ -57,7 +57,7 @@ export default {
 }
 </script>
 <style scoped>
-.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;line-height: 30px;}
+.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;}
 .psq-chunk{border-bottom: 1px solid #f3f3f3;margin:0 20px;padding:20px 0;}
 
 /*问卷说明 start*/
