@@ -1,0 +1,77 @@
+<template>
+<div class="psq-content">
+<div class="psq-header psq-chunk">
+    <div class="title" v-html="data.name"></div>
+    <div class="desc" v-html="data.description"></div>
+</div>
+<div class="psq-section">
+  <template v-for="(section, index) in data.section">
+    <div
+      v-if="section.name"
+      v-html="(index + 1)  + '、' + section.name"
+      class="psq-section-title psq-chunk">
+    </div>
+    <div
+      v-if="section.description"
+      v-html="section.description"
+      class="psq-section-desc psq-chunk">
+    </div>
+
+    <div class="psq-list">
+      <xz-item
+        class="psq-chunk"
+        v-for="Q in section.questions"
+        :item="Q">
+      </xz-item>
+    </div>
+  </template>
+</div>
+</div>
+</template>
+<script>
+import _ from 'lodash'
+import mylib from '../mylib.js'
+import data from '../assets/previewData.json'
+import xzItem from './preview/QItem.vue'
+
+export default {
+  components: {
+    xzItem
+  },
+  data () {
+    return {
+      data: data.data
+    }
+  },
+  mounted () {
+    // mylib.axios({
+    //   url: 'questionnaire/copy',
+    //   params: {
+    //     id: 12
+    //   },
+    //   done (res) {
+    //     console.log(res);
+    //   }
+    // }, this)
+  }
+}
+</script>
+<style scoped>
+.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;}
+.psq-chunk{border-bottom: 1px solid #f3f3f3;margin:0 20px;padding:20px 0;}
+
+/*问卷说明 start*/
+.psq-header{box-sizing: border-box;padding-bottom: 40px;}
+.psq-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;margin-bottom: 10px;}
+.psq-header .desc{font-size: 14px;color: #666666;}
+/*问卷说明 end*/
+
+/*标题和段落 start*/
+.psq-section-title{font-weight: bold;line-height: 30px;padding-top:40px;}
+.psq-section-desc{ine-height: 30px;}
+/*标题和段落 end*/
+
+/*问题列表 start*/
+.psq-list .psq-chunk{padding-top: 40px;}
+/*问题列表 end*/
+</style>
