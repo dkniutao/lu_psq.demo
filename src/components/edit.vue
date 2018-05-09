@@ -31,7 +31,6 @@
       <!-- 单选 -->
       <xz-question-item
         v-for="item in QList"
-        :section="item.section"
         :order="item.order"
         :type="item.type"
         :type-name="getTypeName(item.type)"
@@ -64,13 +63,18 @@ export default {
   },
   computed: {
     QList () {
-      let list = _.extend({}, this.Question)
+      let list = _.concat([], this.Question)
 
       _.each(this.QSection, (v, k) => {
-        list[k]['section'] = v
+        let index = _.findIndex(list, (v) => {
+          return v.order == k
+        })
+        if (index != -1) {
+          list.splice(index, 0, v)
+        }
       })
 
-      return list
+      return _.flatten(list)
     }
   },
   methods: {

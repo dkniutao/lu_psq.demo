@@ -1,12 +1,5 @@
 <template>
 <div>
-  <xz-question-item
-    v-for="(sec, index) in section"
-    :order="index"
-    :type="sec.type"
-    :item="sec.item" :key="index">
-  </xz-question-item>
-
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
       <!-- 标题和段落 -->
@@ -278,10 +271,9 @@ export default {
     xzQuestionItemShowSort,
     xzQuestionItemEditSort,
     xzQuestionItemShowSlider,
-    xzQuestionItemEditSlider,
-    xzQuestionItem: () => import('./QItem.vue')
+    xzQuestionItemEditSlider
   },
-  props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
+  props: ['order', 'type', 'typeName', 'item', 'list'],
   data () {
     return {
       isExpand: false,
