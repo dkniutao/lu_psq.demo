@@ -30,13 +30,13 @@
     <div class="question-list">
       <!-- 单选 -->
       <xz-question-item
-        v-for="item in QLIST"
+        v-for="item in QList"
         :section="item.section"
         :order="item.order"
         :type="item.type"
         :type-name="getTypeName(item.type)"
         :item="item.item" :key="item.order"
-        :list="QLIST">
+        :list="QList">
       </xz-question-item>
     </div>
   </div>
@@ -58,38 +58,18 @@ export default {
   data () {
     return {
       QType: [],
-      QList: QData.question
+      QSection: {},
+      Question: []
     }
   },
   computed: {
-    QLIST () {
-      let list = QData.question
+    QList () {
+      let list = _.extend({}, this.Question)
 
-      _.each(QData.section, (v) => {
-        let num = v.item.split(',')[0] //题号
-        let section = []
-        if (v.name) {
-          section.push({
-            item: {
-              title: v.name
-            },
-            num: num,
-            type: '7'
-          })
-        }
-        if (v.description) {
-          section.push({
-            item: {
-              title: v.description
-            },
-            num: num,
-            type: '8'
-          })
-        }
-
-        list[num - 1]['section'] = section
+      _.each(this.QSection, (v, k) => {
+        list[k]['section'] = v
       })
-      console.log(list);
+
       return list
     }
   },
@@ -106,12 +86,35 @@ export default {
     }
   },
   mounted () {
+    // 获取问题类型
     mylib.axios({
       url: 'questionnaire/getqtype',
       done (res) {
         this.QType = res.data
       }
     }, this)
+
+    // 设置标题和段落
+    _.each(QData.section, (v) => {
+      let num = v.item.split(',')[0] //题号
+      let section = []
+      let setSection = (title, type) => {
+        return {
+          item: {
+            title: title
+          },
+          num: num,
+          type: type
+        }
+      }
+
+      section.push(setSection(v.name, 7))
+      section.push(setSection(v.description, 8))
+
+      this.QSection[num] = section
+    })
+
+    this.Question = QData.question
   }
 }
 </script>
