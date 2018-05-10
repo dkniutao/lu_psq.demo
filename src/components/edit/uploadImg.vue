@@ -35,7 +35,7 @@
 
 <script>
 import mylib from '../../mylib.js'
-//@todo 添加供外部使用的弹窗显示方法
+// @todo 添加供外部使用的弹窗显示方法
 export default {
   data () {
     return {
@@ -51,7 +51,7 @@ export default {
     delImg () {
       this.row.img = ''
     },
-    render(row) {
+    render (row) {
       this.row = row
       this.visible = true
     }

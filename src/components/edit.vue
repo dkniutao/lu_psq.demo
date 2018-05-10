@@ -35,7 +35,8 @@
         :type="item.type"
         :type-name="getTypeName(item.type)"
         :item="item.item" :key="item.order"
-        :list="QList">
+        :list="Question"
+        :section="QSection">
       </xz-question-item>
     </div>
   </div>
@@ -56,29 +57,145 @@ export default {
   },
   data () {
     return {
-      QType: [],
-      QList: QData.question
+      QType: [], // 题目类型
+      QSection: {}, // 标题和段落说明
+      Question: [], // 问题列表
+      Target: 1 // 当前插入题目的位置
+    }
+  },
+  computed: {
+    QList () {
+      let list = _.clone(this.Question)
+
+      _.each(this.QSection, (v, k) => {
+        let item = []
+        if (v.name) item.push(v.name)
+        if (v.desc) item.push(v.desc)
+        // 放在最后
+        if (k === this.Question.length + 1) {
+          list.push(item)
+          return
+        }
+        // 放在题目前
+        let index = _.findIndex(list, (l) => {
+          return l.order === k
+        })
+
+        if (index !== -1) {
+          list.splice(index, 0, item)
+        }
+      })
+
+      return _.flatten(list)
     }
   },
   methods: {
     getTypeName (type) {
       var target = _.find(this.QType, (v) => {
-        return v.id == type
+        return v.id === type
       })
 
       return target ? target.name : ''
     },
+    updateListOrder () {
+      _.each(this.Question, (v, k) => {
+        v.order = k + 1
+      })
+    },
     addQuestion (type) {
-      console.log(type)
+      let question = mylib.TYPE_DATA[type]
+      let alias = question['alias']
+
+      if (alias === 'title' || alias === 'desc') {
+        let section = this.QSection[this.Target + 1]
+
+        if (section) {
+          if (alias === 'title' && !section['name']) {
+            section['name'] = {
+              item: {
+                title: '<strong>请输入标题</strong>'
+              },
+              num: this.Target + 1,
+              type: type
+            }
+          }
+          if (alias === 'desc' && !section['desc']) {
+            section['desc'] = {
+              item: {
+                title: '请输入段落说明'
+              },
+              num: this.Target + 1,
+              type: type
+            }
+          }
+
+          delete this.QSection[this.Target + 1]
+          this.$set(this.QSection, this.Target + 1, section)
+        } else {
+          let section = {}
+          if (alias === 'title') {
+            section['name'] = {
+              item: {
+                title: '<strong>请输入标题</strong>'
+              },
+              num: this.Target + 1,
+              type: type
+            }
+          } else if (alias === 'desc') {
+            section['desc'] = {
+              item: {
+                title: '请输入段落说明'
+              },
+              num: this.Target + 1,
+              type: type
+            }
+          }
+
+          delete this.QSection[this.Target + 1]
+          this.$set(this.QSection, this.Target + 1, section)
+        }
+        return
+      }
+
+      this.Question.splice(this.Target, 0, {
+        type: type,
+        order: '',
+        item: question['item']
+      })
+      this.updateListOrder()
     }
   },
   mounted () {
+    // 获取问题类型
     mylib.axios({
       url: 'questionnaire/getqtype',
       done (res) {
         this.QType = res.data
       }
     }, this)
+
+    // 设置标题和段落
+    _.each(QData.section, (v) => {
+      let num = v.item.split(',')[0] // 题号
+      let section = []
+      let setSection = (title, type) => {
+        return title ? {
+          item: {
+            title: title
+          },
+          num: num,
+          type: type
+        } : ''
+      }
+      section['name'] = setSection(v.name, 7)
+      section['desc'] = setSection(v.description, 8)
+
+      this.QSection[num] = section
+    })
+
+    this.Question = QData.question
+    // this.Target = this.Question.length
+    this.Target = 4
   }
 }
 </script>

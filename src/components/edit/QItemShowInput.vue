@@ -1,11 +1,11 @@
 <template>
 <el-row>
   <el-col :span="24">
-    <el-input 
-      type="textarea" 
-      :rows="item.setting.height" 
-      :minlength="item.setting.min" 
-      :maxlength="item.setting.max" 
+    <el-input
+      type="textarea"
+      :rows="item.setting.height"
+      :minlength="item.setting.min"
+      :maxlength="item.setting.max"
       :placeholder="placeholder">
     </el-input>
   </el-col>
@@ -20,7 +20,7 @@ export default {
       let set = this.item.setting
 
       if (set.min && set.max) {
-        if (set.min == set.max) {
+        if (set.min === set.max) {
           return set.min + '个字'
         } else {
           return set.min + '到' + set.max + '个字'

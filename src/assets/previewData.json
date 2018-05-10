@@ -1,0 +1,410 @@
+{
+  "success": true,
+  "data":
+  {
+    "name": "问卷测试29",
+    "description": "测试问卷29",
+    "section": [
+    {
+      "name": "基本信息",
+      "description": "参与问卷的结果只做统计用途",
+      "questions":
+      {
+        "1":
+        {
+          "id": "130",
+          "q_id": "29",
+          "type": "1",
+          "question":
+          {
+            "title": "你喜欢以下哪个数字？【单选题】",
+            "content": [
+            {
+              "key": "A",
+              "title": "1",
+              "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
+            },
+            {
+              "key": "B",
+              "title": "-1",
+              "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
+            },
+            {
+              "key": "C",
+              "title": "0",
+              "img": ""
+            }]
+          },
+          "is_required": "1",
+          "order": "1",
+          "type_name": "单选题"
+        },
+        "2":
+        {
+          "id": "131",
+          "q_id": "29",
+          "type": "2",
+          "question":
+          {
+            "title": "以下代表真值有？【多选题】",
+            "content": [
+            {
+              "key": "A",
+              "title": "yes",
+              "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
+            },
+            {
+              "key": "B",
+              "title": "ok",
+              "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
+            },
+            {
+              "key": "C",
+              "title": "true",
+              "img": ""
+            },
+            {
+              "key": "D",
+              "title": "no",
+              "img": ""
+            }]
+          },
+          "is_required": "1",
+          "order": "2",
+          "type_name": "多选题"
+        },
+        "3":
+        {
+          "id": "132",
+          "q_id": "29",
+          "type": "3",
+          "question":
+          {
+            "title": "哪个是数字？【单项填空题】",
+            "setting":
+            {
+              "height": "1",
+              "min": "",
+              "max": ""
+            }
+          },
+          "is_required": "1",
+          "order": "3",
+          "type_name": "单项填空题"
+        },
+        "4":
+        {
+          "id": "133",
+          "q_id": "29",
+          "type": "4",
+          "question":
+          {
+            "title": " 对于iphone7你有什么看法？【多项填空题】",
+            "content": [
+            {
+              "title": "标题1"
+            },
+            {
+              "title": "标题2"
+            }],
+            "setting":
+            {
+              "height": "1",
+              "min": "2",
+              "max": "5"
+            }
+          },
+          "is_required": "1",
+          "order": "4",
+          "type_name": "多项填空题"
+        },
+        "5":
+        {
+          "id": "134",
+          "q_id": "29",
+          "type": "2",
+          "question":
+          {
+            "title": "你的评价是什么？【多选题】",
+            "content": [
+            {
+              "key": "A",
+              "title": "厌恶",
+              "img": ""
+            },
+            {
+              "key": "B",
+              "title": "可怜",
+              "img": ""
+            },
+            {
+              "key": "C",
+              "title": "满意",
+              "img": ""
+            },
+            {
+              "key": "D",
+              "title": "不好",
+              "img": ""
+            },
+            {
+              "key": "E",
+              "title": "不满意",
+              "img": ""
+            }]
+          },
+          "is_required": "1",
+          "order": "5",
+          "type_name": "多选题"
+        },
+        "6":
+        {
+          "id": "135",
+          "q_id": "29",
+          "type": "1",
+          "question":
+          {
+            "title": "1比0大小如何？【单选题】",
+            "content": [
+            {
+              "key": "A",
+              "title": "等于",
+              "img": ""
+            },
+            {
+              "key": "B",
+              "title": "大于",
+              "img": ""
+            },
+            {
+              "key": "C",
+              "title": "小于",
+              "img": ""
+            }]
+          },
+          "is_required": "1",
+          "order": "6",
+          "type_name": "单选题"
+        }
+      }
+    },
+    {
+      "name": "附加信息",
+      "description": "调查结果只做统计用途",
+      "questions":
+      {
+        "7":
+        {
+          "id": "136",
+          "q_id": "29",
+          "type": "3",
+          "question":
+          {
+            "title": "【单项填空标题】",
+            "setting":
+            {
+              "height": "1",
+              "min": "1",
+              "max": "0"
+            }
+          },
+          "is_required": "1",
+          "order": "7",
+          "type_name": "单项填空题"
+        },
+        "8":
+        {
+          "id": "137",
+          "q_id": "29",
+          "type": "4",
+          "question":
+          {
+            "title": "【多项填空标题】",
+            "content": [
+            {
+              "title": "外观"
+            },
+            {
+              "title": "功能"
+            }],
+            "setting":
+            {
+              "height": "1",
+              "min": "1",
+              "max": "0"
+            }
+          },
+          "is_required": "1",
+          "order": "8",
+          "type_name": "多项填空题"
+        },
+        "9":
+        {
+          "id": "138",
+          "q_id": "29",
+          "type": "5",
+          "question":
+          {
+            "title": "【单项评分】",
+            "content": [
+            {
+              "title": "很不满意",
+              "score": "1"
+            },
+            {
+              "title": "不满意",
+              "score": "2"
+            },
+            {
+              "title": "一般",
+              "score": "3"
+            },
+            {
+              "title": "满意",
+              "score": "4"
+            },
+            {
+              "title": "很满意",
+              "score": "5"
+            }]
+          },
+          "is_required": "1",
+          "order": "9",
+          "type_name": "单选评分题"
+        },
+        "10":
+        {
+          "id": "139",
+          "q_id": "29",
+          "type": "6",
+          "question":
+          {
+            "title": "【多项评分】",
+            "content": [
+            {
+              "title": "很不满意",
+              "score": "1"
+            },
+            {
+              "title": "不满意",
+              "score": "2"
+            },
+            {
+              "title": "一般",
+              "score": "3"
+            },
+            {
+              "title": "满意",
+              "score": "4"
+            },
+            {
+              "title": "很满意",
+              "score": "5"
+            }],
+            "setting": [
+            {
+              "title": "外观"
+            },
+            {
+              "title": "功能"
+            }]
+          },
+          "is_required": "1",
+          "order": "10",
+          "type_name": "多项评分题"
+        },
+        "11":
+        {
+          "id": "140",
+          "q_id": "29",
+          "type": "9",
+          "question":
+          {
+            "title": "【滑动条题】",
+            "content": [
+            {
+              "val": "0",
+              "title": "不满意"
+            },
+            {
+              "val": "100",
+              "title": "满意"
+            }]
+          },
+          "is_required": "1",
+          "order": "11",
+          "type_name": "滑动条题"
+        },
+        "12":
+        {
+          "id": "141",
+          "q_id": "29",
+          "type": "10",
+          "question":
+          {
+            "title": "【排序题】",
+            "content": [
+            {
+              "key": "1",
+              "title": "选项1",
+              "img": ""
+            },
+            {
+              "key": "2",
+              "title": "选项2",
+              "img": ""
+            },
+            {
+              "key": "3",
+              "title": "选项3",
+              "img": ""
+            },
+            {
+              "key": "4",
+              "title": "选项4",
+              "img": ""
+            }]
+          },
+          "is_required": "1",
+          "order": "12",
+          "type_name": "排序题"
+        }
+      }
+    }],
+    "logic":
+    {
+      "1":
+      {
+        "id": "46",
+        "q_id": "29",
+        "order": "1",
+        "action": "1",
+        "rules": "3"
+      },
+      "4":
+      {
+        "id": "47",
+        "q_id": "29",
+        "order": "4",
+        "action": "2",
+        "rules":
+        {
+          "A": "5",
+          "B": "6"
+        }
+      },
+      "5":
+      {
+        "id": "48",
+        "q_id": "29",
+        "order": "5",
+        "action": "3",
+        "rules":
+        {
+          "3": "A,B"
+        }
+      }
+    }
+  }
+
+}
