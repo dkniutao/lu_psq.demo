@@ -10,6 +10,17 @@
         class="title fl"
         v-text="item.question.title">
       </div>
+      <div
+        class="fl"
+        v-if="hasClearBtn"
+        v-show="isShowClearBtn">
+        <el-button
+          style="padding:0"
+          type="text"
+          @click="clear">
+          【清除选择】
+        </el-button>
+      </div>
     </el-row>
   </div>
   <div class="item-content">
@@ -198,11 +209,46 @@ export default {
     }
   },
   computed: {
+    isShowClearBtn () {
+      let res = false
+      switch (this.alias) {
+        case 'radio':
+          if (this.radio) res = true
+          break
+        case 'checkbox':
+          if (this.checkbox.length) res = true
+          break
+        case 'rate':
+          if (this.rate) res = true
+          break
+        case 'rateMulti':
+          if (this.rateMulti.length) res = true
+          break
+      }
+      return res
+    },
+    hasClearBtn () {
+      return this.alias === 'radio'
+        || this.alias === 'checkbox'
+        || this.alias === 'rate'
+        || this.alias === 'rateMulti'
+    },
     alias () {
       return mylib.TYPE_DATA[this.item.type]['alias']
     }
   },
   methods: {
+    clear () {
+      if (this.alias === 'radio') {
+        this.radio = ''
+      } else if (this.alias === 'checkbox') {
+        this.checkbox = []
+      } else if (this.alias === 'rate') {
+        this.rate = ''
+      } else if (this.alias === 'rateMulti') {
+        this.rateMulti = []
+      }
+    }
   }
 }
 </script>
