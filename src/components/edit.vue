@@ -114,66 +114,79 @@ export default {
       })
     },
     addQuestion (type) {
+      // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
+      // 就只处理Qsection里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
+      // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
+      // 移动标题和段落说明时，向上移写好只需要把上一条的最后一个题号拿过来放在自己的队列中即可（按照思路来）
       let question = mylib.TYPE_DATA[type]
       let alias = question['alias']
-
-      if (alias === 'title' || alias === 'desc') {
-        let section = this.QSection[this.insertPoint + 1]
-
-        if (section) {
-          if (alias === 'title' && !section['name']) {
-            section['name'] = {
-              item: {
-                title: '<strong>请输入标题</strong>'
-              },
-              num: this.insertPoint + 1,
-              type: type
-            }
-          }
-          if (alias === 'desc' && !section['desc']) {
-            section['desc'] = {
-              item: {
-                title: '请输入段落说明'
-              },
-              num: this.insertPoint + 1,
-              type: type
-            }
-          }
-
-          delete this.QSection[this.insertPoint + 1]
-          this.$set(this.QSection, this.insertPoint + 1, section)
-        } else {
-          let section = {}
-          if (alias === 'title') {
-            section['name'] = {
-              item: {
-                title: '<strong>请输入标题</strong>'
-              },
-              num: this.insertPoint + 1,
-              type: type
-            }
-          } else if (alias === 'desc') {
-            section['desc'] = {
-              item: {
-                title: '请输入段落说明'
-              },
-              num: this.insertPoint + 1,
-              type: type
-            }
-          }
-
-          delete this.QSection[this.insertPoint + 1]
-          this.$set(this.QSection, this.insertPoint + 1, section)
-        }
-        return
-      }
 
       this.Question.splice(this.insertPoint, 0, {
         type: type,
         order: '',
         item: question['item']
       })
-      this.updateListOrder()
+
+      // let question = mylib.TYPE_DATA[type]
+      // let alias = question['alias']
+
+      // if (alias === 'title' || alias === 'desc') {
+      //   let section = this.QSection[this.insertPoint + 1]
+
+      //   if (section) {
+      //     if (alias === 'title' && !section['name']) {
+      //       section['name'] = {
+      //         item: {
+      //           title: '<strong>请输入标题</strong>'
+      //         },
+      //         num: this.insertPoint + 1,
+      //         type: type
+      //       }
+      //     }
+      //     if (alias === 'desc' && !section['desc']) {
+      //       section['desc'] = {
+      //         item: {
+      //           title: '请输入段落说明'
+      //         },
+      //         num: this.insertPoint + 1,
+      //         type: type
+      //       }
+      //     }
+
+      //     delete this.QSection[this.insertPoint + 1]
+      //     this.$set(this.QSection, this.insertPoint + 1, section)
+      //   } else {
+      //     let section = {}
+      //     if (alias === 'title') {
+      //       section['name'] = {
+      //         item: {
+      //           title: '<strong>请输入标题</strong>'
+      //         },
+      //         num: this.insertPoint + 1,
+      //         type: type
+      //       }
+      //     } else if (alias === 'desc') {
+      //       section['desc'] = {
+      //         item: {
+      //           title: '请输入段落说明'
+      //         },
+      //         num: this.insertPoint + 1,
+      //         type: type
+      //       }
+      //     }
+
+      //     delete this.QSection[this.insertPoint + 1]
+      //     this.$set(this.QSection, this.insertPoint + 1, section)
+      //   }
+      //   return
+      // }
+
+      // this.Question.splice(this.insertPoint, 0, {
+      //   type: type,
+      //   order: '',
+      //   item: question['item']
+      // })
+      // this.updateListOrder()
     }
   },
   mounted () {
@@ -187,7 +200,7 @@ export default {
 
     this.QSection = QData.section
     this.Question = QData.question
-    this.insertPoint = this.Question.length
+    this.insertPoint = this.Question.length - 1
   }
 }
 </script>
