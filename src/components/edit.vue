@@ -23,9 +23,6 @@
     <!-- 问卷头部标题 -->
     <xz-question-header></xz-question-header>
 
-    <!-- 问卷分割线 -->
-    <div class="question-line"></div>
-
     <!-- 问卷问题列表 -->
     <div class="question-list">
       <!-- 单选 -->
@@ -208,10 +205,6 @@ export default {
 .el-menu--horizontal{border-bottom: none;}
 .el-menu--horizontal>.el-menu-item{border-bottom: none;height: 40px;line-height: 40px;width: 120px;text-align: center;padding:0;}
 /*题型按钮组 end*/
-
-/*问卷分割线 start*/
-.question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
-/*问卷分割线 end*/
 
 /*问卷列表 start*/
 .question-list{overflow:hidden;}

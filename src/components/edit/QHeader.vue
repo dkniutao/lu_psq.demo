@@ -6,6 +6,8 @@
     <div class="desc" v-html="desc">
     </div>
   </div>
+  <!-- 分割线 -->
+  <div class="question-line"></div>
 
   <el-dialog title="编辑问卷说明" :visible.sync="visible" width="800px">
     <el-form label-width="100px">
@@ -64,4 +66,8 @@ export default {
 .question-header:hover{border-color:#126ab5;cursor: pointer;}
 .question-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;color: #333333;margin-bottom: 10px;}
 .question-header .desc{font-size: 14px;color: #666666;}
+
+/*问卷分割线 start*/
+.question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
+/*问卷分割线 end*/
 </style>

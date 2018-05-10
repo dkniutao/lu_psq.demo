@@ -4,56 +4,190 @@
     <div class="item-header">
       <!-- 标题和段落 -->
       <template v-if="typeAlias === 'title' || typeAlias === 'desc'">
-        <div class="clearfix">
-          <div class="fl" v-html="item.title"></div>
+        <div class="item-title clearfix">
+          <div
+            class="title fl"
+            v-text="item.title">
+          </div>
         </div>
       </template>
       <!-- 其他题型 -->
       <template v-else>
-        <div class="clearfix">
-          <div class="fl" style="padding-right: 10px;">{{order}}. </div>
-          <div class="fl" v-html="item.title"></div>
+        <div class="item-title clearfix">
+          <div
+            class="order fl"
+            v-text="order + '.'">
+          </div>
+          <div
+            class="title fl"
+            v-html="item.title">
+          </div>
         </div>
-        <div>
-          <xz-question-item-show-radio
-          :item="item"
-          v-if="typeAlias === 'radio'">
-          </xz-question-item-show-radio>
 
-          <xz-question-item-show-checkbox
-          :item="item"
-          v-if="typeAlias === 'checkbox'">
-          </xz-question-item-show-checkbox>
+        <div class="item-content">
+          <template v-if="alias === 'radio'">
+            <el-row>
+              <el-radio-group v-model="radio">
+                <el-col
+                  :span="24"
+                  v-for="option in item.content"
+                  :key="option.key">
+                  <el-radio :label="option.key">
+                    {{option.title}}
+                    <div v-if="option.img">
+                      <img class="fl" v-if="option.img" :src="option.img">
+                    </div>
+                  </el-radio>
+                </el-col>
+              </el-radio-group>
+            </el-row>
+          </template>
 
-          <xz-question-item-show-input
-          :item="item"
-          v-if="typeAlias === 'input'">
-          </xz-question-item-show-input>
+          <template v-else-if="alias === 'checkbox'">
+            <el-row>
+              <el-checkbox-group
+                v-model="checkbox">
+                  <el-col
+                    :span="24"
+                    v-for="option in item.content"
+                    >
+                    <el-checkbox :label="option.key">
+                      {{option.title}}
+                      <div v-if="option.img">
+                        <img class="fl" v-if="option.img" :src="option.img">
+                      </div>
+                    </el-checkbox>
+                  </el-col>
+                </el-checkbox-group>
+              </el-row>
+          </template>
 
-          <xz-question-item-show-input-multi
-          :item="item"
-          v-if="typeAlias === 'inputMulti'">
-          </xz-question-item-show-input-multi>
+          <template v-else-if="alias === 'input'">
+            <el-row>
+              <el-col :span="24">
+                <el-input
+                  type="textarea"
+                  :rows="item.setting.height"
+                  :minlength="item.question.setting.min"
+                  :maxlength="item.question.setting.max"
+                  :placeholder="placeholder"
+                  v-model="input">
+                </el-input>
+              </el-col>
+            </el-row>
+          </template>
 
-          <xz-question-item-show-rate
-          :item="item"
-          v-if="typeAlias === 'rate'">
-          </xz-question-item-show-rate>
+          <template v-else-if="alias === 'inputMulti'">
+            <el-row class="inputMulti">
+              <el-col :span="24">
+                <el-form
+                  v-model="inputMulti"
+                  ref="form"
+                  label-width="100px"
+                  label-position="left">
+                  <el-form-item
+                    v-for="(option, index) in item.content"
+                    :label="option.title"
+                    :key="index">
+                    <el-input
+                      v-model="inputMulti[index]"
+                      type="textarea"
+                      :placeholder="placeholder"
+                      :rows="item.setting.height"
+                      :minlength="item.setting.min"
+                      :maxlength="item.setting.max">
+                    </el-input>
+                  </el-form-item>
+                </el-form>
+              </el-col>
+            </el-row>
+          </template>
 
-          <xz-question-item-show-rate-multi
-          :item="item"
-          v-if="typeAlias === 'rateMulti'">
-          </xz-question-item-show-rate-multi>
+          <template v-else-if="alias === 'rate'">
+            <el-row class="rate">
+              <el-col :span="24">
+                <span class="rate-first fl">
+                  {{item.content[0]['title']}}
+                </span>
 
-          <xz-question-item-show-sort
-          :item="item"
-          v-if="typeAlias === 'sort'">
-          </xz-question-item-show-sort>
+                <el-radio-group class="fl" v-model="rate">
+                  <el-radio
+                    v-for="option in item.content"
+                    :label="option.score"
+                    :title="option.title"
+                    :key="option.score">
+                    {{option.score}}
+                  </el-radio>
+                </el-radio-group>
 
-          <xz-question-item-show-slider
-          :item="item"
-          v-if="typeAlias === 'slider'">
-          </xz-question-item-show-slider>
+                <span class="rate-last fl">
+                  {{item.content[item.content.length - 1]['title']}}
+                </span>
+              </el-col>
+            </el-row>
+          </template>
+
+          <template v-else-if="alias === 'rateMulti'">
+            <el-row class="rateMulti">
+              <el-col :span="24">
+                <el-table
+                  :data="item.setting"
+                  style="width: 800px">
+                  <el-table-column
+                    prop="title"
+                    label=""
+                    width="100">
+                  </el-table-column>
+
+                  <el-table-column
+                    v-for="column in item.content"
+                    align="center"
+                    header-align="center"
+                    :label="column.title"
+                    :key="column.score">
+                    <template slot-scope="scope">
+                      <el-radio
+                        v-model="rateMulti[scope.$index]"
+                        :label="column.score"
+                        :title="'(分值:' + column.score + ')'">
+                      </el-radio>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+          </template>
+
+          <template v-else-if="alias === 'sort'">
+            <xz-sort
+              v-model="sort"
+              :content="item.content"
+              >
+            </xz-sort>
+          </template>
+
+          <template v-else-if="alias === 'slider'">
+            <el-row class="slider">
+              <el-col :span="24">
+                <span
+                  class="slider-first fl"
+                  v-html="item.content[0].title +
+                  '【' + item.content[0].val + '】'">
+                </span>
+                <el-slider
+                  v-model="slider"
+                  class="fl"
+                  :min="+item.content[0].val"
+                  :max="+item.content[1].val">
+                </el-slider>
+                <span
+                  class="slider-last fl"
+                  v-html="item.content[1].title +
+                  '【' + item.content[1].val + '】'">
+                </span>
+              </el-col>
+            </el-row>
+          </template>
         </div>
       </template>
     </div>
@@ -247,43 +381,37 @@
 <script>
 import mylib from '../../mylib.js'
 import _ from 'lodash'
+import xzSort from '@/components/pub/sort.vue'
 import xzQuestionItemEditSelect from './QItemEditSelect.vue'
-import xzQuestionItemShowRadio from './QItemShowRadio.vue'
-import xzQuestionItemShowCheckbox from './QItemShowCheckbox.vue'
-import xzQuestionItemShowInput from './QItemShowInput.vue'
 import xzQuestionItemEditInput from './QItemEditInput.vue'
-import xzQuestionItemShowInputMulti from './QItemShowInputMulti.vue'
 import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
-import xzQuestionItemShowRate from './QItemShowRate.vue'
 import xzQuestionItemEditRate from './QItemEditRate.vue'
-import xzQuestionItemShowRateMulti from './QItemShowRateMulti.vue'
 import xzQuestionItemEditRateMulti from './QItemEditRateMulti.vue'
-import xzQuestionItemShowSort from './QItemShowSort.vue'
 import xzQuestionItemEditSort from './QItemEditSort.vue'
-import xzQuestionItemShowSlider from './QItemShowSlider.vue'
 import xzQuestionItemEditSlider from './QItemEditSlider.vue'
 
 export default {
   components: {
+    xzSort,
     xzQuestionItemEditSelect,
-    xzQuestionItemShowRadio,
-    xzQuestionItemShowCheckbox,
-    xzQuestionItemShowInput,
     xzQuestionItemEditInput,
-    xzQuestionItemShowInputMulti,
     xzQuestionItemEditInputMulti,
-    xzQuestionItemShowRate,
     xzQuestionItemEditRate,
-    xzQuestionItemShowRateMulti,
     xzQuestionItemEditRateMulti,
-    xzQuestionItemShowSort,
     xzQuestionItemEditSort,
-    xzQuestionItemShowSlider,
     xzQuestionItemEditSlider
   },
   props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
   data () {
     return {
+      radio: '',
+      checkbox: [],
+      input: '',
+      inputMulti: [],
+      rate: '',
+      rateMulti: [],
+      slider: 0,
+      sort: [],
       isExpand: false,
       logic: {
         '1': {
@@ -314,8 +442,28 @@ export default {
     typeAlias () {
       return mylib.TYPE_DATA[this.type]['alias']
     },
+    alias () {
+      return mylib.TYPE_DATA[this.type]['alias']
+    },
     isTitle () {
       return this.typeAlias === 'title' || this.typeAlias === 'desc'
+    },
+    placeholder () {
+      let set = this.item.setting
+
+      if (set.min && set.max) {
+        if (set.min == set.max) {
+          return set.min + '个字'
+        } else {
+          return set.min + '到' + set.max + '个字'
+        }
+      } else if (set.min) {
+        return '最少' + set.min + '个字'
+      } else if (set.max) {
+        return set.max + '个字以内'
+      } else {
+        return ''
+      }
     }
   },
   methods: {
@@ -424,25 +572,35 @@ export default {
 </script>
 <style>
 /*基础 start*/
-.question-item{box-sizing: border-box;border: 1px solid #fff;margin: 0 60px 20px;padding:20px;}
-.question-item .item-header{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #f3f3f3;}
-.question-item .item-operate{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #f3f3f3;}
-.question-item .item-edit{margin-bottom: 20px;}
+.question-item{box-sizing: border-box;border: 1px solid #fff;margin: 0 60px 62px;padding:20px;}
+.question-item .item-header{padding-bottom:20px;border-bottom:1px solid #f3f3f3;}
+.question-item .item-operate{margin-top:20px;}
+.question-item .item-edit{margin-top: 20px;}
+.question-item .item-submit{margin-top: 20px;}
 /*基础 end*/
 
 /*悬浮 start*/
-.question-item:hover{border-color:#126ab5;cursor: pointer;}
+.question-item:hover{border-color:#126ab5;cursor: pointer;margin-bottom: 20px;}
 .question-item .item-operate,.question-item .item-edit,.question-item .item-submit{display: none;}
 .question-item:hover .item-operate{display: block;}
 .question-item .item-submit{text-align: center;}
 /*悬浮 end*/
 
 /*展开 start*/
-.question-item.expand{border-color:#126ab5;cursor: initial;}
+.question-item.expand{border-color:#126ab5;cursor: initial;margin-bottom: 20px;}
 .question-item.expand .item-operate,
 .question-item.expand .item-edit,
 .question-item.expand .item-submit{display: block;}
+.question-item.expand .item-operate{padding-bottom:20px;border-bottom:1px solid #f3f3f3;}
 /*展开 end*/
+
+/*问题样式 start*/
+.item-title .order{width:10px;margin-right: 20px;}
+.item-content{margin-left: 30px;}
+.el-col{padding-top:20px;}
+
+.el-textarea {width: 800px;}
+/*问题样式 end*/
 
 /*操作按钮 start*/
 .operate-btn.el-button{border:1px solid #126ab5;border-radius: 0;color: #126ab5;padding:0 12px;font-size: 12px;height: 22px;line-height: 22px;margin-left: 10px;}

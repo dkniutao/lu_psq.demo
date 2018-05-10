@@ -1,27 +1,25 @@
 <template>
 <div>
-  <div class="item-title">
-    <el-row>
-      <div
-        class="order fl"
-        v-text="item.order + '.'">
-      </div>
-      <div
-        class="title fl"
-        v-text="item.question.title">
-      </div>
-      <div
-        class="fl"
-        v-if="hasClearBtn"
-        v-show="isShowClearBtn">
-        <el-button
-          style="padding:0"
-          type="text"
-          @click="clear">
-          【清除选择】
-        </el-button>
-      </div>
-    </el-row>
+  <div class="item-title clearfix">
+    <div
+      class="order fl"
+      v-text="item.order + '.'">
+    </div>
+    <div
+      class="title fl"
+      v-html="item.question.title">
+    </div>
+    <div
+      class="fl"
+      v-if="hasClearBtn"
+      v-show="isShowClearBtn">
+      <el-button
+        style="padding:0"
+        type="text"
+        @click="clear">
+        【清除选择】
+      </el-button>
+    </div>
   </div>
   <div class="item-content">
     <template v-if="alias === 'radio'">
@@ -34,7 +32,7 @@
             <el-radio :label="option.key">
               {{option.title}}
               <div v-if="option.img">
-                <img class="fl" v-if="option.img" :src="option.img" alt="">
+                <img class="fl" v-if="option.img" :src="option.img">
               </div>
             </el-radio>
           </el-col>
@@ -67,6 +65,9 @@
           <el-input
             type="textarea"
             :rows="item.question.setting.height"
+            :minlength="item.question.setting.min"
+            :maxlength="item.question.setting.max"
+            :placeholder="placeholder"
             v-model="input">
           </el-input>
         </el-col>
@@ -88,6 +89,7 @@
               <el-input
                 v-model="inputMulti[index]"
                 type="textarea"
+                :placeholder="placeholder"
                 :rows="item.question.setting.height"
                 :minlength="item.question.setting.min"
                 :maxlength="item.question.setting.max">
@@ -235,6 +237,23 @@ export default {
     },
     alias () {
       return mylib.TYPE_DATA[this.item.type]['alias']
+    },
+    placeholder () {
+      let set = this.item.question.setting
+
+      if (set.min && set.max) {
+        if (set.min == set.max) {
+          return set.min + '个字'
+        } else {
+          return set.min + '到' + set.max + '个字'
+        }
+      } else if (set.min) {
+        return '最少' + set.min + '个字'
+      } else if (set.max) {
+        return set.max + '个字以内'
+      } else {
+        return ''
+      }
     }
   },
   methods: {
