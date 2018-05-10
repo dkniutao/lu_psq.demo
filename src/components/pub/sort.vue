@@ -9,6 +9,9 @@
 
         <span class="fl xz-sort__label">
           {{sort.title}}
+          <div v-if="sort.img">
+            <img class="fl" :src="sort.img">
+          </div>
         </span>
       </label>
   </div>
@@ -50,4 +53,6 @@ export default {
 .xz-sort__inner{font-size:12px;color:#126ab5;line-height:16px;text-align:center;display: inline-block;position: relative;border: 1px solid #126ab5;-webkit-box-sizing: border-box;box-sizing: border-box;width: 18px;height: 18px;background-color: #fff;z-index: 1;}
 
 .xz-sort__label {padding-left: 10px;line-height: 18px;font-size: 14px;}
+
+.xz-sort img {margin-top: 10px;}
 </style>

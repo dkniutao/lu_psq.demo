@@ -327,10 +327,12 @@
           </el-col>
         </el-row>
 
-        <xz-question-item-edit-select
+        <xz-question-item-edit-option
           :item="item"
-          v-if="typeAlias === 'radio' || typeAlias === 'checkbox'">
-        </xz-question-item-edit-select>
+          v-if="typeAlias === 'radio'
+            || typeAlias === 'checkbox'
+            || typeAlias === 'sort'">
+        </xz-question-item-edit-option>
 
         <xz-question-item-edit-input
           :item="item"
@@ -352,21 +354,20 @@
           v-if="typeAlias === 'rateMulti'">
         </xz-question-item-edit-rate-multi>
 
-        <xz-question-item-edit-sort
-          :item="item"
-          v-if="typeAlias === 'sort'">
-        </xz-question-item-edit-sort>
-
         <xz-question-item-edit-slider
           :item="item"
           v-if="typeAlias === 'slider'">
         </xz-question-item-edit-slider>
       </template>
-
     </div>
 
     <div class="item-submit">
-      <el-button  class="question-submit" type="primary" @click="complete">完成编辑</el-button>
+      <el-button
+        class="question-submit"
+        type="primary"
+        @click="complete">
+        完成编辑
+      </el-button>
     </div>
   </div>
 </div>
@@ -375,23 +376,21 @@
 import mylib from '../../mylib.js'
 import _ from 'lodash'
 import xzSort from '@/components/pub/sort.vue'
-import xzQuestionItemEditSelect from './QItemEditSelect.vue'
+import xzQuestionItemEditOption from './QItemEditOption.vue'
 import xzQuestionItemEditInput from './QItemEditInput.vue'
 import xzQuestionItemEditInputMulti from './QItemEditInputMulti.vue'
 import xzQuestionItemEditRate from './QItemEditRate.vue'
 import xzQuestionItemEditRateMulti from './QItemEditRateMulti.vue'
-import xzQuestionItemEditSort from './QItemEditSort.vue'
 import xzQuestionItemEditSlider from './QItemEditSlider.vue'
 
 export default {
   components: {
     xzSort,
-    xzQuestionItemEditSelect,
+    xzQuestionItemEditOption,
     xzQuestionItemEditInput,
     xzQuestionItemEditInputMulti,
     xzQuestionItemEditRate,
     xzQuestionItemEditRateMulti,
-    xzQuestionItemEditSort,
     xzQuestionItemEditSlider
   },
   props: ['order', 'type', 'typeName', 'item', 'list', 'section'],

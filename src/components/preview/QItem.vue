@@ -51,7 +51,7 @@
               <el-checkbox :label="option.key">
                 {{option.title}}
                 <div v-if="option.img">
-                  <img class="fl" v-if="option.img" :src="option.img">
+                  <img class="fl" :src="option.img">
                 </div>
               </el-checkbox>
             </el-col>
