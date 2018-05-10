@@ -98,28 +98,6 @@ export default {
         })
       })
       return this.QSection
-
-
-      // _.each(this.QSection, (v, k) => {
-      //   let item = []
-      //   if (v.name) item.push(v.name)
-      //   if (v.desc) item.push(v.desc)
-      //   // 放在最后
-      //   if (k === this.Question.length + 1) {
-      //     list.push(item)
-      //     return
-      //   }
-      //   // 放在题目前
-      //   let index = _.findIndex(list, (l) => {
-      //     return l.order === k
-      //   })
-
-      //   if (index !== -1) {
-      //     list.splice(index, 0, item)
-      //   }
-      // })
-
-      // return _.flatten(list)
     }
   },
   methods: {
@@ -207,24 +185,6 @@ export default {
       }
     }, this)
 
-    // 设置标题和段落
-    // _.each(QData.section, (v) => {
-    //   let num = v.item.split(',')[0] // 题号
-    //   let section = []
-    //   let setSection = (title, type) => {
-    //     return title ? {
-    //       item: {
-    //         title: title
-    //       },
-    //       num: num,
-    //       type: type
-    //     } : ''
-    //   }
-    //   section['name'] = setSection(v.name, 7)
-    //   section['desc'] = setSection(v.description, 8)
-
-    //   this.QSection[num] = section
-    // })
     this.QSection = QData.section
     this.Question = QData.question
     this.insertPoint = this.Question.length
