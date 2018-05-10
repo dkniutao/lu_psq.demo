@@ -19,6 +19,7 @@ export default {
   props: ['value', 'content'],
   methods: {
     setSort (sort) {
+      if (!this.value) return
       let order = _.findIndex(this.value, (v) => {
         return +v === +sort.key
       })
@@ -31,6 +32,8 @@ export default {
       this.value.push(sort.key)
     },
     getOrder (sort) {
+      if (!this.value) return ''
+
       let order = _.findIndex(this.value, (v) => {
         return +v === +sort.key
       })

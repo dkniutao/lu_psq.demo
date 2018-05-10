@@ -27,7 +27,7 @@
         <div class="item-content">
           <template v-if="alias === 'radio'">
             <el-row>
-              <el-radio-group v-model="radio">
+              <el-radio-group>
                 <el-col
                   :span="24"
                   v-for="option in item.content"
@@ -45,8 +45,7 @@
 
           <template v-else-if="alias === 'checkbox'">
             <el-row>
-              <el-checkbox-group
-                v-model="checkbox">
+              <el-checkbox-group>
                   <el-col
                     :span="24"
                     v-for="option in item.content"
@@ -68,10 +67,9 @@
                 <el-input
                   type="textarea"
                   :rows="item.setting.height"
-                  :minlength="item.question.setting.min"
-                  :maxlength="item.question.setting.max"
-                  :placeholder="placeholder"
-                  v-model="input">
+                  :minlength="item.setting.min"
+                  :maxlength="item.setting.max"
+                  :placeholder="placeholder">
                 </el-input>
               </el-col>
             </el-row>
@@ -90,7 +88,6 @@
                     :label="option.title"
                     :key="index">
                     <el-input
-                      v-model="inputMulti[index]"
                       type="textarea"
                       :placeholder="placeholder"
                       :rows="item.setting.height"
@@ -110,7 +107,7 @@
                   {{item.content[0]['title']}}
                 </span>
 
-                <el-radio-group class="fl" v-model="rate">
+                <el-radio-group class="fl">
                   <el-radio
                     v-for="option in item.content"
                     :label="option.score"
@@ -147,7 +144,6 @@
                     :key="column.score">
                     <template slot-scope="scope">
                       <el-radio
-                        v-model="rateMulti[scope.$index]"
                         :label="column.score"
                         :title="'(分值:' + column.score + ')'">
                       </el-radio>
@@ -160,9 +156,7 @@
 
           <template v-else-if="alias === 'sort'">
             <xz-sort
-              v-model="sort"
-              :content="item.content"
-              >
+              :content="item.content">
             </xz-sort>
           </template>
 
@@ -175,7 +169,6 @@
                   '【' + item.content[0].val + '】'">
                 </span>
                 <el-slider
-                  v-model="slider"
                   class="fl"
                   :min="+item.content[0].val"
                   :max="+item.content[1].val">
@@ -404,14 +397,6 @@ export default {
   props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
   data () {
     return {
-      radio: '',
-      checkbox: [],
-      input: '',
-      inputMulti: [],
-      rate: '',
-      rateMulti: [],
-      slider: 0,
-      sort: [],
       isExpand: false,
       logic: {
         '1': {
@@ -597,9 +582,7 @@ export default {
 /*问题样式 start*/
 .item-title .order{width:10px;margin-right: 20px;}
 .item-content{margin-left: 30px;}
-.el-col{padding-top:20px;}
-
-.el-textarea {width: 800px;}
+.item-content .el-col{padding-top:20px;}
 /*问题样式 end*/
 
 /*操作按钮 start*/

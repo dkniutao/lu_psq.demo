@@ -197,7 +197,7 @@ export default {
 }
 </script>
 <style scoped>
-.psq-content {background: #fff;width:1200px; margin:0 auto;}
+.psq-content {background: #fff;width:1200px; margin:0 auto;font-size: 14px;color: #333333;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 .psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
 
 /*题型按钮组 start*/

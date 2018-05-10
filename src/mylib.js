@@ -165,19 +165,16 @@ export default {
       'alias': 'slider',
       'item': {
         'title': '请输入问题标题',
-        'content':
-        {
-          'min':
+        'content':[
           {
             'val': '0',
             'title': '不满意'
           },
-          'max':
           {
             'val': '100',
             'title': '满意'
           }
-        }
+        ]
       }
     },
     '7': {
