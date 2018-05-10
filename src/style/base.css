@@ -64,3 +64,13 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 
 .inputMulti .el-textarea__inner{width:700px;}
 /*填空 end*/
+
+/*评分 start*/
+.rate .rate-first{margin-right: 40px;}
+.rate .rate-last{margin-left: 40px;}
+.rate .el-radio-group{margin-top: 3px;}
+
+.rateMulti .el-table td, .rateMulti .el-table th.is-leaf{border:none;}
+.rateMulti .el-table::before{height: 0;}
+.rateMulti .el-table .el-radio__label{display: none;}
+/*评分 end*/

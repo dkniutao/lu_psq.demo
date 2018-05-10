@@ -71,9 +71,11 @@
             label-width="100px"
             label-position="left">
             <el-form-item
-              v-for="option in item.question.content"
-              :label="option.title">
+              v-for="(option, index) in item.question.content"
+              :label="option.title"
+              :key="index">
               <el-input
+                v-model="inputMulti[index]"
                 type="textarea"
                 :rows="item.question.setting.height"
                 :minlength="item.question.setting.min"
@@ -81,6 +83,61 @@
               </el-input>
             </el-form-item>
           </el-form>
+        </el-col>
+      </el-row>
+    </template>
+
+    <template v-else-if="alias === 'rate'">
+      <el-row class="rate">
+        <el-col :span="24">
+          <span class="rate-first fl">
+            {{item.question.content[0]['title']}}
+          </span>
+
+          <el-radio-group class="fl" v-model="rate">
+            <el-radio
+              v-for="option in item.question.content"
+              :label="option.score"
+              :title="option.title"
+              :key="option.score">
+              {{option.score}}
+            </el-radio>
+          </el-radio-group>
+
+          <span class="rate-last fl">
+            {{item.question.content[item.question.content.length - 1]['title']}}
+          </span>
+        </el-col>
+      </el-row>
+    </template>
+
+    <template v-else-if="alias === 'rateMulti'">
+      <el-row class="rateMulti">
+        <el-col :span="24">
+          <el-table
+            :data="item.question.setting"
+            style="width: 800px">
+            <el-table-column
+              prop="title"
+              label=""
+              width="100">
+            </el-table-column>
+
+            <el-table-column
+              v-for="column in item.question.content"
+              align="center"
+              header-align="center"
+              :label="column.title"
+              :key="column.score">
+              <template slot-scope="scope">
+                <el-radio
+                  v-model="rateMulti[scope.$index]"
+                  :label="column.score"
+                  :title="'(分值:' + column.score + ')'">
+                </el-radio>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-col>
       </el-row>
     </template>
@@ -98,7 +155,9 @@ export default {
       radio: '',
       checkbox: [],
       input: '',
-      inputMulti: ''
+      inputMulti: [],
+      rate: '',
+      rateMulti: []
     }
   },
   computed: {
@@ -107,7 +166,6 @@ export default {
     }
   },
   methods: {
-
   }
 }
 </script>
