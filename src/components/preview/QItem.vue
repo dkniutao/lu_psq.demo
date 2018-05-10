@@ -143,7 +143,11 @@
     </template>
 
     <template v-else-if="alias === 'sort'">
-
+      <xz-sort
+        v-model="sort"
+        :content="item.question.content"
+        >
+      </xz-sort>
     </template>
 
     <template v-else-if="alias === 'slider'">
@@ -165,7 +169,6 @@
             v-html="item.question.content[1].title +
             '【' + item.question.content[1].val + '】'">
           </span>
-
         </el-col>
       </el-row>
     </template>
@@ -176,8 +179,12 @@
 <script>
 import _ from 'lodash'
 import mylib from '@/mylib.js'
+import xzSort from '@/components/pub/sort.vue'
 export default {
   props: ['item'],
+  components: {
+    xzSort
+  },
   data () {
     return {
       radio: '',
@@ -186,7 +193,7 @@ export default {
       inputMulti: [],
       rate: '',
       rateMulti: [],
-      slider: ''
+      slider: 0
     }
   },
   computed: {
