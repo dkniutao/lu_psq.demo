@@ -193,7 +193,8 @@ export default {
       inputMulti: [],
       rate: '',
       rateMulti: [],
-      slider: 0
+      slider: 0,
+      sort: []
     }
   },
   computed: {

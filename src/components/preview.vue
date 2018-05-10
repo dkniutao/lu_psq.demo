@@ -60,7 +60,7 @@ export default {
 }
 </script>
 <style scoped>
-.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;}
+.psq-content {font-size: 14px;background: #fff;width:1200px; margin:0 auto;padding:60px;color: #333333;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 .psq-chunk{border-bottom: 1px solid #f3f3f3;margin:0 20px;padding:20px 0;}
 
 /*问卷说明 start*/
