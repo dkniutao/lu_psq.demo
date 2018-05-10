@@ -141,6 +141,34 @@
         </el-col>
       </el-row>
     </template>
+
+    <template v-else-if="alias === 'sort'">
+
+    </template>
+
+    <template v-else-if="alias === 'slider'">
+      <el-row class="slider">
+        <el-col :span="24">
+          <span
+            class="slider-first fl"
+            v-html="item.question.content[0].title +
+            '【' + item.question.content[0].val + '】'">
+          </span>
+          <el-slider
+            v-model="slider"
+            class="fl"
+            :min="+item.question.content[0].val"
+            :max="+item.question.content[1].val">
+          </el-slider>
+          <span
+            class="slider-last fl"
+            v-html="item.question.content[1].title +
+            '【' + item.question.content[1].val + '】'">
+          </span>
+
+        </el-col>
+      </el-row>
+    </template>
   </div>
 </div>
 </template>
@@ -157,7 +185,8 @@ export default {
       input: '',
       inputMulti: [],
       rate: '',
-      rateMulti: []
+      rateMulti: [],
+      slider: ''
     }
   },
   computed: {
