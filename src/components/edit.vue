@@ -32,7 +32,7 @@
           v-if="section.name"
           :type="7"
           :type-name="getTypeName(7)"
-          :title="section.name"
+          :item="section"
           :list="Question"
           :section="QSection"
           :order="++index">
@@ -42,7 +42,7 @@
           v-if="section.description"
           :type="8"
           :type-name="getTypeName(8)"
-          :title="section.description"
+          :item="section"
           :list="Question"
           :section="QSection"
           :order="++index">
@@ -97,7 +97,6 @@ export default {
           if (q) v.question.push(q)
         })
       })
-      console.log(this.QSection)
       return this.QSection
 
 

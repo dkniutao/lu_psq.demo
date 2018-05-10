@@ -6,7 +6,7 @@
       <div class="item-title clearfix">
         <div
           class="title fl"
-          v-text="title">
+          v-html="item[modelType]">
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
       <!-- 标题和段落 -->
       <el-row>
         <el-col :span="24">
-          <quill-editor v-model="title" ref="myQuillEditor">
+          <quill-editor v-model="item[modelType]" ref="myQuillEditor">
           </quill-editor>
         </el-col>
       </el-row>
@@ -75,7 +75,7 @@ import mylib from '../../mylib.js'
 import _ from 'lodash'
 
 export default {
-  props: ['order', 'type', 'typeName', 'title', 'list', 'section'],
+  props: ['order', 'type', 'typeName', 'item', 'list', 'section'],
   data () {
     return {
       isExpand: false
@@ -85,127 +85,33 @@ export default {
     alias () {
       return mylib.TYPE_DATA[this.type]['alias']
     },
-    isTitle () {
-      return this.alias === 'title' || this.alias === 'desc'
-    },
-    placeholder () {
-      let set = this.item.setting
-
-      if (set.min && set.max) {
-        if (set.min == set.max) {
-          return set.min + '个字'
-        } else {
-          return set.min + '到' + set.max + '个字'
-        }
-      } else if (set.min) {
-        return '最少' + set.min + '个字'
-      } else if (set.max) {
-        return set.max + '个字以内'
-      } else {
-        return ''
-      }
+    modelType () {
+      if (this.alias === 'title') return 'name'
+      if (this.alias === 'desc') return 'description'
     }
   },
   methods: {
-    // 关联逻辑选择问题
-    logicQuestionChange (rule) {
-      let target = _.find(this.list, function(v) {
-        return v.order === rule.question
-      })
-
-      rule.option = ''
-      rule.content = target ? target.item.content : []
-    },
     edit () {
       this.isExpand = true
     },
     complete () {
       this.isExpand = false
     },
-    updateList () {
-      _.each(this.list, (v, k) => {
-        v.order = k + 1
-      })
-    },
     up () {
-      if (this.isTitle) {
-        return
-      }
-
-      let index = this.order - 1
-      if (index <= 0) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(index - 1, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     },
     down () {
-      if (this.isTitle) {
-        return
-      }
 
-      let index = this.order - 1
-      if (index >= this.list.length - 1) return
-
-      this.list.splice(index, 1)
-
-      this.list.splice(index + 1, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     },
     last () {
-      let index = this.order - 1
-      if (index >= this.list.length - 1) return
 
-      this.list.splice(index, 1)
-
-      this.list.splice(this.list.length, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     },
     first () {
-      let index = this.order - 1
-      if (index <= 0) return
 
-      this.list.splice(index, 1)
-
-      this.list.splice(0, 0, {
-        item: this.item,
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     },
     del () {
-      let index = this.order - 1
-      this.list.splice(index, 1)
 
-      this.updateList()
     },
     copy () {
-      let index = this.order - 1
-      this.list.splice(index + 1, 0, {
-        item: _.clone(this.item),
-        type: this.type,
-        order: this.order
-      })
-
-      this.updateList()
     }
   }
 }

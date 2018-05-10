@@ -7,7 +7,7 @@
         <div class="item-title clearfix">
           <div
             class="title fl"
-            v-text="item.title">
+            v-html="item.title">
           </div>
         </div>
       </template>
@@ -432,7 +432,7 @@ export default {
       let set = this.item.setting
 
       if (set.min && set.max) {
-        if (set.min == set.max) {
+        if (set.min === set.max) {
           return set.min + '个字'
         } else {
           return set.min + '到' + set.max + '个字'
