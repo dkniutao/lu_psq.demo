@@ -25,16 +25,40 @@
 
     <!-- 问卷问题列表 -->
     <div class="question-list">
-      <!-- 单选 -->
-      <xz-question-item
-        v-for="item in QList"
-        :order="item.order"
-        :type="item.type"
-        :type-name="getTypeName(item.type)"
-        :item="item.item" :key="item.order"
-        :list="Question"
-        :section="QSection">
-      </xz-question-item>
+      <div
+        v-for="(section, index) in QList"
+        :key="index">
+        <xz-question-title
+          v-if="section.name"
+          :type="7"
+          :type-name="getTypeName(7)"
+          :title="section.name"
+          :list="Question"
+          :section="QSection"
+          :order="++index">
+        </xz-question-title>
+
+        <xz-question-title
+          v-if="section.description"
+          :type="8"
+          :type-name="getTypeName(8)"
+          :title="section.description"
+          :list="Question"
+          :section="QSection"
+          :order="++index">
+        </xz-question-title>
+
+        <xz-question-item
+          v-for="(Q, index) in section.question"
+          :order="Q.order"
+          :key="Q.order"
+          :type="Q.type"
+          :type-name="getTypeName(Q.type)"
+          :item="Q.item"
+          :list="Question"
+          :section="QSection">
+        </xz-question-item>
+      </div>
     </div>
   </div>
 </template>
@@ -46,44 +70,57 @@ import _ from 'lodash'
 
 import xzQuestionHeader from './edit/QHeader.vue'
 import xzQuestionItem from './edit/QItem.vue'
+import xzQuestionTitle from './edit/QTitle.vue'
 
 export default {
   components: {
     xzQuestionHeader,
-    xzQuestionItem
+    xzQuestionItem,
+    xzQuestionTitle
   },
   data () {
     return {
       QType: [], // 题目类型
       QSection: {}, // 标题和段落说明
       Question: [], // 问题列表
-      Target: 1 // 当前插入题目的位置
+      insertPoint: 1 // 当前插入题目的位置
     }
   },
   computed: {
     QList () {
-      let list = _.clone(this.Question)
-
       _.each(this.QSection, (v, k) => {
-        let item = []
-        if (v.name) item.push(v.name)
-        if (v.desc) item.push(v.desc)
-        // 放在最后
-        if (k === this.Question.length + 1) {
-          list.push(item)
-          return
-        }
-        // 放在题目前
-        let index = _.findIndex(list, (l) => {
-          return l.order === k
+        v.question = []
+        // 插入题目
+        let num = v.item.split(',')
+        _.each(num, (n) => {
+          let q = this.Question[n - 1]
+          if (q) v.question.push(q)
         })
-
-        if (index !== -1) {
-          list.splice(index, 0, item)
-        }
       })
+      console.log(this.QSection)
+      return this.QSection
 
-      return _.flatten(list)
+
+      // _.each(this.QSection, (v, k) => {
+      //   let item = []
+      //   if (v.name) item.push(v.name)
+      //   if (v.desc) item.push(v.desc)
+      //   // 放在最后
+      //   if (k === this.Question.length + 1) {
+      //     list.push(item)
+      //     return
+      //   }
+      //   // 放在题目前
+      //   let index = _.findIndex(list, (l) => {
+      //     return l.order === k
+      //   })
+
+      //   if (index !== -1) {
+      //     list.splice(index, 0, item)
+      //   }
+      // })
+
+      // return _.flatten(list)
     }
   },
   methods: {
@@ -104,7 +141,7 @@ export default {
       let alias = question['alias']
 
       if (alias === 'title' || alias === 'desc') {
-        let section = this.QSection[this.Target + 1]
+        let section = this.QSection[this.insertPoint + 1]
 
         if (section) {
           if (alias === 'title' && !section['name']) {
@@ -112,7 +149,7 @@ export default {
               item: {
                 title: '<strong>请输入标题</strong>'
               },
-              num: this.Target + 1,
+              num: this.insertPoint + 1,
               type: type
             }
           }
@@ -121,13 +158,13 @@ export default {
               item: {
                 title: '请输入段落说明'
               },
-              num: this.Target + 1,
+              num: this.insertPoint + 1,
               type: type
             }
           }
 
-          delete this.QSection[this.Target + 1]
-          this.$set(this.QSection, this.Target + 1, section)
+          delete this.QSection[this.insertPoint + 1]
+          this.$set(this.QSection, this.insertPoint + 1, section)
         } else {
           let section = {}
           if (alias === 'title') {
@@ -135,7 +172,7 @@ export default {
               item: {
                 title: '<strong>请输入标题</strong>'
               },
-              num: this.Target + 1,
+              num: this.insertPoint + 1,
               type: type
             }
           } else if (alias === 'desc') {
@@ -143,18 +180,18 @@ export default {
               item: {
                 title: '请输入段落说明'
               },
-              num: this.Target + 1,
+              num: this.insertPoint + 1,
               type: type
             }
           }
 
-          delete this.QSection[this.Target + 1]
-          this.$set(this.QSection, this.Target + 1, section)
+          delete this.QSection[this.insertPoint + 1]
+          this.$set(this.QSection, this.insertPoint + 1, section)
         }
         return
       }
 
-      this.Question.splice(this.Target, 0, {
+      this.Question.splice(this.insertPoint, 0, {
         type: type,
         order: '',
         item: question['item']
@@ -172,27 +209,26 @@ export default {
     }, this)
 
     // 设置标题和段落
-    _.each(QData.section, (v) => {
-      let num = v.item.split(',')[0] // 题号
-      let section = []
-      let setSection = (title, type) => {
-        return title ? {
-          item: {
-            title: title
-          },
-          num: num,
-          type: type
-        } : ''
-      }
-      section['name'] = setSection(v.name, 7)
-      section['desc'] = setSection(v.description, 8)
+    // _.each(QData.section, (v) => {
+    //   let num = v.item.split(',')[0] // 题号
+    //   let section = []
+    //   let setSection = (title, type) => {
+    //     return title ? {
+    //       item: {
+    //         title: title
+    //       },
+    //       num: num,
+    //       type: type
+    //     } : ''
+    //   }
+    //   section['name'] = setSection(v.name, 7)
+    //   section['desc'] = setSection(v.description, 8)
 
-      this.QSection[num] = section
-    })
-
+    //   this.QSection[num] = section
+    // })
+    this.QSection = QData.section
     this.Question = QData.question
-    // this.Target = this.Question.length
-    this.Target = 4
+    this.insertPoint = this.Question.length
   }
 }
 </script>

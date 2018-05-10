@@ -3,7 +3,7 @@
   <div class="question-item" :class="isExpand ? 'expand' : ''">
     <div class="item-header">
       <!-- 标题和段落 -->
-      <template v-if="typeAlias === 'title' || typeAlias === 'desc'">
+      <template v-if="alias === 'title' || alias === 'desc'">
         <div class="item-title clearfix">
           <div
             class="title fl"
@@ -79,7 +79,6 @@
             <el-row class="inputMulti">
               <el-col :span="24">
                 <el-form
-                  v-model="inputMulti"
                   ref="form"
                   label-width="100px"
                   label-position="left">
@@ -225,7 +224,7 @@
 
     <div class="item-edit">
       <!-- 标题和段落 -->
-      <template v-if="typeAlias === 'title' || typeAlias === 'desc'">
+      <template v-if="alias === 'title' || alias === 'desc'">
         <el-row>
           <el-col :span="24">
             <quill-editor v-model="item.title" ref="myQuillEditor">
@@ -240,8 +239,8 @@
             <quill-editor v-model="item.title" ref="myQuillEditor">
             </quill-editor>
           </el-col>
-          <el-col :span="12">
-            <div>当前题型：<strong v-html="typeName"></strong></div>
+          <el-col class="item-logic" :span="12">
+            <div class="item-logic-title">当前题型：<strong v-html="typeName"></strong></div>
             <el-row>
               <el-col :span="5">
                 <el-checkbox v-model="logic[1].checked">无条件跳题</el-checkbox>
@@ -259,7 +258,7 @@
                 题
               </el-col>
             </el-row>
-            <el-row v-if="typeAlias === 'radio'">
+            <el-row v-if="alias === 'radio'">
               <el-col :span="5">
                 <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
               </el-col>
@@ -329,34 +328,34 @@
 
         <xz-question-item-edit-option
           :item="item"
-          v-if="typeAlias === 'radio'
-            || typeAlias === 'checkbox'
-            || typeAlias === 'sort'">
+          v-if="alias === 'radio'
+            || alias === 'checkbox'
+            || alias === 'sort'">
         </xz-question-item-edit-option>
 
         <xz-question-item-edit-input
           :item="item"
-          v-if="typeAlias === 'input'">
+          v-if="alias === 'input'">
         </xz-question-item-edit-input>
 
         <xz-question-item-edit-input-multi
           :item="item"
-          v-if="typeAlias === 'inputMulti'">
+          v-if="alias === 'inputMulti'">
         </xz-question-item-edit-input-multi>
 
         <xz-question-item-edit-rate
           :item="item"
-          v-if="typeAlias === 'rate'">
+          v-if="alias === 'rate'">
         </xz-question-item-edit-rate>
 
         <xz-question-item-edit-rate-multi
           :item="item"
-          v-if="typeAlias === 'rateMulti'">
+          v-if="alias === 'rateMulti'">
         </xz-question-item-edit-rate-multi>
 
         <xz-question-item-edit-slider
           :item="item"
-          v-if="typeAlias === 'slider'">
+          v-if="alias === 'slider'">
         </xz-question-item-edit-slider>
       </template>
     </div>
@@ -423,14 +422,11 @@ export default {
     }
   },
   computed: {
-    typeAlias () {
-      return mylib.TYPE_DATA[this.type]['alias']
-    },
     alias () {
       return mylib.TYPE_DATA[this.type]['alias']
     },
     isTitle () {
-      return this.typeAlias === 'title' || this.typeAlias === 'desc'
+      return this.alias === 'title' || this.alias === 'desc'
     },
     placeholder () {
       let set = this.item.setting
@@ -600,4 +596,11 @@ export default {
 
 .question-submit.el-button {border-radius: 0;padding: 7px 24px;}
 /*提交按钮 end*/
+
+/*跳题逻辑设置 start*/
+.item-logic{line-height: 30px;}
+.item-logic .item-logic-title strong{margin-left:10px;}
+.item-logic .el-row + .el-row{margin-top: 10px;}
+.item-logic .el-row .el-button{padding: 7px;}
+/*跳题逻辑设置 end*/
 </style>
