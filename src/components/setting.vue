@@ -113,9 +113,8 @@ export default {
       surePassword: '', // 确认密码 model
       power: false, // 权限设置显示隐藏
       checked: false, // IP勾选
-      time_num: 0, // 判断时间是否正确填写，0错误;1正确
-      password_num: 0 // 判断密码是否正确填写，0错误;1正确
-
+      timeNum: 0, // 判断时间是否正确填写，0错误;1正确
+      passwordNum: 0 // 判断密码是否正确填写，0错误;1正确
     }
   },
   computed: {
@@ -163,6 +162,11 @@ export default {
         this.passwordNum = 0
       }
     },
+    /**
+     * [publish 保存发布]
+     * @param  {[]}     []
+     * @return {[]}     []
+     */
     publish () {
       if (this.timeNum === 1 && this.passwordNum === 1) {
         var startTime = this.startTime.toLocaleString()
