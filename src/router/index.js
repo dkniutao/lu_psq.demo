@@ -5,6 +5,7 @@ import Edit from '@/components/Edit'
 
 import Setting from '@/components/setting'
 import Release from '@/components/release'
+import Share from '@/components/share'
 
 Vue.use(Router)
 
@@ -26,6 +27,10 @@ export default new Router({
       path: '/release',
       name: 'Release',
       component: Release
+    }, {
+      path: '/share',
+      name: 'Share',
+      component: Share
     }
   ]
 })
