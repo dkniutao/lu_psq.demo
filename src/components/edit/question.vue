@@ -565,6 +565,14 @@ export default {
     }
   },
   created () {
+    let secIndex = this.item['secIndex']
+    let quesIndex = this.item['quesIndex']
+
+    if (this.point[0] === secIndex && this.point[1] === quesIndex) {
+      this.point = this.secIndex
+      this.point = this.quesIndex
+    }
+
     this.item['secIndex'] = this.secIndex
     this.item['quesIndex'] = this.quesIndex
   }

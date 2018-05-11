@@ -180,11 +180,11 @@ export default {
     },
     '7': {
       'alias': 'title',
-      'item': {}
+      'item': '<strong>请输入标题</strong>'
     },
     '8': {
       'alias': 'desc',
-      'item': {}
+      'item': '请输入段落说明'
     }
   }
 }

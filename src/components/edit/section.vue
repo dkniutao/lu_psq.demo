@@ -12,12 +12,14 @@
     </div>
 
     <div class="item-operate clearfix">
-      <el-button
-        class="fl operate-btn"
-        :class="{hover: isPoint}"
-        @click="setPoint">
-        在此题后插入新题
-      </el-button>
+      <template v-if="canOperate">
+        <el-button
+          class="fl operate-btn"
+          :class="{hover: isPoint}"
+          @click="setPoint">
+          在此题后插入新题
+        </el-button>
+      </template>
       <el-button
         class="fr operate-btn"
         @click="last">
@@ -95,6 +97,12 @@ export default {
     }
   },
   computed: {
+    canOperate () {
+      if (this.alias === 'title') {
+        if (this.sec.description) return false
+      }
+      return true
+    },
     isPoint () {
       if (this.point[0] === this.secIndex && this.point[1] === '-1') {
         return true
@@ -143,7 +151,16 @@ export default {
     }
   },
   created () {
+    let secIndex = this.sec['secIndex']
+    let quesIndex = -1
+
+    if (this.point[0] === secIndex && this.point[1] === quesIndex) {
+      this.point = this.secIndex
+      this.point = -1
+    }
+
     this.sec['secIndex'] = this.secIndex
+    this.sec['quesIndex'] = -1
   }
 }
 </script>

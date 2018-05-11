@@ -2,26 +2,39 @@
   <div class="psq-content">
     <div class="psq-chunk">编辑问卷</div>
     <div class="psq-chunk clearfix">
-      <el-button class="fr add-psq" type="primary">完成编辑</el-button>
-      <el-button class="fr add-psq" type="primary" style="margin-right: 20px;">预览</el-button>
+      <el-button
+        class="fr add-psq"
+        type="primary">
+        完成编辑
+      </el-button>
+      <el-button
+        class="fr add-psq"
+        type="primary"
+        style="margin-right: 20px;">
+        预览
+      </el-button>
     </div>
 
     <div class="question-type">
       <el-menu
         class="el-menu-demo"
         mode="horizontal"
-        @select="addQuestion"
+        @select="add"
         background-color="#126ab5"
         text-color="#fff"
         active-text-color="#fff">
-        <el-menu-item v-for="type in QType" :index="type.id" :key="type.id">
-          <i class="iconfont icon-tianjia1"></i>{{type.name}}
+        <el-menu-item
+          v-for="type in QType"
+          :index="type.id"
+          :key="type.id">
+          <i class="iconfont icon-tianjia1"></i>
+          {{type.name}}
         </el-menu-item>
       </el-menu>
     </div>
 
     <!-- 问卷头部标题 -->
-    <xz-question-header></xz-question-header>
+    <xz-header></xz-header>
 
     <!-- 问卷问题列表 -->
     <div class="question-list">
@@ -69,13 +82,13 @@ import QData from '../assets/editData.json'
 import mylib from '../mylib.js'
 import _ from 'lodash'
 
-import xzQuestionHeader from './edit/QHeader.vue'
+import xzHeader from './edit/header.vue'
 import xzQuestion from './edit/question.vue'
 import xzSection from './edit/section.vue'
 
 export default {
   components: {
-    xzQuestionHeader,
+    xzHeader,
     xzQuestion,
     xzSection
   },
@@ -99,113 +112,86 @@ export default {
 
       return target ? target.name : ''
     },
-    // updateListOrder () {
-    //   _.each(this.Question, (v, k) => {
-    //     v.order = k + 1
-    //   })
-    // },
-    addQuestion (type) {
-      let question = {
-        type: type,
-        item: mylib.TYPE_DATA[type]['item']
+    add (type) {
+      let alias = mylib.TYPE_DATA[type]['alias']
+      if (alias === 'title' || alias === 'desc') {
+        this.addSection(type)
+      } else {
+        this.addQuestion(type)
       }
-      // 设置插入点
+    },
+    addSection (type) {
+      let typeData = mylib.TYPE_DATA[type]
       let secIndex = this.point[0]
       let quesIndex = this.point[1]
-      // 默认插入点
-      if (secIndex === '') {
-        let lastSec = this.section[this.section.length - 1]
-        if (lastSec.question.length) {
-          secIndex = this.section.length - 1
-          quesIndex = lastSec.question.length - 1
-        } else {
-          secIndex = this.section.length - 1
-          quesIndex = -1
+      let sec = {
+        type: 'section',
+        name: '',
+        description: '',
+        question: []
+
+      }
+      if (typeData['alias'] === 'title') {
+        sec['name'] = typeData['item']
+      } else if (typeData['alias'] === 'desc') {
+        sec['description'] = typeData['item']
+      }
+
+      let setSec = (sec) => {
+        if (!sec.name && typeData['alias'] === 'title') {
+          sec['name'] = typeData['item']
+        } else if (!sec.description && typeData['alias'] === 'desc') {
+          sec['description'] = typeData['item']
         }
       }
-      // 插入题目
-      let sec = this.section[secIndex]
-      sec.question.splice(quesIndex + 1, 0, question)
+      // 判断是否设置了插入点
+      if (secIndex === '') {
+        // 插入点在最后
+        let lastSec = this.section[this.section.length - 1]
+        if (lastSec.question.length) {
+          this.section.push(sec)
+        } else {
+          setSec(lastSec)
+        }
+      } else if (quesIndex === -1) {
+        // 插入点在块后面
+      } else {
+        // 插入点在题后面
+        let pointSec = this.section[secIndex]
+        let qlen = pointSec.question.length
 
-      // if (this.point.type === 'section') {
-      //   this.point.question.unshift(question)
-      // } else {
+        // 判断是不是某个模块的最后一题
+        if (qlen - 1 === quesIndex) {
+          let nextSec = this.section[secIndex + 1]
+          if (nextSec) {
+            setSec(nextSec)
+          } else {
+            this.section.splice(secIndex + 1, 0, sec)
+          }
+        } else {
+          let pointQues = pointSec.question.splice(quesIndex - qlen + 1)
+          sec['question'] = pointQues
 
-      // }
+          this.section.splice(secIndex + 1, 0, sec)
+        }
+      }
+    },
+    addQuestion (type) {
+      let typeData = mylib.TYPE_DATA[type]
+      let secIndex = this.point[0]
+      let quesIndex = this.point[1]
 
-      // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
-      // 就只处理section里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
-      // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
-      // 移动标题和段落说明时，向上移写好只需要把上一条的最后一个题号拿过来放在自己的队列中即可（按照思路来）
-      // let question = mylib.TYPE_DATA[type]
-      // let alias = question['alias']
+      if (secIndex === '') {
+        secIndex = this.section.length - 1
 
-      // this.Question.splice(this.point, 0, {
-      //   type: type,
-      //   order: '',
-      //   item: question['item']
-      // })
+        let lastQues = this.section[secIndex]['question']
+        quesIndex = lastQues.length ? lastQues.length - 1 : -1
+      }
 
-      // let question = mylib.TYPE_DATA[type]
-      // let alias = question['alias']
-
-      // if (alias === 'title' || alias === 'desc') {
-      //   let section = this.section[this.point + 1]
-
-      //   if (section) {
-      //     if (alias === 'title' && !section['name']) {
-      //       section['name'] = {
-      //         item: {
-      //           title: '<strong>请输入标题</strong>'
-      //         },
-      //         num: this.point + 1,
-      //         type: type
-      //       }
-      //     }
-      //     if (alias === 'desc' && !section['desc']) {
-      //       section['desc'] = {
-      //         item: {
-      //           title: '请输入段落说明'
-      //         },
-      //         num: this.point + 1,
-      //         type: type
-      //       }
-      //     }
-
-      //     delete this.section[this.point + 1]
-      //     this.$set(this.section, this.point + 1, section)
-      //   } else {
-      //     let section = {}
-      //     if (alias === 'title') {
-      //       section['name'] = {
-      //         item: {
-      //           title: '<strong>请输入标题</strong>'
-      //         },
-      //         num: this.point + 1,
-      //         type: type
-      //       }
-      //     } else if (alias === 'desc') {
-      //       section['desc'] = {
-      //         item: {
-      //           title: '请输入段落说明'
-      //         },
-      //         num: this.point + 1,
-      //         type: type
-      //       }
-      //     }
-
-      //     delete this.section[this.point + 1]
-      //     this.$set(this.section, this.point + 1, section)
-      //   }
-      //   return
-      // }
-
-      // this.Question.splice(this.point, 0, {
-      //   type: type,
-      //   order: '',
-      //   item: question['item']
-      // })
-      // this.updateListOrder()
+      this.section[secIndex].question.splice(quesIndex + 1, 0, {
+        type: type,
+        item: mylib.TYPE_DATA[type]['item']
+      })
     }
   },
   mounted () {
@@ -216,7 +202,10 @@ export default {
         this.QType = res.data
       }
     }, this)
-
+    // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
+    // 就只处理section里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
+    // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
+    // 移动标题和段落说明时，向上移写好只需要把上一条的最后一个题号拿过来放在自己的队列中即可（按照思路来）
     // 初始化section
     if (QData.section.length) {
       this.section = []
