@@ -223,9 +223,25 @@ export default {
       this.section.unshift(this.sec)
     },
     del () {
+      let len = this.sec.question.length
+      let quesList = this.sec.question.splice(len * (-1))
+      this.section.splice(this.secIndex, 1)
 
+      if (this.secIndex === 0) {
+        let sec = {
+          type: 'section',
+          name: '',
+          description: '',
+          question: quesList
+        }
+        this.section.splice(this.secIndex, 0, sec)
+      } else {
+        let prevSec = this.section[this.secIndex - 1]
+        prevSec.question = prevSec.question.concat(quesList)
+      }
     },
     copy () {
+
     }
   },
   created () {

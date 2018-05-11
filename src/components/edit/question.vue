@@ -513,7 +513,7 @@ export default {
       if (this.quesIndex === len - 1) {
         // 块下面没有其他块
         if (this.secIndex === this.section.length - 1) {
-          this.sec.question.splice(this.questionIndex, 0, ques)
+          this.sec.question.splice(this.quesIndex, 0, ques)
           return
         } else{
           // 块下面存在其他块
