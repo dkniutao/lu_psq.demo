@@ -241,7 +241,13 @@ export default {
       }
     },
     copy () {
-
+      let sec = {
+        type: 'section',
+        name: this.sec.name,
+        description: this.sec.description,
+        question: []
+      }
+      this.section.splice(this.secIndex, 0, sec)
     }
   },
   created () {
