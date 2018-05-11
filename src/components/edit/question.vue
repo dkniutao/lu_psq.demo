@@ -545,20 +545,17 @@ export default {
       firstSec.question.splice(0, 0, ques)
     },
     del () {
-      // let index = this.order - 1
-      // this.list.splice(index, 1)
-
-      // this.updateList()
+      // 提取目标问题
+      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
     },
     copy () {
-      // let index = this.order - 1
-      // this.list.splice(index + 1, 0, {
-      //   item: _.clone(this.item),
-      //   type: this.type,
-      //   order: this.order
-      // })
+      let ques = this.sec.question[this.quesIndex]
 
-      // this.updateList()
+      let newQues = _.clone(ques)
+      delete newQues['secIndex']
+      delete newQues['quesIndex']
+
+      this.sec.question.splice(this.quesIndex + 1, 0, newQues)
     }
   },
   created () {
