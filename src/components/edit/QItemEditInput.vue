@@ -8,7 +8,8 @@
             <el-option
               v-for="i in 10"
               :label="i + '行'"
-              :value="i">
+              :value="i"
+              :key="i">
             </el-option>
           </el-select>
         </el-form-item>

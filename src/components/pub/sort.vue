@@ -18,6 +18,7 @@
 </div>
 </template>
 <script>
+import _ from 'lodash'
 export default {
   props: ['value', 'content'],
   methods: {

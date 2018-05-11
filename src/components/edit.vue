@@ -26,38 +26,39 @@
     <!-- 问卷问题列表 -->
     <div class="question-list">
       <div
-        v-for="(section, index) in QList"
-        :key="index">
-        <xz-question-title
-          v-if="section.name"
+        v-for="(sec, secIndex) in section"
+        :key="'sec_' + secIndex">
+        <xz-section
+          v-if="sec.name"
           :type="7"
           :type-name="getTypeName(7)"
-          :item="section"
-          :list="Question"
-          :section="QSection"
-          :order="++index">
-        </xz-question-title>
-
-        <xz-question-title
-          v-if="section.description"
+          :sec="sec"
+          :section="section"
+          :sec-index="secIndex"
+          :point="point">
+        </xz-section>
+        <xz-section
+          v-if="sec.description"
           :type="8"
           :type-name="getTypeName(8)"
-          :item="section"
-          :list="Question"
-          :section="QSection"
-          :order="++index">
-        </xz-question-title>
+          :sec="sec"
+          :section="section"
+          :sec-index="secIndex"
+          :point="point">
+        </xz-section>
 
-        <xz-question-item
-          v-for="(Q, index) in section.question"
-          :order="Q.order"
-          :key="Q.order"
-          :type="Q.type"
-          :type-name="getTypeName(Q.type)"
-          :item="Q.item"
-          :list="Question"
-          :section="QSection">
-        </xz-question-item>
+        <xz-question
+          v-for="(ques, quesIndex) in sec.question"
+          :key="'ques_' + secIndex + '_' + quesIndex"
+          :type="ques.type"
+          :type-name="getTypeName(ques.type)"
+          :item="ques.item"
+          :ques-index="quesIndex"
+          :sec-index="secIndex"
+          :sec="sec"
+          :section="section"
+          :point="point">
+        </xz-question>
       </div>
     </div>
   </div>
@@ -69,35 +70,25 @@ import mylib from '../mylib.js'
 import _ from 'lodash'
 
 import xzQuestionHeader from './edit/QHeader.vue'
-import xzQuestionItem from './edit/QItem.vue'
-import xzQuestionTitle from './edit/QTitle.vue'
+import xzQuestion from './edit/question.vue'
+import xzSection from './edit/section.vue'
 
 export default {
   components: {
     xzQuestionHeader,
-    xzQuestionItem,
-    xzQuestionTitle
+    xzQuestion,
+    xzSection
   },
   data () {
     return {
       QType: [], // 题目类型
-      QSection: {}, // 标题和段落说明
-      Question: [], // 问题列表
-      insertPoint: 1 // 当前插入题目的位置
-    }
-  },
-  computed: {
-    QList () {
-      _.each(this.QSection, (v, k) => {
-        v.question = []
-        // 插入题目
-        let num = v.item.split(',')
-        _.each(num, (n) => {
-          let q = this.Question[n - 1]
-          if (q) v.question.push(q)
-        })
-      })
-      return this.QSection
+      section: [{
+        type: 'section',
+        name: '',
+        description: '',
+        question: []
+      }], // 块信息
+      point: ['', ''] // 当前插入题目的位置(secIndex, quesIndex)
     }
   },
   methods: {
@@ -108,30 +99,58 @@ export default {
 
       return target ? target.name : ''
     },
-    updateListOrder () {
-      _.each(this.Question, (v, k) => {
-        v.order = k + 1
-      })
-    },
+    // updateListOrder () {
+    //   _.each(this.Question, (v, k) => {
+    //     v.order = k + 1
+    //   })
+    // },
     addQuestion (type) {
+      let question = {
+        type: type,
+        item: mylib.TYPE_DATA[type]['item']
+      }
+      // 设置插入点
+      let secIndex = this.point[0]
+      let quesIndex = this.point[1]
+      // 默认插入点
+      if (secIndex === '') {
+        let lastSec = this.section[this.section.length - 1]
+        if (lastSec.question.length) {
+          secIndex = this.section.length - 1
+          quesIndex = lastSec.question.length - 1
+        } else {
+          secIndex = this.section.length - 1
+          quesIndex = -1
+        }
+      }
+      // 插入题目
+      let sec = this.section[secIndex]
+      sec.question.splice(quesIndex + 1, 0, question)
+
+      // if (this.point.type === 'section') {
+      //   this.point.question.unshift(question)
+      // } else {
+
+      // }
+
       // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
-      // 就只处理Qsection里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
+      // 就只处理section里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
       // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
       // 移动标题和段落说明时，向上移写好只需要把上一条的最后一个题号拿过来放在自己的队列中即可（按照思路来）
-      let question = mylib.TYPE_DATA[type]
-      let alias = question['alias']
+      // let question = mylib.TYPE_DATA[type]
+      // let alias = question['alias']
 
-      this.Question.splice(this.insertPoint, 0, {
-        type: type,
-        order: '',
-        item: question['item']
-      })
+      // this.Question.splice(this.point, 0, {
+      //   type: type,
+      //   order: '',
+      //   item: question['item']
+      // })
 
       // let question = mylib.TYPE_DATA[type]
       // let alias = question['alias']
 
       // if (alias === 'title' || alias === 'desc') {
-      //   let section = this.QSection[this.insertPoint + 1]
+      //   let section = this.section[this.point + 1]
 
       //   if (section) {
       //     if (alias === 'title' && !section['name']) {
@@ -139,7 +158,7 @@ export default {
       //         item: {
       //           title: '<strong>请输入标题</strong>'
       //         },
-      //         num: this.insertPoint + 1,
+      //         num: this.point + 1,
       //         type: type
       //       }
       //     }
@@ -148,13 +167,13 @@ export default {
       //         item: {
       //           title: '请输入段落说明'
       //         },
-      //         num: this.insertPoint + 1,
+      //         num: this.point + 1,
       //         type: type
       //       }
       //     }
 
-      //     delete this.QSection[this.insertPoint + 1]
-      //     this.$set(this.QSection, this.insertPoint + 1, section)
+      //     delete this.section[this.point + 1]
+      //     this.$set(this.section, this.point + 1, section)
       //   } else {
       //     let section = {}
       //     if (alias === 'title') {
@@ -162,7 +181,7 @@ export default {
       //         item: {
       //           title: '<strong>请输入标题</strong>'
       //         },
-      //         num: this.insertPoint + 1,
+      //         num: this.point + 1,
       //         type: type
       //       }
       //     } else if (alias === 'desc') {
@@ -170,18 +189,18 @@ export default {
       //         item: {
       //           title: '请输入段落说明'
       //         },
-      //         num: this.insertPoint + 1,
+      //         num: this.point + 1,
       //         type: type
       //       }
       //     }
 
-      //     delete this.QSection[this.insertPoint + 1]
-      //     this.$set(this.QSection, this.insertPoint + 1, section)
+      //     delete this.section[this.point + 1]
+      //     this.$set(this.section, this.point + 1, section)
       //   }
       //   return
       // }
 
-      // this.Question.splice(this.insertPoint, 0, {
+      // this.Question.splice(this.point, 0, {
       //   type: type,
       //   order: '',
       //   item: question['item']
@@ -198,9 +217,27 @@ export default {
       }
     }, this)
 
-    this.QSection = QData.section
-    this.Question = QData.question
-    this.insertPoint = this.Question.length - 1
+    // 初始化section
+    if (QData.section.length) {
+      this.section = []
+
+      _.each(QData.section, (sec) => {
+        let v = {
+          type: 'section',
+          name: sec.name,
+          description: sec.description,
+          question: []
+        }
+        // 插入题目
+        let num = sec.item ? sec.item.split(',') : []
+        _.each(num, (n) => {
+          let q = QData.question[n - 1]
+          if (q) v.question.push(q)
+        })
+
+        this.section.push(v)
+      })
+    }
   }
 }
 </script>

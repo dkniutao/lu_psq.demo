@@ -46,8 +46,8 @@
           v-model="checkbox">
             <el-col
               :span="24"
-              v-for="option in item.question.content"
-              >
+              v-for="(option, index) in item.question.content"
+              :key="index">
               <el-checkbox :label="option.key">
                 {{option.title}}
                 <div v-if="option.img">
@@ -230,10 +230,10 @@ export default {
       return res
     },
     hasClearBtn () {
-      return this.alias === 'radio'
-        || this.alias === 'checkbox'
-        || this.alias === 'rate'
-        || this.alias === 'rateMulti'
+      return this.alias === 'radio' ||
+        this.alias === 'checkbox' ||
+        this.alias === 'rate' ||
+        this.alias === 'rateMulti'
     },
     alias () {
       return mylib.TYPE_DATA[this.item.type]['alias']

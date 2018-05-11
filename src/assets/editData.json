@@ -177,19 +177,19 @@
   }],
   "section": [
   {
-    "name": "基本信息",
-    "item": "1,2,3,4,4,5,6",
-    "description": "参与问卷的结果只做统计用途"
+    "name": "基本信息1",
+    "item": "1,2,3,4,5,6",
+    "description": "参与问卷的结果只做统计用途1"
   },
   {
-    "name": "附加信息",
+    "name": "附加信息2",
     "item": "7,8",
-    "description": "调查结果只做统计用途"
+    "description": "调查结果只做统计用途2"
   },
   {
 
     "name": "新标题",
-    "item": "9",
+    "item": "",
     "description": ""
   }],
   "logic": [
