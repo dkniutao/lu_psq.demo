@@ -478,11 +478,6 @@ export default {
     complete () {
       this.isEdit = false
     },
-    // updateList () {
-    //   _.each(this.list, (v, k) => {
-    //     v.order = k + 1
-    //   })
-    // },
     up () {
       // 提取目标问题 @todo如果提取问题后块为空，则删除该模块
       let ques = this.sec.question.splice(this.quesIndex, 1)[0]

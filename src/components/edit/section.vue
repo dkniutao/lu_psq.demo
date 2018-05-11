@@ -134,15 +134,93 @@ export default {
       this.isEdit = false
     },
     up () {
+      // 在块首
+      if (this.secIndex === 0) {
+        return
+      } else {
+        // 不在块首
+        let prevSec = this.section[this.secIndex - 1]
+        if (prevSec.question.length) {
+          let ques = prevSec.question.pop()
+          this.sec.question.unshift(ques)
+        } else {
+          let len = this.sec.question.length
+          let quesList = this.sec.question.splice(len * (-1))
+          prevSec.question = quesList
+          this.section.splice(this.secIndex, 1)
+          this.section.splice(this.secIndex - 1, 0, this.sec)
+        }
+      }
     },
     down () {
+      // 如果块中有问题
+      if (this.sec.question.length) {
+        // 把第一个问题放到上一个块中
+        let ques = this.sec.question.shift()
 
+        if (this.secIndex === 0) {
+          let sec = {
+            type: 'section',
+            name: '',
+            description: '',
+            question: []
+          }
+          sec['question'].push(ques)
+          this.section.splice(this.secIndex, 0, sec)
+        } else {
+          let prevSec = this.section[this.secIndex - 1]
+          prevSec.question.push(ques)
+        }
+      } else {
+        //是否是最后一个块
+        if (this.secIndex === this.section.length - 1) {
+          return
+        } else {
+          // 如果不是则把下一个块的问题拿上来
+          let nextSec = this.section[this.secIndex + 1]
+          if (nextSec.question.length) {
+            let ques = nextSec.question.shift()
+            this.sec.question.push(ques)
+          } else {
+            this.section.splice(this.secIndex, 1)
+            this.section.splice(this.secIndex + 1, 0, this.sec)
+          }
+        }
+      }
     },
     last () {
+      let len = this.sec.question.length
+      let quesList = this.sec.question.splice(len * (-1))
+      this.section.splice(this.secIndex, 1)
 
+      if (this.secIndex === 0) {
+        let sec = {
+          type: 'section',
+          name: '',
+          description: '',
+          question: quesList
+        }
+        this.section.splice(this.secIndex, 0, sec)
+      } else {
+        let prevSec = this.section[this.secIndex - 1]
+        prevSec.question = prevSec.question.concat(quesList)
+      }
+
+      this.section.push(this.sec)
     },
     first () {
+      let len = this.sec.question.length
+      let quesList = this.sec.question.splice(len * (-1))
+      this.section.splice(this.secIndex, 1)
 
+      if (this.secIndex === 0) {
+        return
+      } else {
+        let prevSec = this.section[this.secIndex - 1]
+        prevSec.question = prevSec.question.concat(quesList)
+      }
+
+      this.section.unshift(this.sec)
     },
     del () {
 
