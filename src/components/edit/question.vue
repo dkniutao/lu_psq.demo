@@ -531,32 +531,18 @@ export default {
       }
     },
     last () {
-      // let index = this.order - 1
-      // if (index >= this.list.length - 1) return
+      // 提取目标问题
+      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
 
-      // this.list.splice(index, 1)
-
-      // this.list.splice(this.list.length, 0, {
-      //   item: this.item,
-      //   type: this.type,
-      //   order: this.order
-      // })
-
-      // this.updateList()
+      let lastSec = this.section[this.section.length - 1]
+      lastSec.question.push(ques)
     },
     first () {
-      // let index = this.order - 1
-      // if (index <= 0) return
+      // 提取目标问题
+      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
 
-      // this.list.splice(index, 1)
-
-      // this.list.splice(0, 0, {
-      //   item: this.item,
-      //   type: this.type,
-      //   order: this.order
-      // })
-
-      // this.updateList()
+      let firstSec = this.section[0]
+      firstSec.question.splice(0, 0, ques)
     },
     del () {
       // let index = this.order - 1
