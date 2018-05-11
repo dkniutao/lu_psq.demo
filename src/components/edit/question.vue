@@ -484,40 +484,51 @@ export default {
     //   })
     // },
     up () {
-      // if (this.isTitle) {
-      //   return
-      // }
-
-      // let index = this.order - 1
-      // if (index <= 0) return
-
-      // this.list.splice(index, 1)
-
-      // this.list.splice(index - 1, 0, {
-      //   item: this.item,
-      //   type: this.type,
-      //   order: this.order
-      // })
-
-      // this.updateList()
+      // 提取目标问题 @todo如果提取问题后块为空，则删除该模块
+      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
+      // 判断题目所在sec的位置
+      // 在块首
+      if (this.quesIndex === 0) {
+        // 块上面没有其他块
+        if (this.secIndex === 0) {
+          let sec = {
+            type: 'section',
+            name: '',
+            description: '',
+            question: []
+          }
+          sec['question'].push(ques)
+          this.section.splice(this.secIndex, 0, sec)
+        } else{
+          // 块上面存在其他块
+          let prevSec = this.section[this.secIndex - 1]
+          prevSec['question'].push(ques)
+        }
+      // 不在块首
+      } else {
+        this.sec.question.splice(this.quesIndex - 1, 0, ques)
+      }
     },
     down () {
-      // if (this.isTitle) {
-      //   return
-      // }
-
-      // let index = this.order - 1
-      // if (index >= this.list.length - 1) return
-
-      // this.list.splice(index, 1)
-
-      // this.list.splice(index + 1, 0, {
-      //   item: this.item,
-      //   type: this.type,
-      //   order: this.order
-      // })
-
-      // this.updateList()
+      let len = this.sec.question.length
+      // 提取目标问题
+      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
+      // 判断题目所在sec的位置
+      // 在块尾部
+      if (this.quesIndex === len - 1) {
+        // 块下面没有其他块
+        if (this.secIndex === this.section.length - 1) {
+          this.sec.question.splice(this.questionIndex, 0, ques)
+          return
+        } else{
+          // 块下面存在其他块
+          let nextSec = this.section[this.secIndex + 1]
+          nextSec['question'].unshift(ques)
+        }
+      // 不在块尾
+      } else {
+        this.sec.question.splice(this.quesIndex + 1, 0, ques)
+      }
     },
     last () {
       // let index = this.order - 1

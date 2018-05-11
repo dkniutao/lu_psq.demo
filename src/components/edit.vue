@@ -163,6 +163,7 @@ export default {
         // 判断是不是某个模块的最后一题
         if (qlen - 1 === quesIndex) {
           let nextSec = this.section[secIndex + 1]
+          // 判断最后一题后面还有没有块
           if (nextSec) {
             setSec(nextSec)
           } else {
