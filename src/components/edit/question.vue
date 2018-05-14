@@ -227,7 +227,10 @@
     <div class="item-edit">
       <el-row :gutter="20">
         <el-col :span="12">
-          <quill-editor v-model="item.title" ref="myQuillEditor">
+          <quill-editor
+            :options="editorOption"
+            v-model="item.title"
+            ref="myQuillEditor">
           </quill-editor>
         </el-col>
         <el-col class="item-logic" :span="12">
@@ -415,7 +418,19 @@ export default {
       logic_3_rule: [{
         option: '',
         question: ''
-      }]
+      }],
+      editorOption: {
+        placeholder: '请输入标题',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{'script': 'sub'}, {'script': 'super'}],
+            [{'color': []}, {'background': []}],
+            ['image'],
+            [{ 'size': ['small', false, 'large', 'huge'] }]
+          ]
+        }
+      }
     }
   },
   computed: {
@@ -470,9 +485,7 @@ export default {
       return list
     },
     nextQuesList () {
-      return _.filter(this.list.slice(this.order), (v, k) => {
-        return mylib.TYPE_DATA[v.type]['alias'] === 'radio'
-      })
+      return this.list.slice(this.order)
     },
     beforeQuesList () {
       return _.filter(this.list.slice(0, this.order - 1), (v, k) => {
@@ -689,4 +702,5 @@ export default {
 .item-logic .el-row + .el-row{margin-top: 10px;}
 .item-logic .el-row .el-button{padding: 7px;}
 /*跳题逻辑设置 end*/
+.ql-container.ql-snow{height:80px;}
 </style>

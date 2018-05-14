@@ -39,15 +39,14 @@ export default {
       desc: '添加问卷说明',
       visible: false,
       editorOption: {
+        placeholder: '请输入问卷说明',
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
-            [{'list': 'ordered'}, {'list': 'bullet'}],
             [{'script': 'sub'}, {'script': 'super'}],
-            [{'indent': '-1'}, {'indent': '+1'}],
-            [{'size': ['small', false, 'large', 'huge']}],
             [{'color': []}, {'background': []}],
-            [{'font': []}]
+            ['image'],
+            [{ 'size': ['small', false, 'large', 'huge'] }]
           ]
         }
       }

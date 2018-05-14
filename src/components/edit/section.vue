@@ -68,7 +68,10 @@
       <!-- 标题和段落 -->
       <el-row>
         <el-col :span="24">
-          <quill-editor v-model="sec[modelType]" ref="myQuillEditor">
+          <quill-editor
+            :options="editorOption"
+            v-model="sec[modelType]"
+            ref="myQuillEditor">
           </quill-editor>
         </el-col>
       </el-row>
@@ -93,7 +96,19 @@ export default {
   props: ['point', 'type', 'typeName', 'secIndex', 'sec', 'section'],
   data () {
     return {
-      isEdit: false
+      isEdit: false,
+      editorOption: {
+        placeholder: this.alias === 'title' ? '请输入标题' : '请输入段落说明',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{'script': 'sub'}, {'script': 'super'}],
+            [{'color': []}, {'background': []}],
+            ['image'],
+            [{ 'size': ['small', false, 'large', 'huge'] }]
+          ]
+        }
+      }
     }
   },
   computed: {
