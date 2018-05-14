@@ -34,7 +34,9 @@
     </div>
 
     <!-- 问卷头部标题 -->
-    <xz-header></xz-header>
+    <xz-header
+      :title="title">
+    </xz-header>
 
     <!-- 问卷问题列表 -->
     <div class="question-list">
@@ -87,6 +89,7 @@ import xzQuestion from './edit/question.vue'
 import xzSection from './edit/section.vue'
 
 export default {
+  props: ['name'],
   components: {
     xzHeader,
     xzQuestion,
@@ -94,6 +97,10 @@ export default {
   },
   data () {
     return {
+      title: {
+        name: this.name,
+        desc: '添加问卷说明'
+      },
       QType: [], // 题目类型
       section: [{
         type: 'section',
@@ -196,6 +203,7 @@ export default {
     }
   },
   mounted () {
+    // this.title.name = this.name
     // 获取问题类型
     mylib.axios({
       url: 'questionnaire/getqtype',

@@ -2,8 +2,8 @@
 <template>
 <div>
   <div class="question-header" @click="edit">
-    <div class="title" v-html="title"></div>
-    <div class="desc" v-html="desc">
+    <div class="title" v-html="title.name"></div>
+    <div class="desc" v-html="title.desc">
     </div>
   </div>
   <!-- 分割线 -->
@@ -12,11 +12,11 @@
   <el-dialog title="编辑问卷说明" :visible.sync="visible" width="800px">
     <el-form label-width="100px">
       <el-form-item label="问卷标题">
-        <el-input v-model="title" auto-complete="off"></el-input>
+        <el-input v-model="title.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="问卷说明">
         <div class="clearfix">
-          <quill-editor v-model="desc"
+          <quill-editor v-model="title.desc"
             ref="myQuillEditor"
             :options="editorOption">
           </quill-editor>
@@ -33,10 +33,9 @@
 
 <script>
 export default {
+  props: ['title'],
   data () {
     return {
-      title: '企业员工满意度调查问卷',
-      desc: '添加问卷说明',
       visible: false,
       editorOption: {
         placeholder: '请输入问卷说明',
