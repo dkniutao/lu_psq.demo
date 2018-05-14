@@ -277,8 +277,14 @@
                   题
                 </el-col>
                 <el-col :span="3">
-                  <el-button type="text" v-if="index === 0">+更多</el-button>
-                  <el-button type="text" v-else>-取消</el-button>
+                  <el-button
+                  type="text"
+                  v-if="index === 0"
+                  @click="addLogic(2, index)">+更多</el-button>
+                  <el-button
+                  type="text"
+                  v-else
+                  @click="removeLogic(2, index)">-取消</el-button>
                 </el-col>
               </el-row>
             </el-col>
@@ -314,7 +320,14 @@
                   跳转本题
                 </el-col>
                 <el-col :span="3">
-                  <el-button type="text">+更多</el-button>
+                  <el-button
+                    type="text"
+                    v-if="index === 0"
+                    @click="addLogic(3, index)">+更多</el-button>
+                  <el-button
+                    type="text"
+                    v-else
+                    @click="removeLogic(3, index)">-取消</el-button>
                 </el-col>
               </el-row>
             </el-col>
@@ -468,6 +481,15 @@ export default {
     }
   },
   methods: {
+    addLogic (type, index) {
+      this['logic_' + type + '_rule'].push({
+        option: '',
+        question: ''
+      })
+    },
+    removeLogic (type, index) {
+      this['logic_' + type + '_rule'].splice(index, 1)
+    },
     setPoint () {
       if (this.isPoint) {
         this.$set(this.point, 0, '')
