@@ -122,3 +122,19 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="huge"]::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="huge"]::before{content:'18px';}
 /*quill editor 字体设置 end*/
+
+/*表格样式覆盖 start*/
+.item-edit .el-table th{background-color: #f3f3f3;}
+.item-edit .el-table td, .el-table th{padding:8px 0;}
+.item-edit .el-table .el-button{padding:0;}
+.item-edit .el-table td, .el-table th.is-leaf{border:none;}
+.item-edit .el-table::before{height: 0;}
+/*表格样式覆盖 end*/
+
+/*form 表单覆盖 start*/
+.item-edit .el-form-item{margin-bottom: 10px;}
+/*form 表单覆盖 end*/
+
+/*上传插件 start*/
+.el-upload,.el-upload-dragger{width:100%;}
+/*上传插件 end*/

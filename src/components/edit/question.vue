@@ -337,38 +337,39 @@
           </el-row>
         </el-col>
       </el-row>
+      <el-row>
+        <xz-question-item-edit-option
+          :item="item"
+          v-if="alias === 'radio'
+            || alias === 'checkbox'
+            || alias === 'sort'">
+        </xz-question-item-edit-option>
 
-      <xz-question-item-edit-option
-        :item="item"
-        v-if="alias === 'radio'
-          || alias === 'checkbox'
-          || alias === 'sort'">
-      </xz-question-item-edit-option>
+        <xz-question-item-edit-input
+          :item="item"
+          v-if="alias === 'input'">
+        </xz-question-item-edit-input>
 
-      <xz-question-item-edit-input
-        :item="item"
-        v-if="alias === 'input'">
-      </xz-question-item-edit-input>
+        <xz-question-item-edit-input-multi
+          :item="item"
+          v-if="alias === 'inputMulti'">
+        </xz-question-item-edit-input-multi>
 
-      <xz-question-item-edit-input-multi
-        :item="item"
-        v-if="alias === 'inputMulti'">
-      </xz-question-item-edit-input-multi>
+        <xz-question-item-edit-rate
+          :item="item"
+          v-if="alias === 'rate'">
+        </xz-question-item-edit-rate>
 
-      <xz-question-item-edit-rate
-        :item="item"
-        v-if="alias === 'rate'">
-      </xz-question-item-edit-rate>
+        <xz-question-item-edit-rate-multi
+          :item="item"
+          v-if="alias === 'rateMulti'">
+        </xz-question-item-edit-rate-multi>
 
-      <xz-question-item-edit-rate-multi
-        :item="item"
-        v-if="alias === 'rateMulti'">
-      </xz-question-item-edit-rate-multi>
-
-      <xz-question-item-edit-slider
-        :item="item"
-        v-if="alias === 'slider'">
-      </xz-question-item-edit-slider>
+        <xz-question-item-edit-slider
+          :item="item"
+          v-if="alias === 'slider'">
+        </xz-question-item-edit-slider>
+      </el-row>
     </div>
 
     <div class="item-submit">
@@ -703,4 +704,5 @@ export default {
 .item-logic .el-row .el-button{padding: 7px;}
 /*跳题逻辑设置 end*/
 .ql-container.ql-snow{height:80px;}
+.item-edit .el-row + .el-row{margin-top: 20px;}
 </style>
