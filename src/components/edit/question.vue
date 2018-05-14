@@ -406,12 +406,14 @@ export default {
     }
   },
   computed: {
+    // 是否为新题插入点
     isPoint () {
       if (this.point[0] === this.secIndex && this.point[1] === this.quesIndex) {
         return true
       }
       return false
     },
+    // 题目标题
     order () {
       let o = this.quesIndex + 1
       for (let i = 0; i < this.secIndex; i++) {
@@ -419,6 +421,7 @@ export default {
       }
       return o
     },
+    // 题目类型别称
     alias () {
       return mylib.TYPE_DATA[this.type]['alias']
     },
@@ -442,6 +445,7 @@ export default {
         return ''
       }
     },
+    // 问题列表
     list () {
       let list = []
       _.each(this.section, (sec) => {
@@ -452,7 +456,6 @@ export default {
       })
       return list
     },
-    // 问题列表
     nextQuesList () {
       return _.filter(this.list.slice(this.order), (v, k) => {
         return mylib.TYPE_DATA[v.type]['alias'] === 'radio'
