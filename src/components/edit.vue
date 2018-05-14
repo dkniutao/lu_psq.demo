@@ -203,6 +203,12 @@ export default {
         this.QType = res.data
       }
     }, this)
+    // 预处理题目逻辑
+    let logic = {}
+    _.each(QData.logic, (l) => {
+      logic[l.order] = logic[l.order] || {}
+      logic[l.order][l.action] = l.rule
+    })
     // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
     // 就只处理section里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
     // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
@@ -222,7 +228,10 @@ export default {
         let num = sec.item ? sec.item.split(',') : []
         _.each(num, (n) => {
           let q = QData.question[n - 1]
-          if (q) v.question.push(q)
+          if (q) {
+            q['item']['logic'] = logic[q.order] || {}
+            v.question.push(q)
+          }
         })
 
         this.section.push(v)

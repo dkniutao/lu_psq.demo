@@ -234,27 +234,27 @@
           <div class="item-logic-title">当前题型：<strong v-html="typeName"></strong></div>
           <el-row>
             <el-col :span="5">
-              <el-checkbox v-model="logic[1].checked">无条件跳题</el-checkbox>
+              <el-checkbox v-model="logic_1_checked">无条件跳题</el-checkbox>
             </el-col>
-            <el-col :span="19" v-show="logic[1].checked">
+            <el-col :span="19" v-show="logic_1_checked">
               填写此题后跳转到第
-              <el-select v-model="logic[1].rule" placeholder="请选择">
-               <!--  <el-option
-                  v-for="Q in list"
-                  :key="Q.order"
-                  :label="Q.order + '.' + Q.item.title"
-                  :value="Q.order">
-                </el-option> -->
+              <el-select v-model="logic_1_rule" style="width: 80px;">
+                <el-option
+                  v-for="(q, index) in quesList"
+                  :key="(index + 1)"
+                  :value="(index + 1)">
+                  <span v-html="(index + 1) + '.&nbsp;' + q.item.title"></span>
+                </el-option>
               </el-select>
               题
             </el-col>
           </el-row>
           <el-row v-if="alias === 'radio'">
             <el-col :span="5">
-              <el-checkbox v-model="logic[2].checked">有条件跳题</el-checkbox>
+              <el-checkbox v-model="logic_2_checked">有条件跳题</el-checkbox>
             </el-col>
-            <el-col :span="19" v-show="logic[2].checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic[2].rule" :key="index">
+            <el-col :span="19" v-show="logic_2_checked">
+              <el-row :gutter="10" v-for="(rule, index) in logic_2_rule" :key="index">
                 <el-col :span="8">
                   <el-select v-model="rule.option" placeholder="请选择">
                     <el-option
@@ -284,10 +284,10 @@
           </el-row>
           <el-row :gutter="10">
             <el-col :span="5">
-              <el-checkbox v-model="logic[3].checked">关联逻辑</el-checkbox>
+              <el-checkbox v-model="logic_3_checked">关联逻辑</el-checkbox>
             </el-col>
-            <el-col :span="19" v-show="logic[3].checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic[3].rule" :key="index">
+            <el-col :span="19" v-show="logic_3_checked">
+              <el-row :gutter="10" v-for="(rule, index) in logic_3_rule" :key="index">
                 <el-col :span="12">
                   <el-select
                     v-model="rule.question"
@@ -390,29 +390,18 @@ export default {
   data () {
     return {
       isEdit: false, // 是否进入编辑状态
-      logic: {
-        '1': {
-          checked: true,
-          rule: ''
-        },
-        '2': {
-          checked: true,
-          rule: [{
-            option: '',
-            question: ''
-          }, {
-            option: '',
-            question: ''
-          }]
-        },
-        '3': {
-          checked: true,
-          rule: [{
-            question: '',
-            option: ''
-          }]
-        }
-      }
+      logic_1_checked: false,
+      logic_1_rule: '',
+      logic_2_checked: false,
+      logic_2_rule: [{
+        option: '',
+        question: ''
+      }],
+      logic_3_checked: false,
+      logic_3_rule: [{
+        option: '',
+        question: ''
+      }]
     }
   },
   computed: {
@@ -451,6 +440,14 @@ export default {
       } else {
         return ''
       }
+    },
+    // 问题列表
+    quesList () {
+      let list = []
+      _.each(this.section, (sec) => {
+        list = list.concat(sec.question)
+      })
+      return list
     }
   },
   methods: {
@@ -564,6 +561,39 @@ export default {
 
     this.item['secIndex'] = this.secIndex
     this.item['quesIndex'] = this.quesIndex
+  },
+  mounted () {
+    // 处理logic
+    _.each(this.item.logic, (rule, action) => {
+      this['logic_' + action + '_checked'] = true
+
+      if (action === '1') {
+        this['logic_' + action + '_rule'] = +rule
+      } else if (action === '2') {
+        if (rule.length) {
+          this['logic_' + action + '_rule'] = []
+          _.each(rule, (v, k) => {
+            this['logic_' + action + '_rule'].push({
+              option: k,
+              question: v
+            })
+          })
+        }
+      } else if (action === '3') {
+        this['logic_' + action + '_rule'] = []
+        if (rule.length) {
+          _.each(rule, (v, k) => {
+            let option = v.split(',')
+            _.each(option, (opt) => {
+              this['logic_' + action + '_rule'].push({
+                option: opt,
+                question: k
+              })
+            })
+          })
+        }
+      }
+    })
   }
 }
 </script>

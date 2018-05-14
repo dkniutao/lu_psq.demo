@@ -95,5 +95,9 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 /*滑动 end*/
 
 /*下拉选择样式覆盖 start*/
-.el-input__inner{height: 30px;line-height: 30px;background-color: #f3f3f3;border-color:#cccccc;border-radius: 0;color: #999999;}
+.el-select .el-input__inner{height: 30px;line-height: 30px;background-color: #f3f3f3;border-color:#cccccc;border-radius: 0;color: #999999;}
 /*下拉选择样式覆盖 end*/
+
+/*输入框样式覆盖 start*/
+.el-input__inner{height: 30px;line-height: 30px;background-color: #fff;border-color:#cccccc;border-radius: 0;}
+/*输入框样式覆盖 end*/
