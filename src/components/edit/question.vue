@@ -240,10 +240,10 @@
               填写此题后跳转到第
               <el-select v-model="logic_1_rule" style="width: 80px;">
                 <el-option
-                  v-for="(q, index) in quesList"
-                  :key="(index + 1)"
-                  :value="(index + 1)">
-                  <span v-html="(index + 1) + '.&nbsp;' + q.item.title"></span>
+                  v-for="(q, index) in nextQuesList"
+                  :key="q.order"
+                  :value="q.order">
+                  <span v-html="q.order + '.&nbsp;' + q.item.title"></span>
                 </el-option>
               </el-select>
               题
@@ -254,28 +254,29 @@
               <el-checkbox v-model="logic_2_checked">有条件跳题</el-checkbox>
             </el-col>
             <el-col :span="19" v-show="logic_2_checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic_2_rule" :key="index">
-                <el-col :span="8">
-                  <el-select v-model="rule.option" placeholder="请选择">
+              <el-row v-for="(rule, index) in logic_2_rule" :key="index">
+                <el-col :span="21">
+                  选
+                  <el-select v-model="rule.option" style="width: 175px;">
                     <el-option
                       v-for="option in item.content"
                       :key="option.key"
-                      :label="option.key + '.' + option.title"
+                      :label="option.title"
                       :value="option.key">
                     </el-option>
                   </el-select>
-                </el-col>
-                <el-col :span="12">
-                  <el-select v-model="rule.question" placeholder="请选择">
-                   <!--  <el-option
-                      v-for="Q in list"
-                      :key="Q.order"
-                      :label="Q.order + '.' + Q.item.title"
-                      :value="Q.order">
-                    </el-option> -->
+                  跳转第
+                  <el-select v-model="rule.question" style="width: 80px;">
+                    <el-option
+                      v-for="(q, index) in nextQuesList"
+                      :key="q.order"
+                      :value="q.order">
+                      <span v-html="q.order + '.&nbsp;' + q.item.title"></span>
+                    </el-option>
                   </el-select>
+                  题
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="3">
                   <el-button type="text" v-if="index === 0">+更多</el-button>
                   <el-button type="text" v-else>-取消</el-button>
                 </el-col>
@@ -287,32 +288,32 @@
               <el-checkbox v-model="logic_3_checked">关联逻辑</el-checkbox>
             </el-col>
             <el-col :span="19" v-show="logic_3_checked">
-              <el-row :gutter="10" v-for="(rule, index) in logic_3_rule" :key="index">
-                <el-col :span="12">
+              <el-row v-for="(rule, index) in logic_3_rule" :key="index">
+                <el-col :span="21">
+                  第
                   <el-select
                     v-model="rule.question"
-                    placeholder="请选择"
-                    @change="logicQuestionChange(rule)"
-                  >
-                   <!--  <el-option
-                      v-for="Q in list"
-                      :key="Q.order"
-                      :label="Q.order + '.' + Q.item.title"
-                      :value="Q.order">
-                    </el-option> -->
+                    style="width: 80px;"
+                    @change="logicQuesChange(rule)">
+                    <el-option
+                      v-for="(q, index) in beforeQuesList"
+                      :key="q.order"
+                      :value="q.order">
+                      <span v-html="q.order + '.&nbsp;' + q.item.title"></span>
+                    </el-option>
                   </el-select>
-                </el-col>
-                <el-col :span="8">
-                  <el-select v-model="rule.option" placeholder="请选择">
+                  题
+                  <el-select v-model="rule.option" style="width: 160px; ">
                     <el-option
                       v-for="option in rule.content"
                       :key="option.key"
-                      :label="option.key + '.' + option.title"
+                      :label="option.title"
                       :value="option.key">
                     </el-option>
                   </el-select>
+                  跳转本题
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="3">
                   <el-button type="text">+更多</el-button>
                 </el-col>
               </el-row>
@@ -441,13 +442,26 @@ export default {
         return ''
       }
     },
-    // 问题列表
-    quesList () {
+    list () {
       let list = []
       _.each(this.section, (sec) => {
         list = list.concat(sec.question)
       })
+      _.each(list, (l, key) => {
+        l['order'] = key + 1
+      })
       return list
+    },
+    // 问题列表
+    nextQuesList () {
+      return _.filter(this.list.slice(this.order), (v, k) => {
+        return mylib.TYPE_DATA[v.type]['alias'] === 'radio'
+      })
+    },
+    beforeQuesList () {
+      return _.filter(this.list.slice(0, this.order - 1), (v, k) => {
+        return mylib.TYPE_DATA[v.type]['alias'] === 'radio'
+      })
     }
   },
   methods: {
@@ -461,13 +475,12 @@ export default {
       this.$set(this.point, 1, this.quesIndex)
     },
     // 关联逻辑选择问题
-    logicQuestionChange (rule) {
-    //   let target = _.find(this.list, function(v) {
-    //     return v.order === rule.question
-    //   })
-
-    //   rule.option = ''
-    //   rule.content = target ? target.item.content : []
+    logicQuesChange (rule) {
+      let target = _.find(this.list, function(v) {
+        return v.order === rule.question
+      })
+      rule.option = ''
+      rule.content = target ? target.item.content : []
     },
     edit () {
       this.isEdit = true
