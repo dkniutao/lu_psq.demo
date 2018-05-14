@@ -1,7 +1,7 @@
 <template>
   <div class="psq-content">
     <div class="psq-chunk">问卷调查系统</div>
-    <div class="psq-chunk clearfix">
+    <div class="psq-chunk clearfix" style="padding:15px 20px;">
       <el-button class="fl add-psq" type="primary" icon="el-icon-plus">创建问卷</el-button>
       <el-input class="fr search-psq" style="width: 280px;" placeholder="请输入搜索内容" v-model="keyword">
         <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
@@ -14,8 +14,8 @@
         @sort-change="sortChange"
         style="width: 100%">
         <el-table-column
+          type="index"
           width="100"
-          prop="id"
           label="排序">
         </el-table-column>
         <el-table-column
@@ -56,14 +56,14 @@
           width="400"
           label="操作">
           <template slot-scope="scope">
-            <el-button 
-              v-if="scope.row.status == 0 || scope.row.status == 2" 
+            <el-button
+              v-if="scope.row.status == 0 || scope.row.status == 2"
               type="text">
               <i class="iconfont icon-fabu"></i>
               发布
             </el-button>
-            <el-button 
-              v-if="scope.row.status == 1" 
+            <el-button
+              v-if="scope.row.status == 1"
               type="text">
               <i class="iconfont icon-zanting"></i>
               暂停
@@ -148,7 +148,7 @@ export default {
           this.tableData = res.data.items
           this.currentPage = +res.data._meta.currentPage
           this.pageSize = +res.data._meta.perPage
-          this.total = +res.data._meta.totalCount
+          this.total = +res.data._meta.totalCount + 100
         }
       }, this)
     },
@@ -176,8 +176,39 @@ export default {
 }
 </script>
 <style scoped>
-  .psq-content {background: #fff;}
-  .psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
-  .el-pagination{text-align: center;margin-top: 40px;}
-  .psq-table{padding:10px 0 40px;}
+.psq-content {background: #fff;color:#333333;font-size: 14px;width:1600px;margin:0 auto;}
+.psq-chunk{border-bottom: 1px solid #e8ecf0;padding:20px;}
+.el-pagination{text-align: center;margin-top: 40px;}
+.psq-table{padding:10px 0 40px;}
+</style>
+<style>
+
+/*表格样式覆盖 start*/
+.el-table{color:#666666;}
+.el-table th, .el-table td{padding: 0;line-height: 40px;border: none;}
+.el-table th{background-color: #f3f3f3;color:#333333;}
+.el-table td{border-bottom:1px solid #f3f3f3;}
+.el-table--enable-row-hover .el-table__body tr:hover>td{background-color: #d0e1f0;}
+/*表格样式覆盖 end*/
+
+/*标签样式覆盖 start*/
+.el-tag{height: 22px;line-height: 20px;}
+.el-tag--info{background-color: #fff;border-color: #999999;color:#999999;}
+.el-tag--success{background-color: #fff;border-color: #009688;color:#009688;}
+.el-tag--danger{background-color: #fff;border-color: #df1a1a;color:#df1a1a;}
+.el-tag--warning{background-color: #fff;border-color: #f89b38;color:#f89b38;}
+/*标签样式覆盖 end*/
+
+/*下拉样式 start*/
+.el-dropdown{margin-left: 10px;color:#126ab5;}
+.el-dropdown-menu{border-color: #126ab5;border-radius: 0;}
+.el-dropdown-menu__item{color:#126ab5;}
+.el-popper[x-placement^=bottom] .popper__arrow{border-bottom-color: #126ab5;}
+/*下拉样式 end*/
+
+/*page start*/
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{background-color: #fff;color:#333333;border:1px solid #ccc;border-radius: 0;}
+.el-pagination.is-background .el-pager li:not(.disabled).active{background-color: #126ab5;border-radius: 0;border-color:#126ab5;}
+.el-pagination__total{color:#333333;}
+/*page end*/
 </style>
