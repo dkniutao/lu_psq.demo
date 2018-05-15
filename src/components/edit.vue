@@ -241,30 +241,6 @@ export default {
             this.section.push(s)
           })
         }
-
-        // 初始化section
-        // if (QData.section.length) {
-        //   this.section = []
-
-        //   _.each(QData.section, (sec) => {
-        //     let v = {
-        //       type: 'section',
-        //       name: sec.name,
-        //       description: sec.description,
-        //       question: []
-        //     }
-        //     // 插入题目
-        //     let num = sec.item ? sec.item.split(',') : []
-        //     _.each(num, (n) => {
-        //       let q = QData.question[n - 1]
-        //       if (q) {
-        //         q['item']['logic'] = logic[q.order] || {}
-        //         v.question.push(q)
-        //       }
-        //     })
-
-        //     this.section.push(v)
-        //   })
       }
     }, this)
   },

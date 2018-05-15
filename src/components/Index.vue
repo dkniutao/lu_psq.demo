@@ -349,32 +349,12 @@ export default {
         params: {
           name: this.createName,
           description: '请输入段落说明',
-          question: JSON.stringify({"question": [{
-            "type": "1",
-            "order": "1",
-            "item":
-            {
-              "title": "请输入问题标题",
-              "content": [
-              {
-                "key": "A",
-                "title": "选项1",
-                "img": ""
-              },
-              {
-                "key": "B",
-                "title": "选项2",
-                "img": ""
-              }]
-            }
-          }]}),
-          section: JSON.stringify({"section": [
-            {
-              "name": '标题',
-              "description": '段落说明',
-              "item": "1"
-            }
-          ]})
+          question: JSON.stringify({
+            'question': mylib.INIT_QUES['question']
+          }),
+          section: JSON.stringify({
+            'section': mylib.INIT_QUES['section']
+          })
         },
         done (res) {
           this.$message({

@@ -205,5 +205,33 @@ export default {
       'alias': 'desc',
       'item': '请输入段落说明'
     }
+  },
+  INIT_QUES: {
+    'question': [{
+      'type': '1',
+      'order': '1',
+      'item':
+      {
+        'title': '请输入问题标题',
+        'content': [
+        {
+          'key': 'A',
+          'title': '选项1',
+          'img': ''
+        },
+        {
+          'key': 'B',
+          'title': '选项2',
+          'img': ''
+        }]
+      }
+    }],
+    section: [
+      {
+        'name': '<strong>标题</strong>',
+        'description': '段落说明',
+        'item': '1'
+      }
+    ]
   }
 }
