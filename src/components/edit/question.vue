@@ -434,7 +434,48 @@ export default {
       }
     }
   },
+  watch: {
+    logic () {
+      console.log(this.logic)
+      this.item.logic = this.logic
+    }
+  },
   computed: {
+    logic () {
+      let l = {}
+      if (this.logic_1_checked) {
+        if (this.logic_1_rule) {
+          l['1'] = this.logic_1_rule
+        }
+      }
+      if (this.logic_2_checked) {
+        _.each(this.logic_2_rule, (v) => {
+          if (v.option && v.question) {
+            l['2'] = l['2'] || {}
+            l['2'][v.option] = v.question
+          }
+        })
+      }
+      if (this.logic_3_checked) {
+        _.each(this.logic_3_rule, (v) => {
+          if (v.question && v.option) {
+            l['3'] = l['3'] || {}
+            let temp = l['3'][v.question] ? l['3'][v.question].split(',') : []
+            let index= _.findIndex(temp, (t) => {
+              return v.option === t
+            })
+            if (index === -1) {
+              temp.push(v.option)
+            }
+
+            l['3'][v.question] = temp.join(',')
+          }
+        })
+      }
+      // console.log(l)
+      // this.item.logic = l
+      return l
+    },
     // 是否为新题插入点
     isPoint () {
       if (this.point[0] === this.secIndex && this.point[1] === this.quesIndex) {
@@ -620,30 +661,26 @@ export default {
       this['logic_' + action + '_checked'] = true
 
       if (action === '1') {
-        this['logic_' + action + '_rule'] = +rule
+        this['logic_' + action + '_rule'] = rule
       } else if (action === '2') {
-        if (rule.length) {
-          this['logic_' + action + '_rule'] = []
-          _.each(rule, (v, k) => {
-            this['logic_' + action + '_rule'].push({
-              option: k,
-              question: v
-            })
+        this['logic_' + action + '_rule'] = []
+        _.each(rule, (v, k) => {
+          this['logic_' + action + '_rule'].push({
+            option: k,
+            question: v
           })
-        }
+        })
       } else if (action === '3') {
         this['logic_' + action + '_rule'] = []
-        if (rule.length) {
-          _.each(rule, (v, k) => {
-            let option = v.split(',')
-            _.each(option, (opt) => {
-              this['logic_' + action + '_rule'].push({
-                option: opt,
-                question: k
-              })
+        _.each(rule, (v, k) => {
+          let option = v.split(',')
+          _.each(option, (opt) => {
+            this['logic_' + action + '_rule'].push({
+              option: opt,
+              question: k
             })
           })
-        }
+        })
       }
     })
   }

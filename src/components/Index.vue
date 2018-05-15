@@ -168,7 +168,7 @@
       <el-col :span="12">
         <el-button
           class="fr choose-psq"
-          @click="create">
+          >
           <i class="iconfont icon-plus-questionnaire"></i>
           问卷模板
         </el-button>
@@ -176,7 +176,7 @@
       <el-col :span="12">
         <el-button
           class="fl choose-psq"
-          @click="create">
+          >
           <i class="iconfont icon-plus-copy"></i>
           导入文本
         </el-button>

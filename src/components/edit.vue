@@ -4,13 +4,15 @@
     <div class="psq-chunk clearfix">
       <el-button
         class="fr add-psq"
-        type="primary">
+        type="primary"
+        @click="finish">
         完成编辑
       </el-button>
       <el-button
         class="fr add-psq"
         type="primary"
-        style="margin-right: 20px;">
+        style="margin-right: 20px;"
+        @click="view">
         预览
       </el-button>
     </div>
@@ -80,7 +82,6 @@
 </template>
 
 <script>
-import QData from '../assets/editData.json'
 import mylib from '../mylib.js'
 import _ from 'lodash'
 
@@ -112,6 +113,75 @@ export default {
     }
   },
   methods: {
+    getData () {
+      console.log(this.section)
+      let question = []
+      let section = []
+      let logic = []
+
+      // 设置块
+      _.each(this.section, (sec) => {
+        let s = {
+          name: sec.name,
+          description: sec.description,
+          item: []
+        }
+
+        // 设置问题列表
+        _.each(sec.question, (ques) => {
+          let q = {
+            type: ques.type,
+            order: question.length + 1,
+            item: {
+              title: ques.item.title
+            }
+          }
+          if (ques.item.content) q.item.content = ques.item.content
+          if (ques.item.setting) q.item.setting = ques.item.setting
+
+          question.push(q)
+          s.item.push(q.order)
+
+          // 设置逻辑
+          _.each(ques.item.logic, (rule, action) => {
+            logic.push({
+              order: q.order,
+              action: action,
+              rule: rule
+            })
+          })
+        })
+
+        s.item = s.item.join(',')
+        section.push(s)
+      })
+      return {
+        question,
+        section,
+        logic
+      }
+    },
+    finish () {
+      let data = this.getData()
+      mylib.axios({
+        type: 'post',
+        url: 'questionnaire/edit',
+        params: {
+          id: this.id,
+          name: this.title.name,
+          description: this.title.desc,
+          question: JSON.stringify({question: data.question}),
+          section: JSON.stringify({section: data.section}),
+          logic: JSON.stringify({logic: data.logic})
+        },
+        done (res) {
+
+        }
+      }, this)
+    },
+    view () {
+      let data = this.getData()
+    },
     getTypeName (type) {
       var target = _.find(this.QType, (v) => {
         return v.id === type
@@ -198,7 +268,7 @@ export default {
 
       this.section[secIndex].question.splice(quesIndex + 1, 0, {
         type: type,
-        item: mylib.TYPE_DATA[type]['item']
+        item: _.clone(mylib.TYPE_DATA[type]['item'])
       })
     }
   },
@@ -214,9 +284,9 @@ export default {
 
         // 预处理题目逻辑
         let logic = {}
-        _.each(QData.logic, (l) => {
+        _.each(res.data.logic, (l) => {
           logic[l.order] = logic[l.order] || {}
-          logic[l.order][l.action] = l.rule
+          logic[l.order][l.action] = l.rules
         })
 
         if (res.data.section.length) {
