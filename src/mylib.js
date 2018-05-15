@@ -7,12 +7,31 @@ export default {
   ACCESS_TOKEN: '5890516ceca05bf50e44e8da65f48244',
   // @todo去缓存
   axios (opt, _this) {
-    return axios.get(this.URL + opt.url, {
-      params: _.extend(opt.params, {
-        'access-token': this.ACCESS_TOKEN
+    opt.type = opt.type || 'get'
+    let ajax = ''
+    if (opt.type === 'get') {
+      ajax = axios[opt.type](this.URL + opt.url, {
+        params: _.extend(opt.params, {
+          'access-token': this.ACCESS_TOKEN
+        })
       })
-    }).then((response) => {
-      if (typeof opt.done === 'function') opt.done.call(_this, response.data)
+    } else {
+      ajax = axios[opt.type](this.URL + opt.url,
+        opt.params,
+        {
+          params: {
+            'access-token': this.ACCESS_TOKEN
+          }
+        }
+      )
+    }
+    return ajax.then((response) => {
+      if (response.data.success) {
+        if (typeof opt.done === 'function') opt.done.call(_this, response.data)
+      } else {
+        _this.$message.error(response.data.data.message)
+        if (typeof opt.error === 'function') opt.error.call(_this, response.data)
+      }
     }).catch((error) => {
       console.log(error)
     })

@@ -12,8 +12,7 @@ export default {
   components: {
     xzQuestionnaireContent
   },
-  props: [
-  ],
+  props: [],
   data () {
     return {
     }

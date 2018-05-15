@@ -72,13 +72,15 @@
         <template slot-scope="scope">
           <el-button
             v-if="scope.row.status == 0 || scope.row.status == 2"
-            type="text">
+            type="text"
+            @click="setStatus(scope.row, 1)">
             <i class="iconfont icon-fabu"></i>
             发布
           </el-button>
           <el-button
             v-if="scope.row.status == 1"
-            type="text">
+            type="text"
+            @click="setStatus(scope.row, 2)">
             <i class="iconfont icon-zanting"></i>
             暂停
           </el-button>
@@ -86,7 +88,9 @@
             <i class="iconfont icon-tongji"></i>
             统计
           </el-button>
-          <el-dropdown trigger="click">
+          <el-dropdown
+            @command="handleMoreOperate"
+            trigger="click">
             <span class="el-dropdown-link">
               <i class="iconfont icon-gengduo1"></i>
               更多
@@ -96,23 +100,34 @@
                 <i class="iconfont icon-daochu"></i>
                 导出word格式
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item
+                v-if="scope.row.status == 1"
+                :command="{type: 'share', row: scope.row}">
                 <i class="iconfont icon-tubiao212"></i>
                 分享问卷
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item
+                :command="{type: 'template', row: scope.row}">
                 <i class="iconfont icon-daochu1"></i>
                 设为模板
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item
+                :command="{type: 'copy', row: scope.row}">
                 <i class="iconfont icon-fuzhi"></i>
                 复制
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item
+                :command="{type: 'edit', row: scope.row}">
                 <i class="iconfont icon-shuru"></i>
                 编辑
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item
+                :command="{type: 'set', row: scope.row}">
+                <i class="iconfont icon-setting"></i>
+                设置
+              </el-dropdown-item>
+              <el-dropdown-item
+                :command="{type: 'del', row: scope.row}">
                 <i class="iconfont icon-iconless"></i>
                 删除
               </el-dropdown-item>
@@ -183,14 +198,162 @@ export default {
       create_time: '',
       status: [],
       tableData: [],
-      createVisible: true,
+      createVisible: false,
       createName: ''
     }
   },
   methods: {
+    handleMoreOperate (operate) {
+      if (typeof this[operate.type] === 'function') {
+        this[operate.type].call(this, operate.row)
+      }
+    },
+    // 删除
+    del (row) {
+      this.$confirm('确认删除' + row.name + '？', '删除问卷', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        mylib.axios({
+          url: 'questionnaire/del',
+          params: {
+            id: row.id
+          },
+          done (res) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.renderTable()
+          }
+        }, this)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    // 复制
+    copy (row) {
+      this.$prompt('请输入新问卷名称', '复制问卷', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: row.name,
+        inputPattern: /\S/,
+         inputErrorMessage: '问卷名称不能为空'
+      }).then(({ value }) => {
+          mylib.axios({
+            type: 'post',
+            url: 'questionnaire/copy',
+            params: {
+              id: row.id,
+              name: value
+            },
+            done (res) {
+              this.$message({
+               type: 'success',
+               message: '复制成功'
+              });
+              this.renderTable()
+            }
+          }, this)
+        }).catch(() => {
+          this.$message({
+           type: 'info',
+           message: '取消复制'
+          });
+      });
+    },
+    // 设为模板
+    template (row) {
+      this.$prompt('请输入模板名称', '设置模板', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: row.name,
+        inputPattern: /\S/,
+         inputErrorMessage: '模板名称不能为空'
+      }).then(({ value }) => {
+        mylib.axios({
+          type: 'post',
+          url: 'questionnaire/template',
+          params: {
+            id: row.id,
+            name: value
+          },
+          done (res) {
+            this.$message({
+             type: 'success',
+             message: '设置成功'
+            });
+            this.renderTable()
+          }
+        }, this)
+        return false
+      }).catch(() => {
+        this.$message({
+         type: 'info',
+         message: '取消设置'
+        });
+      });
+    },
+     // 编辑
+    edit (row) {
+
+    },
+    // 分享
+    share (row) {
+      location.href = '#/share/' + row.id
+    },
+    // 设置
+    set (row) {
+      location.href = '#/setting/' + row.id
+    },
+    // 设置文件状态
+    setStatus (row, status) {
+      let title = ['', '发布', '暂停']
+      this.$confirm('确认'+ title[status] + row.name + '？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        mylib.axios({
+          type: 'post',
+          url: 'questionnaire/editsetting',
+          params: {
+            id: row.id,
+            status: status,
+            questionnaire_link: row.questionnaire_link
+          },
+          done (res) {
+            this.$message({
+              type: 'success',
+              message: title[status] + '成功!'
+            })
+            this.renderTable()
+          }
+        }, this)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消' + title[status]
+        })
+      })
+    },
     // 创建问卷
     create () {
-      location.href = '#/edit/' + encodeURIComponent(this.createName)
+      mylib.axios({
+        type: 'post',
+        url: 'questionnaire/create',
+        params: {
+          name: this.createName
+        },
+        done (res) {
+          console.log(res)
+      // location.href = '#/edit/' + encodeURIComponent(this.createName)
+        }
+      })
     },
     showCreate () {
       this.createVisible = true

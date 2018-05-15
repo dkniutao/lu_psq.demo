@@ -89,7 +89,7 @@ import xzQuestion from './edit/question.vue'
 import xzSection from './edit/section.vue'
 
 export default {
-  props: ['name'],
+  props: ['id'],
   components: {
     xzHeader,
     xzQuestion,

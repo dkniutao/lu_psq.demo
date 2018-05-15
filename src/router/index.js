@@ -20,7 +20,7 @@ export default new Router({
       name: 'index',
       component: Index
     }, {
-      path: '/edit/:name',
+      path: '/edit/:id',
       name: 'edit',
       component: Edit,
       props: true
@@ -29,16 +29,18 @@ export default new Router({
       name: 'preview',
       component: Preview
     }, {
-      path: '/setting',
+      path: '/setting/:id',
       name: 'setting',
+      props: true,
       component: Setting
     }, {
       path: '/release',
       name: 'Release',
       component: Release
     }, {
-      path: '/share',
+      path: '/share/:id',
       name: 'Share',
+      props: true,
       component: Share
     }, {
       path: '/statistic',

@@ -11,9 +11,9 @@ import './style/base.css'
 import App from './App'
 import router from './router'
 import VueClipboard from 'vue-clipboard2'
-import echarts from 'echarts'
- 
- 
+// import echarts from 'echarts'
+
+
 Vue.use(VueClipboard)
 
 Vue.use(VueQuillEditor)

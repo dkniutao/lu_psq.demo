@@ -3,12 +3,21 @@
     <div class="head">问卷设置</div>
     <div class="button">
       <div class="fl">
-        <el-button class="fl add-psq back" type="primary"><i class="iconfont icon-fanhui1"></i>返回</el-button>
+        <el-button @click="back" class="fl add-psq back" type="primary"><i class="iconfont icon-fanhui1"></i>返回</el-button>
       </div>
       <div class="fr">
-        <el-button class="fl add-psq" type="primary">保存</el-button>
-        <el-button class="fl add-psq" type="primary"
-        @click="publish">保存并发布</el-button>
+        <el-button
+          class="fl add-psq"
+          type="primary"
+          @click="publish(0)">
+          保存
+        </el-button>
+        <el-button
+          class="fl add-psq"
+          type="primary"
+          @click="publish(1)">
+          保存并发布
+        </el-button>
       </div>
     </div>
     <div class="content">
@@ -29,10 +38,10 @@
             <el-date-picker
               prefix-icon="el-icon-date"
               v-model="startTime"
-              type="datetime"
-              prop="travelStartTime"
+              type="date"
               placeholder="选择日期时间"
               :disabled="startCheck == false"
+              value-format="yyyy-MM-dd"
               @change="time_focus">
             </el-date-picker>
           </div>
@@ -41,9 +50,10 @@
             <el-date-picker
               prefix-icon="el-icon-date"
               v-model="endTime"
-              type="datetime"
+              type="date"
               placeholder="选择日期时间"
               :disabled="endCheck == false"
+              value-format="yyyy-MM-dd"
               @change="time_focus">
             </el-date-picker>
           </div>
@@ -99,8 +109,7 @@ import mylib from '../mylib.js'
 export default {
   components: {
   },
-  props: [
-  ],
+  props: ['id'],
   data () {
     return {
       time: false, // 时间设置按钮
@@ -120,13 +129,15 @@ export default {
   computed: {
   },
   methods: {
+    back () {
+      location.href = '#/'
+    },
     /**
      * [time_focus 对比时间]
      * @param  {[]}     []
      * @return {[]}     []
      */
     time_focus () {
-      console.log(this.startTime)
       if (this.startTime !== '' && this.startTime !== null && this.endtTime !== '' && this.endtTime !== null) {
         this.timeNum = 0
         if (this.endTime) {
@@ -148,11 +159,8 @@ export default {
      * @return {[]}     []
      */
     passwords () {
-      console.log(111)
       if (this.setPassword !== '' && this.surePassword !== '') {
-        console.log(2)
         if (this.setPassword !== this.surePassword) {
-          console.log(3)
           this.$message('密码填写有误')
           this.passwordNum = 0
         } else {
@@ -167,7 +175,7 @@ export default {
      * @param  {[]}     []
      * @return {[]}     []
      */
-    publish () {
+    publish (status) {
       if (this.timeNum === 1 && this.passwordNum === 1) {
         var startTime = this.startTime.toLocaleString()
         var endTime = this.endTime.toLocaleString()
@@ -185,30 +193,30 @@ export default {
           password: password,
           ipLimit: ipLimit
         }
-        console.log(data)
         mylib.axios({
+          type: 'post',
           url: 'questionnaire/editsetting',
           params: {
-            id: '12',
-            status: '0',
+            id: this.id,
+            status: status,
             startTime: startTime,
             endTime: endTime,
             password: password,
-            ipLimit: ipLimit
+            ipLimit: ipLimit,
+            questionnaire_link: '/#/view/' + this.id
           },
           done (res) {
-            console.log('res', res)
-            this.$message(res.data.message)
+            this.$message({
+              message: res.data.message,
+              type: 'success'
+            })
+            location.href = '#/'
           }
         }, this)
       } else {
-        this.$message('填写有误,请重新填写')
+        this.$message.error('填写有误,请重新填写')
       }
     }
-  },
-  created () {
-  },
-  mounted () {
   }
 }
 </script>
