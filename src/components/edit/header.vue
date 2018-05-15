@@ -2,19 +2,21 @@
 <template>
 <div>
   <div class="question-header" @click="edit">
-    <div class="title" v-html="title"></div>
-    <div class="desc" v-html="desc">
+    <div class="title" v-html="title.name"></div>
+    <div class="desc" v-html="title.desc">
     </div>
   </div>
+  <!-- 分割线 -->
+  <div class="question-line"></div>
 
   <el-dialog title="编辑问卷说明" :visible.sync="visible" width="800px">
     <el-form label-width="100px">
       <el-form-item label="问卷标题">
-        <el-input v-model="title" auto-complete="off"></el-input>
+        <el-input v-model="title.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="问卷说明">
         <div class="clearfix">
-          <quill-editor v-model="desc"
+          <quill-editor v-model="title.desc"
             ref="myQuillEditor"
             :options="editorOption">
           </quill-editor>
@@ -31,21 +33,19 @@
 
 <script>
 export default {
+  props: ['title'],
   data () {
     return {
-      title: '企业员工满意度调查问卷',
-      desc: '添加问卷说明',
       visible: false,
       editorOption: {
+        placeholder: '请输入问卷说明',
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
-            [{'list': 'ordered'}, {'list': 'bullet'}],
             [{'script': 'sub'}, {'script': 'super'}],
-            [{'indent': '-1'}, {'indent': '+1'}],
-            [{'size': ['small', false, 'large', 'huge']}],
             [{'color': []}, {'background': []}],
-            [{'font': []}]
+            ['image'],
+            [{ 'size': ['small', false, 'large', 'huge'] }]
           ]
         }
       }
@@ -64,4 +64,8 @@ export default {
 .question-header:hover{border-color:#126ab5;cursor: pointer;}
 .question-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;color: #333333;margin-bottom: 10px;}
 .question-header .desc{font-size: 14px;color: #666666;}
+
+/*问卷分割线 start*/
+.question-line{height: 1px;margin:20px 80px;background: #f3f3f3;}
+/*问卷分割线 end*/
 </style>

@@ -20,9 +20,10 @@ export default new Router({
       name: 'index',
       component: Index
     }, {
-      path: '/edit',
+      path: '/edit/:name',
       name: 'edit',
-      component: Edit
+      component: Edit,
+      props: true
     }, {
       path: '/preview',
       name: 'preview',

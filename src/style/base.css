@@ -43,7 +43,13 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 	padding-left: 20px;
 }
 
+/*按钮样式覆盖 start*/
+.el-button--text{color:#126ab5;}
+/*按钮样式覆盖 end*/
+
 /*单选样式 start*/
+.el-radio{color:#333333;}
+.el-radio__inner{border-color:#126ab5;}
 .el-radio__input.is-checked .el-radio__inner{background: #fff;border-color:#126ab5;}
 .el-radio__inner::after{background:#126ab5;width:8px;height:8px; }
 .el-radio__input.is-checked+.el-radio__label{color:#126ab5;}
@@ -51,7 +57,9 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 /*单选样式 end*/
 
 /*复选框样式 start*/
+.el-checkbox{color:#333333;}
 .el-checkbox img {margin-top: 10px;}
+.el-checkbox__inner{border-color:#126ab5;border-radius: 0;}
 .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{background: #126ab5;border-color:#126ab5;}
 .el-checkbox__input.is-checked+.el-checkbox__label{color:#126ab5;}
 .el-checkbox__inner:hover{border-color:#126ab5;}
@@ -64,3 +72,69 @@ html, body {width: 100%;height: 100%;overflow-y: auto;font-family: Microsoft Yah
 
 .inputMulti .el-textarea__inner{width:700px;}
 /*填空 end*/
+
+/*评分 start*/
+.rate .rate-first{margin-right: 40px;}
+.rate .rate-last{margin-left: 40px;}
+.rate .el-radio-group{margin-top: 3px;}
+
+.rateMulti .el-table,.rateMulti .el-table thead{color:#333333;}
+.rateMulti .el-table td, .rateMulti .el-table th.is-leaf{border:none;}
+.rateMulti .el-table::before{height: 0;}
+.rateMulti .el-table .el-radio__label{display: none;}
+/*评分 end*/
+
+/*滑动 start*/
+.slider .slider-first{margin-right:10px;color:#126ab5;line-height: 30px;}
+.slider .slider-last{margin-left:10px;color:#126ab5;line-height: 30px;}
+.slider .el-slider{width:500px;height: 30px;background-color: #d3e8fb;}
+.slider .el-slider__runway{width:480px;height: 2px;background-color: #a0c3e1;margin:14px auto;border-radius: 0;}
+.slider .el-slider__bar{height: 2px;background-color: #126ab5;border-radius: 0;}
+.slider .el-slider__button-wrapper{height: 33px;width: 30px;}
+.slider .el-slider__button{height: 10px;width: 10px;border-color:#126ab5;}
+/*滑动 end*/
+
+/*下拉选择样式覆盖 start*/
+.el-select .el-input__inner{height: 30px;line-height: 30px;background-color: #f3f3f3;border-color:#cccccc;border-radius: 0;color: #999999;}
+/*下拉选择样式覆盖 end*/
+
+/*输入框样式覆盖 start*/
+.el-input__inner{height: 30px;line-height: 30px;background-color: #fff;border-color:#cccccc;border-radius: 0;}
+/*输入框样式覆盖 end*/
+
+/*quill editor 字体设置 start*/
+.ql-snow .ql-picker-label::before{float:left;line-height: 22px;margin-left: 5px;}
+.ql-snow .ql-color-picker .ql-picker-label svg, .ql-snow .ql-icon-picker .ql-picker-label svg{float:left;}
+.ql-size-small, .ql-editor .ql-size-small {font-size: 12px}
+.ql-size-large, .ql-editor .ql-size-large {font-size: 18px}
+.ql-size-huge, .ql-editor .ql-size-huge {font-size: 22px}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="small"]::before {font-size: 12px}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="large"]::before {font-size: 18px}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="huge"]::before {font-size: 22px}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before{content: '14px';}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="small"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="small"]::before{content:'12px';}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="large"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="large"]::before{content:'16px';}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="huge"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="huge"]::before{content:'18px';}
+/*quill editor 字体设置 end*/
+
+/*表格样式覆盖 start*/
+.item-edit .el-table th{background-color: #f3f3f3;}
+.item-edit .el-table td, .item-edit .el-table th{padding:8px 0;}
+.item-edit .el-table .el-button{padding:0;}
+.item-edit .el-table td, .item-edit .el-table th.is-leaf{border:none;}
+.item-edit .el-table::before{height: 0;}
+/*表格样式覆盖 end*/
+
+/*form 表单覆盖 start*/
+.item-edit .el-form-item{margin-bottom: 10px;}
+/*form 表单覆盖 end*/
+
+/*上传插件 start*/
+.el-upload,.el-upload-dragger{width:100%;}
+/*上传插件 end*/

@@ -205,7 +205,7 @@
             {
               "height": "1",
               "min": "1",
-              "max": "0"
+              "max": "10"
             }
           },
           "is_required": "1",
@@ -231,7 +231,7 @@
             {
               "height": "1",
               "min": "1",
-              "max": "0"
+              "max": "10"
             }
           },
           "is_required": "1",
@@ -347,7 +347,7 @@
             {
               "key": "1",
               "title": "选项1",
-              "img": ""
+              "img": "//test.api.backend.xingzhijishu.com/uploads/question/201805/1525402906_716.jpg"
             },
             {
               "key": "2",

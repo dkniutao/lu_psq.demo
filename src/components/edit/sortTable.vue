@@ -11,8 +11,9 @@
       <template slot-scope="scope">
         <el-button
           type="text"
+          style="line-height: 20px;"
           @click="uploadImg(scope.row, scope.$index)">
-          <i class="iconfont icon-tupian2" style="font-size: 25px;"></i>
+          <i class="fl iconfont icon-tupian2" style="font-size: 25px;"></i>
           <span v-text="getImgName(scope.row.img)"></span>
         </el-button>
       </template>

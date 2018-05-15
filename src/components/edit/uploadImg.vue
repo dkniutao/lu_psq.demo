@@ -1,8 +1,15 @@
 <template>
 <el-dialog title="上传图片" width="800px" :visible.sync="visible">
   <div style="margin-bottom: 15px;">
-    <el-input placeholder="可直接粘贴图片地址" :value="row.img">
-      <i v-if="row.img" slot="suffix" class="el-input__icon el-icon-delete" @click="delImg"></i>
+    <el-input
+      placeholder="可直接粘贴图片地址"
+      v-model="row.img">
+      <i
+        v-if="row.img"
+        slot="suffix"
+        class="el-input__icon el-icon-delete"
+        @click="delImg">
+      </i>
       <el-button slot="append" @click="visible = false">确定</el-button>
     </el-input>
   </div>
@@ -46,7 +53,7 @@ export default {
   },
   methods: {
     success (response, file, fileList) {
-      this.row.img = mylib.ROOT + response.data.item[0]
+      this.row.img = response.data.item[0]
     },
     delImg () {
       this.row.img = ''
@@ -54,10 +61,11 @@ export default {
     render (row) {
       this.row = row
       this.visible = true
-    }
+    },
+
   }
 }
 </script>
 <style scoped>
-.el-input .el-input__icon{cursor: pointer;}
+.el-input .el-input__icon{cursor: pointer;line-height: 33px;}
 </style>

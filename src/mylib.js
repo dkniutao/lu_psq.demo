@@ -134,8 +134,9 @@ export default {
           {
             'title': '很满意',
             'score': '5'
-          }],
-          'setting': [
+          }
+        ],
+        'setting': [
           {
             'title': '外观'
           },
@@ -165,28 +166,25 @@ export default {
       'alias': 'slider',
       'item': {
         'title': '请输入问题标题',
-        'content':
-        {
-          'min':
+        'content': [
           {
             'val': '0',
             'title': '不满意'
           },
-          'max':
           {
             'val': '100',
             'title': '满意'
           }
-        }
+        ]
       }
     },
     '7': {
       'alias': 'title',
-      'item': {}
+      'item': '<strong>请输入标题</strong>'
     },
     '8': {
       'alias': 'desc',
-      'item': {}
+      'item': '请输入段落说明'
     }
   }
 }

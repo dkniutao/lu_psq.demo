@@ -5,7 +5,7 @@
     "order": "1",
     "item":
     {
-      "title": "请输入问题标题【单选题】",
+      "title": "<strong>请输入问题标题【单选题】</strong>",
       "content": [
       {
         "key": "A",
@@ -163,36 +163,33 @@
     "item":
     {
       "title": "请输入问题标题【滑动条题】",
-      "content":
-      {
-        "min":
+      "content":[
         {
           "val": "0",
           "title": "不满意"
         },
-        "max":
         {
           "val": "100",
           "title": "满意"
         }
-      }
+      ]
     }
   }],
   "section": [
   {
-    "name": "基本信息",
+    "name": "基本信息1",
     "item": "1,2,3,4,5,6",
-    "description": "参与问卷的结果只做统计用途"
+    "description": "参与问卷的结果只做统计用途1"
   },
   {
-    "name": "附加信息",
+    "name": "附加信息2",
     "item": "7,8",
-    "description": "调查结果只做统计用途"
+    "description": "调查结果只做统计用途2"
   },
   {
 
     "name": "新标题",
-    "item": "9",
+    "item": "",
     "description": ""
   }],
   "logic": [
