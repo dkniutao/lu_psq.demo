@@ -98,8 +98,8 @@ export default {
   data () {
     return {
       title: {
-        name: this.name,
-        desc: '添加问卷说明'
+        name: '',
+        desc: ''
       },
       QType: [], // 题目类型
       section: [{
@@ -202,8 +202,73 @@ export default {
       })
     }
   },
+  created () {
+    mylib.axios({
+      url: 'questionnaire/preview',
+      params: {
+        id: this.id
+      },
+      done (res) {
+        this.title.name = res.data.name
+        this.title.desc = res.data.description
+
+        // 预处理题目逻辑
+        let logic = {}
+        _.each(QData.logic, (l) => {
+          logic[l.order] = logic[l.order] || {}
+          logic[l.order][l.action] = l.rule
+        })
+
+        if (res.data.section.length) {
+          this.section = []
+          _.each(res.data.section, (sec) => {
+            let s = {
+              type: 'section',
+              name: sec.name,
+              description: sec.description,
+              question: []
+            }
+
+            _.each(sec.questions, (ques) => {
+              let q = {
+                type: ques.type,
+                item: ques.question
+              }
+              q['item']['logic'] = logic[ques.order] || {}
+              s.question.push(q)
+            })
+
+            this.section.push(s)
+          })
+        }
+
+        // 初始化section
+        // if (QData.section.length) {
+        //   this.section = []
+
+        //   _.each(QData.section, (sec) => {
+        //     let v = {
+        //       type: 'section',
+        //       name: sec.name,
+        //       description: sec.description,
+        //       question: []
+        //     }
+        //     // 插入题目
+        //     let num = sec.item ? sec.item.split(',') : []
+        //     _.each(num, (n) => {
+        //       let q = QData.question[n - 1]
+        //       if (q) {
+        //         q['item']['logic'] = logic[q.order] || {}
+        //         v.question.push(q)
+        //       }
+        //     })
+
+        //     this.section.push(v)
+        //   })
+      }
+    }, this)
+  },
   mounted () {
-    // this.title.name = this.name
     // 获取问题类型
     mylib.axios({
       url: 'questionnaire/getqtype',
@@ -211,40 +276,6 @@ export default {
         this.QType = res.data
       }
     }, this)
-    // 预处理题目逻辑
-    let logic = {}
-    _.each(QData.logic, (l) => {
-      logic[l.order] = logic[l.order] || {}
-      logic[l.order][l.action] = l.rule
-    })
-    // @todo确定知道当前添加题目的位置，然后更新之后题目的题号
-    // 就只处理section里面的question数据，这样不容易出错 (决定使用这种方案，分块处理)
-    // 每次处理题目编号时，将旧的编号记住，然后遍历section，将旧的替换成新的
-    // 移动标题和段落说明时，向上移写好只需要把上一条的最后一个题号拿过来放在自己的队列中即可（按照思路来）
-    // 初始化section
-    if (QData.section.length) {
-      this.section = []
-
-      _.each(QData.section, (sec) => {
-        let v = {
-          type: 'section',
-          name: sec.name,
-          description: sec.description,
-          question: []
-        }
-        // 插入题目
-        let num = sec.item ? sec.item.split(',') : []
-        _.each(num, (n) => {
-          let q = QData.question[n - 1]
-          if (q) {
-            q['item']['logic'] = logic[q.order] || {}
-            v.question.push(q)
-          }
-        })
-
-        this.section.push(v)
-      })
-    }
   }
 }
 </script>

@@ -300,7 +300,7 @@ export default {
     },
      // 编辑
     edit (row) {
-
+      location.href = '#/edit/' + row.id
     },
     // 分享
     share (row) {
@@ -347,13 +347,43 @@ export default {
         type: 'post',
         url: 'questionnaire/create',
         params: {
-          name: this.createName
+          name: this.createName,
+          description: '请输入段落说明',
+          question: JSON.stringify({"question": [{
+            "type": "1",
+            "order": "1",
+            "item":
+            {
+              "title": "请输入问题标题",
+              "content": [
+              {
+                "key": "A",
+                "title": "选项1",
+                "img": ""
+              },
+              {
+                "key": "B",
+                "title": "选项2",
+                "img": ""
+              }]
+            }
+          }]}),
+          section: JSON.stringify({"section": [
+            {
+              "name": '标题',
+              "description": '段落说明',
+              "item": "1"
+            }
+          ]})
         },
         done (res) {
-          console.log(res)
-      // location.href = '#/edit/' + encodeURIComponent(this.createName)
+          this.$message({
+            message:res.data.message,
+            type: 'success'
+          })
+          location.href = '#/edit/' + res.data.data
         }
-      })
+      }, this)
     },
     showCreate () {
       this.createVisible = true
