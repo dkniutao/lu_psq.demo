@@ -135,18 +135,18 @@ export default {
      * @param  {[number]} index [当前图标的index值]
      * @return {[]} []
      */
-    sharemsg (index) {
-      console.log(1111)
-      if (index === 0) {
-        window.location.href = ''
-      } else if (index === 1) {
-        window.window.open ("http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}")
-      } else if (index === 2) {
-        window.window.open ("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}")
-      } else if (index === 3) {
-        window.window.open ("http://service.weibo.com/share/mobile.php?url={{URL}}&title={{DESC}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}")
-      }
-    }
+    // sharemsg (index) {
+    //   console.log(1111)
+    //   if (index === 0) {
+    //     window.location.href = ''
+    //   } else if (index === 1) {
+    //     window.window.open ("http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}")
+    //   } else if (index === 2) {
+    //     window.window.open ("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}")
+    //   } else if (index === 3) {
+    //     window.window.open ("http://service.weibo.com/share/mobile.php?url={{URL}}&title={{DESC}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}")
+    //   }
+    // }
   },
   created () {
   },
@@ -177,8 +177,8 @@ export default {
     left: -5px;
   }
   .release_questionnaire .content  button{
-    border-radius: 0;
     padding: 7px 29px;
+    border-radius: 0;
   }
   .release_questionnaire .content .code div{
     display: inline-block;

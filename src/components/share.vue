@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import xzQuestionnaireContent from './QcontentShareRelease.vue'
+import xzQuestionnaireContent from './ReleaseShare/QcontentShareRelease.vue'
 
 export default {
   components: {

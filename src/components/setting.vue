@@ -188,6 +188,14 @@ export default {
         console.log(data)
         mylib.axios({
           url: 'questionnaire/editsetting',
+          params: {
+            id: '12',
+            status: '0',
+            startTime: startTime,
+            endTime: endTime,
+            password: password,
+            ipLimit: ipLimit
+          },
           done (res) {
             console.log('res', res)
             this.$message(res.data.message)
@@ -230,7 +238,7 @@ export default {
   .setting .button .back{
     width: 130px;
   }
-  .setting .button .back .iconfont .icon-fanhui1{
+  .setting .button .back .iconfont{
     margin-right: 15px
   }
   .setting .content .setting_list .list_head{

@@ -5,8 +5,11 @@ import Edit from '@/components/Edit'
 import Preview from '@/components/Preview'
 
 import Setting from '@/components/setting'
+
 import Release from '@/components/release'
 import Share from '@/components/share'
+
+import Statistic from '@/components/statistic'
 
 Vue.use(Router)
 
@@ -36,6 +39,10 @@ export default new Router({
       path: '/share',
       name: 'Share',
       component: Share
+    }, {
+      path: '/statistic',
+      name: 'Statistic',
+      component: Statistic
     }
   ]
 })

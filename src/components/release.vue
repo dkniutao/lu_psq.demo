@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import XzQuestionContent from './QcontentShareRelease.vue'
+import XzQuestionContent from './ReleaseShare/QcontentShareRelease.vue'
 
 export default {
   components: {
