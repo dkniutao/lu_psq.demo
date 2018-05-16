@@ -24,7 +24,7 @@
         <div
           @click="openItem(item)">
           <el-row
-            class="title">
+            class="header-title">
             <el-col :span="22">
               {{item.name}}
             </el-col>
@@ -35,7 +35,37 @@
         </div>
         <div v-show="item.open" class="view">
           <div class="content">
+            <template  v-if="item.view">
+              <div class="psq-header psq-chunk">
+                <div class="title" v-html="item.view.name"></div>
+                <div class="desc" v-html="item.view.description"></div>
+              </div>
+              <div class="psq-section">
+                <div
+                  v-for="(section, index) in item.view.section"
+                  :key="index">
+                  <div
+                    v-if="section.name"
+                    v-html="(index + 1)  + '、' + section.name"
+                    class="psq-section-title psq-chunk">
+                  </div>
+                  <div
+                    v-if="section.description"
+                    v-html="section.description"
+                    class="psq-section-desc psq-chunk">
+                  </div>
 
+                  <div class="psq-list">
+                    <xz-item
+                      class="psq-chunk"
+                      v-for="Q in section.questions"
+                      :item="Q"
+                      :key="Q.id">
+                    </xz-item>
+                  </div>
+                </div>
+              </div>
+            </template>
           </div>
           <div class="operate">
             <el-button
@@ -61,6 +91,7 @@
 </template>
 <script>
 import mylib from '../mylib.js'
+import xzItem from './preview/QItem.vue'
 export default {
   data () {
     return {
@@ -72,9 +103,32 @@ export default {
       list: []
     }
   },
+  components: {
+    xzItem
+  },
   methods: {
     openItem (item) {
-      this.$set(item, 'open', !item.open)
+      let open = item.open
+
+      _.each(this.list, (l) => {
+        this.$set(l, 'open', false)
+      })
+
+      this.$set(item, 'open', !open)
+      if (item.open && !item.view) {
+        mylib.axios({
+          url: 'questionnaire/preview',
+          params: {
+            id: item.id
+          },
+          done (res) {
+            this.$set(item, 'view', res.data)
+          }
+        }, this)
+      }
+    },
+    setTemplate () {
+
     },
     search () {
       this.resetList()
@@ -113,10 +167,10 @@ export default {
 li{list-style: none;}
 
 .item{border-bottom: 1px solid #f3f3f3;}
-.item .title{height: 50px;line-height: 50px;color:#666666;padding:0 40px;}
-.item .title:hover{background-color: #d0e1f0;cursor: pointer;}
+.item .header-title{height: 50px;line-height: 50px;color:#666666;padding:0 40px;}
+.item .header-title:hover{background-color: #d0e1f0;cursor: pointer;}
 
-.item.open .title{background-color: #f3f3f3;}
+.item.open .header-title{background-color: #f3f3f3;}
 .item.open .iconfont{transform: rotate(180deg);}
 .item.open .view .operate {height: 50px;line-height: 50px;background-color: #f3f3f3;text-align: center;}
 .item.open .view .content{background-color: #fff;overflow-y:auto;height: 300px;}
@@ -126,4 +180,18 @@ li{list-style: none;}
 .el-button--primary:focus, .el-button--primary:hover {background: #4188c4;border-color: #4188c4;}
 .el-button {border-radius: 0;padding: 7px 24px;}
 /*按钮 end*/
+
+/*问卷说明 start*/
+.psq-header{box-sizing: border-box;padding-bottom: 40px;}
+.psq-header .title{text-align: center;font-size: 18px;font-weight: bold;line-height: 24px;margin-bottom: 10px;}
+.psq-header .desc{font-size: 14px;color: #666666;}
+/*问卷说明 end*/
+
+/*标题和段落 start*/
+.psq-section-title{font-weight: bold;padding-top:40px;}
+/*标题和段落 end*/
+
+/*问题列表 start*/
+.psq-list .psq-chunk{padding-top: 40px;}
+/*问题列表 end*/
 </style>

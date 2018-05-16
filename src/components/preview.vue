@@ -1,34 +1,34 @@
 <template>
 <div class="psq-content">
-<div class="psq-header psq-chunk">
+  <div class="psq-header psq-chunk">
     <div class="title" v-html="data.name"></div>
     <div class="desc" v-html="data.description"></div>
-</div>
-<div class="psq-section">
-  <div
-    v-for="(section, index) in data.section"
-    :key="index">
+  </div>
+  <div class="psq-section">
     <div
-      v-if="section.name"
-      v-html="(index + 1)  + '、' + section.name"
-      class="psq-section-title psq-chunk">
-    </div>
-    <div
-      v-if="section.description"
-      v-html="section.description"
-      class="psq-section-desc psq-chunk">
-    </div>
+      v-for="(section, index) in data.section"
+      :key="index">
+      <div
+        v-if="section.name"
+        v-html="(index + 1)  + '、' + section.name"
+        class="psq-section-title psq-chunk">
+      </div>
+      <div
+        v-if="section.description"
+        v-html="section.description"
+        class="psq-section-desc psq-chunk">
+      </div>
 
-    <div class="psq-list">
-      <xz-item
-        class="psq-chunk"
-        v-for="Q in section.questions"
-        :item="Q"
-        :key="Q.id">
-      </xz-item>
+      <div class="psq-list">
+        <xz-item
+          class="psq-chunk"
+          v-for="Q in section.questions"
+          :item="Q"
+          :key="Q.id">
+        </xz-item>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </template>
 <script>
