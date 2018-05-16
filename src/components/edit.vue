@@ -114,7 +114,6 @@ export default {
   },
   methods: {
     getData () {
-      console.log(this.section)
       let question = []
       let section = []
       let logic = []
@@ -122,8 +121,8 @@ export default {
       // 设置块
       _.each(this.section, (sec) => {
         let s = {
-          name: sec.name,
-          description: sec.description,
+          name: sec.name || '',
+          description: sec.description || '',
           item: []
         }
 

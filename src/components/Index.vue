@@ -167,7 +167,7 @@
       <el-col :span="12">
         <el-button
           class="fr choose-psq"
-          >
+          @click="createByTemplate">
           <i class="iconfont icon-plus-questionnaire"></i>
           问卷模板
         </el-button>
@@ -363,6 +363,9 @@ export default {
           location.href = '#/edit/' + res.data.data
         }
       }, this)
+    },
+    createByTemplate () {
+      location.href = '/#/template'
     },
     showCreate () {
       this.createVisible = true

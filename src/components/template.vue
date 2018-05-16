@@ -69,23 +69,27 @@
           </div>
           <div class="operate">
             <el-button
+              v-if="item.view"
               class="set-template"
               type="primary"
-              @click="setTemplate">
+              @click="setTemplate(item)">
               使用此模板
             </el-button>
           </div>
         </div>
       </li>
     </ul>
-    <el-pagination
-      background
-      layout="total, prev, pager, next"
-      :total="total"
-      :current-page.sync="currentPage"
-      :page-size="pageSize"
-      @current-change="handleCurrentChange">
-    </el-pagination>
+    <div
+      style="text-align: center;padding:20px 0 15px;">
+      <el-pagination
+        background
+        layout="total, prev, pager, next"
+        :total="total"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        @current-change="handleCurrentChange">
+      </el-pagination>
+    </div>
   </div>
 </div>
 </template>
@@ -127,8 +131,75 @@ export default {
         }, this)
       }
     },
-    setTemplate () {
+    getData (view) {
+      console.log(view)
+      let res = {
+        description: view.description,
+        logic: JSON.stringify({logic: view.logic}),
+        question: [],
+        section: []
+      }
+      _.each(view.section, (sec) => {
+        let s = {
+          name: sec.name || '',
+          description: sec.description || '',
+          item: []
+        }
 
+        // 设置问题列表
+        _.each(sec.questions, (ques) => {
+          let q = {
+            type: ques.type,
+            order: res.question.length + 1,
+            item: {
+              title: ques.question.title
+            }
+          }
+          if (ques.question.content) q.item.content = ques.question.content
+          if (ques.question.setting) q.item.setting = ques.question.setting
+
+          res.question.push(q)
+          s.item.push(q.order)
+
+        })
+
+        s.item = s.item.join(',')
+        res.section.push(s)
+      })
+
+      res.question = JSON.stringify({question: res.question})
+      res.section = JSON.stringify({section: res.section})
+
+      return res
+    },
+    setTemplate (item) {
+      this.$prompt('请输入新问卷名称', '创建问卷', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: item.name,
+        inputPattern: /\S/,
+         inputErrorMessage: '问卷名称不能为空'
+      }).then(({ value }) => {
+          let data = this.getData(item.view)
+          data['name'] = value
+          mylib.axios({
+            type: 'post',
+            url: 'questionnaire/create',
+            params: data,
+            done (res) {
+              this.$message({
+               type: 'success',
+               message: '创建成功'
+              });
+              location.href = '/#/edit/' + res.data.data
+            }
+          }, this)
+        }).catch(() => {
+          this.$message({
+           type: 'info',
+           message: '取消创建'
+          });
+      });
     },
     search () {
       this.resetList()
