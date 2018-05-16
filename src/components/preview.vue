@@ -32,30 +32,30 @@
 </div>
 </template>
 <script>
-// import _ from 'lodash'
-// import mylib from '../mylib.js'
-import data from '../assets/previewData.json'
+import _ from 'lodash'
+import mylib from '../mylib.js'
 import xzItem from './preview/QItem.vue'
 
 export default {
+  props: ['id'],
   components: {
     xzItem
   },
   data () {
     return {
-      data: data.data
+      data: {}
     }
   },
   mounted () {
-    // mylib.axios({
-    //   url: 'questionnaire/copy',
-    //   params: {
-    //     id: 12
-    //   },
-    //   done (res) {
-    //     console.log(res);
-    //   }
-    // }, this)
+    mylib.axios({
+      url: 'questionnaire/preview',
+      params: {
+        id: this.id
+      },
+      done (res) {
+        this.data = res.data
+      }
+    }, this)
   }
 }
 </script>

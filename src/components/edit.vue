@@ -1,84 +1,84 @@
 <template>
-  <div class="psq-content">
-    <div class="psq-chunk">编辑问卷</div>
-    <div class="psq-chunk clearfix">
-      <el-button
-        class="fr add-psq"
-        type="primary"
-        @click="finish">
-        完成编辑
-      </el-button>
-      <el-button
-        class="fr add-psq"
-        type="primary"
-        style="margin-right: 20px;"
-        @click="view">
-        预览
-      </el-button>
-    </div>
+<div class="psq-content">
+  <div class="psq-chunk">编辑问卷</div>
+  <div class="psq-chunk clearfix">
+    <el-button
+      class="fr add-psq"
+      type="primary"
+      @click="finish">
+      完成编辑
+    </el-button>
+    <el-button
+      class="fr add-psq"
+      type="primary"
+      style="margin-right: 20px;"
+      @click="view">
+      预览
+    </el-button>
+  </div>
 
-    <div class="question-type">
-      <el-menu
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="add"
-        background-color="#126ab5"
-        text-color="#fff"
-        active-text-color="#fff">
-        <el-menu-item
-          v-for="type in QType"
-          :index="type.id"
-          :key="type.id">
-          <i class="iconfont icon-tianjia1"></i>
-          {{type.name}}
-        </el-menu-item>
-      </el-menu>
-    </div>
+  <div class="question-type">
+    <el-menu
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="add"
+      background-color="#126ab5"
+      text-color="#fff"
+      active-text-color="#fff">
+      <el-menu-item
+        v-for="type in QType"
+        :index="type.id"
+        :key="type.id">
+        <i class="iconfont icon-tianjia1"></i>
+        {{type.name}}
+      </el-menu-item>
+    </el-menu>
+  </div>
 
-    <!-- 问卷头部标题 -->
-    <xz-header
-      :title="title">
-    </xz-header>
+  <!-- 问卷头部标题 -->
+  <xz-header
+    :title="title">
+  </xz-header>
 
-    <!-- 问卷问题列表 -->
-    <div class="question-list">
-      <div
-        v-for="(sec, secIndex) in section"
-        :key="'sec_' + secIndex">
-        <xz-section
-          v-if="sec.name"
-          :type="7"
-          :type-name="getTypeName(7)"
-          :sec="sec"
-          :section="section"
-          :sec-index="secIndex"
-          :point="point">
-        </xz-section>
-        <xz-section
-          v-if="sec.description"
-          :type="8"
-          :type-name="getTypeName(8)"
-          :sec="sec"
-          :section="section"
-          :sec-index="secIndex"
-          :point="point">
-        </xz-section>
+  <!-- 问卷问题列表 -->
+  <div class="question-list">
+    <div
+      v-for="(sec, secIndex) in section"
+      :key="'sec_' + secIndex">
+      <xz-section
+        v-if="sec.name"
+        :type="7"
+        :type-name="getTypeName(7)"
+        :sec="sec"
+        :section="section"
+        :sec-index="secIndex"
+        :point="point">
+      </xz-section>
+      <xz-section
+        v-if="sec.description"
+        :type="8"
+        :type-name="getTypeName(8)"
+        :sec="sec"
+        :section="section"
+        :sec-index="secIndex"
+        :point="point">
+      </xz-section>
 
-        <xz-question
-          v-for="(ques, quesIndex) in sec.question"
-          :key="'ques_' + secIndex + '_' + quesIndex"
-          :type="ques.type"
-          :type-name="getTypeName(ques.type)"
-          :item="ques.item"
-          :ques-index="quesIndex"
-          :sec-index="secIndex"
-          :sec="sec"
-          :section="section"
-          :point="point">
-        </xz-question>
-      </div>
+      <xz-question
+        v-for="(ques, quesIndex) in sec.question"
+        :key="'ques_' + secIndex + '_' + quesIndex"
+        :type="ques.type"
+        :type-name="getTypeName(ques.type)"
+        :item="ques.item"
+        :ques-index="quesIndex"
+        :sec-index="secIndex"
+        :sec="sec"
+        :section="section"
+        :point="point">
+      </xz-question>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -161,7 +161,7 @@ export default {
         logic
       }
     },
-    finish () {
+    finish (cbk) {
       let data = this.getData()
       mylib.axios({
         type: 'post',
@@ -175,12 +175,24 @@ export default {
           logic: JSON.stringify({logic: data.logic})
         },
         done (res) {
+          this.$message({
+            type: 'success',
+            message: '编辑成功'
+          })
 
+          if (typeof cbk === 'function') {
+            cbk.call()
+            return
+          }
+
+          location.href = '/#/'
         }
       }, this)
     },
     view () {
-      let data = this.getData()
+      this.finish(() => {
+        location.href = '/#/preview/' + this.id
+      })
     },
     getTypeName (type) {
       var target = _.find(this.QType, (v) => {
@@ -279,6 +291,10 @@ export default {
         id: this.id
       },
       done (res) {
+        if (!res.data.name) {
+          location.href = '/#/'
+          return
+        }
         this.title.name = res.data.name
         this.title.desc = res.data.description
 

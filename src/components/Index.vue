@@ -142,7 +142,6 @@
       :total="total"
       :current-page.sync="currentPage"
       :page-size="pageSize"
-      @size-change="handleSizeChange"
       @current-change="handleCurrentChange">
     </el-pagination>
   </div>
@@ -389,8 +388,9 @@ export default {
       this.currentPage = 1
       this.renderTable()
     },
-    handleSizeChange () {},
-    handleCurrentChange () {},
+    handleCurrentChange () {
+      this.renderTable()
+    },
     filterChange (filters) {
       this.status = filters.status
       this.resetTable()

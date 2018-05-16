@@ -10,6 +10,7 @@ import Release from '@/components/release'
 import Share from '@/components/share'
 
 import Statistic from '@/components/statistic'
+import Template from '@/components/template'
 
 Vue.use(Router)
 
@@ -25,8 +26,9 @@ export default new Router({
       component: Edit,
       props: true
     }, {
-      path: '/preview',
+      path: '/preview/:id',
       name: 'preview',
+      props: true,
       component: Preview
     }, {
       path: '/setting/:id',
@@ -46,6 +48,10 @@ export default new Router({
       path: '/statistic',
       name: 'Statistic',
       component: Statistic
+    }, {
+      path: '/template',
+      name: 'template',
+      component: Template
     }
   ]
 })
