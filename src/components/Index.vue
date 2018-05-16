@@ -323,7 +323,7 @@ export default {
           params: {
             id: row.id,
             status: status,
-            questionnaire_link: row.questionnaire_link
+            questionnaire_link: '/#/view/' + row.id
           },
           done (res) {
             this.$message({
@@ -331,6 +331,10 @@ export default {
               message: title[status] + '成功!'
             })
             this.renderTable()
+
+            if (status === 1) {
+              location.href = '/#/release/' + row.id
+            }
           }
         }, this)
       }).catch(() => {

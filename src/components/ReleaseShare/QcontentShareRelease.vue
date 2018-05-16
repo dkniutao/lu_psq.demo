@@ -9,10 +9,10 @@
         v-clipboard:success="onCopy"
         v-clipboard:error="onError">复制</el-button>
       </div>
-      <div class="code">
-        <span>问卷二维码</span>
-        <div><img src="" alt=""></div>
-        <span><el-button class="add-psq" type="primary" @click="dialogTableVisible = true">下载二维码</el-button></span>
+      <div class="code clearfix" style="margin-top:30px">
+        <span class="fl">问卷二维码</span>
+        <div class="fl" style="margin:0"><img :src="getQrCode()" alt="" width="100%" height="100%"></div>
+        <span class="fl"><el-button class="add-psq" type="primary" @click="dialogTableVisible = true">下载二维码</el-button></span>
       </div>
       <div class="share">
         <span>第三方分享</span>
@@ -35,7 +35,12 @@
         <el-table-column property="name" label="使用场景" width="280"></el-table-column>
         <el-table-column  label="下载">
           <template slot-scope="scope">
-            <a href="scope.row.down" download="scope.row.down" class="down"><i class="icon" :class="scope.row.icon"></i></a>
+            <a
+              class="down"
+              :href="getQrCode(scope.row.w, scope.row.h)"
+              :download="getQrCode(scope.row.w, scope.row.h)">
+              <i class="icon" :class="scope.row.icon"></i>
+            </a>
           </template>
         </el-table-column>
       </el-table>
@@ -44,44 +49,55 @@
 </template>
 
 <script>
+import mylib from '../../mylib.js'
+import axios from 'axios'
 export default {
   components: {
   },
-  props: [
-  ],
+  props: ['question'],
   data () {
     return {
       share: ['icon-weixin1', 'icon-QQ', 'icon-kongjian', 'icon-weibo1'], // 分享图标
       showColor: '', // 替换分享图标
       item_index: '', // 分享图标当前index值
+      // qrcode: '',
       codeData: [{
         date: '150*150',
         name: '常规尺寸',
         icon: 'iconfont icon-xiazai',
-        down: 'http://imgsrc.baidu.com/forum/w=580/sign=1588b7c5d739b6004dce0fbfd9503526/7bec54e736d12f2eb97e1a464dc2d56285356898.jpg'
+        w: '150',
+        h: '150'
       }, {
         date: '256*256',
         name: '适合插入文档使用',
         icon: 'iconfont icon-xiazai',
-        down: 'http://imgsrc.baidu.com/forum/w=580/sign=1588b7c5d739b6004dce0fbfd9503526/7bec54e736d12f2eb97e1a464dc2d56285356898.jpg'
+        w: '256',
+        h: '256'
       }, {
         date: '512*512',
         name: '适合插入PPT使用',
         icon: 'iconfont icon-xiazai',
-        down: 'http://imgsrc.baidu.com/forum/w=580/sign=1588b7c5d739b6004dce0fbfd9503526/7bec54e736d12f2eb97e1a464dc2d56285356898.jpg'
+        w: '512',
+        h: '512'
       }, {
-        date: '1024*1024',
+        date: '1000*1000',
         name: '适合印刷出版社使用',
         icon: 'iconfont icon-xiazai',
-        down: 'http://imgsrc.baidu.com/forum/w=580/sign=1588b7c5d739b6004dce0fbfd9503526/7bec54e736d12f2eb97e1a464dc2d56285356898.jpg'
+        w: '1000',
+        h: '1000'
       }],
       dialogTableVisible: false, // dialog 弹窗隐藏
-      link: 'https://exmail.qq.com/cgi-bin/loginpage?s=session_timeout&from=&r=000a85cf355……' // 链接地址
     }
   },
   computed: {
+    link () {
+      return mylib.SHARE + this.question.questionnaire_link
+    }
   },
   methods: {
+    getQrCode (w = 100, h = 100) {
+      return 'http://pan.baidu.com/share/qrcode?w=' + w + '&h=' + h + '&url=' + encodeURIComponent(this.link)
+    },
     /**
      * [overShow 鼠标移入图标颜色]
      * @param  {[number]} index [当前图标的index值]
@@ -137,13 +153,15 @@ export default {
      */
     sharemsg (index) {
       if (index === 0) {
-        window.location.href = ''
+        this.$alert('<div style="text-align:center"><img src="' + this.getQrCode(200, 200) + '"></div>', '扫码分享', {
+          dangerouslyUseHTMLString: true
+        });
       } else if (index === 1) {
-        window.window.open ("http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}")
+        window.window.open ('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}')
       } else if (index === 2) {
-        window.window.open ("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}")
+        window.window.open ('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}')
       } else if (index === 3) {
-        window.window.open ("http://service.weibo.com/share/mobile.php?url={{URL}}&title={{DESC}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}")
+        window.window.open ('http://service.weibo.com/share/mobile.php?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&pic={{IMAGE}}&appkey={{WEIBOKEY}}')
       }
     }
   }

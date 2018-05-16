@@ -36,7 +36,7 @@ export default new Router({
       props: true,
       component: Setting
     }, {
-      path: '/release',
+      path: '/release/:id',
       name: 'Release',
       component: Release
     }, {

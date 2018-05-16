@@ -132,7 +132,6 @@ export default {
       }
     },
     getData (view) {
-      console.log(view)
       let res = {
         description: view.description,
         logic: JSON.stringify({logic: view.logic}),

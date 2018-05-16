@@ -4,7 +4,8 @@
     <div class="banner">
       <div class="success"><i class="iconfont icon-xiaolianchenggong"></i>发布成功 ！</div>
     </div>
-    <xz-question-content></xz-question-content>
+    <xz-question-content
+      :question="question"></xz-question-content>
   </div>
 </template>
 
@@ -15,10 +16,10 @@ export default {
   components: {
     XzQuestionContent
   },
-  props: [
-  ],
+  props: ['id'],
   data () {
     return {
+      question: {}
     }
   },
   computed: {
@@ -26,6 +27,15 @@ export default {
   methods: {
   },
   created () {
+    mylib.axios({
+      url: 'questionnaire/questionnaire',
+      params: {
+        id: this.id
+      },
+      done (res) {
+        this.question = res.data
+      }
+    }, this)
   },
   mounted () {
   }

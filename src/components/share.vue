@@ -1,20 +1,23 @@
 <template>
   <div class="release_questionnaire">
     <div class="head">分享问卷</div>
-    <xz-questionnaire-content></xz-questionnaire-content>
+    <xz-questionnaire-content
+      :question="question">
+    </xz-questionnaire-content>
   </div>
 </template>
 
 <script>
 import xzQuestionnaireContent from './ReleaseShare/QcontentShareRelease.vue'
-
+import mylib from '../mylib.js'
 export default {
   components: {
     xzQuestionnaireContent
   },
-  props: [],
+  props: ['id'],
   data () {
     return {
+      question: {}
     }
   },
   computed: {
@@ -22,8 +25,15 @@ export default {
   methods: {
   },
   created () {
-  },
-  mounted () {
+    mylib.axios({
+      url: 'questionnaire/questionnaire',
+      params: {
+        id: this.id
+      },
+      done (res) {
+        this.question = res.data
+      }
+    }, this)
   }
 }
 </script>

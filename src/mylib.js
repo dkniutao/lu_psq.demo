@@ -2,6 +2,7 @@ import _ from 'lodash'
 import axios from 'axios'
 export default {
   ABC: ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+  SHARE: 'http://test.api.backend.xingzhijishu.com',
   ROOT: '//test.api.backend.xingzhijishu.com/',
   URL: '//test.api.backend.xingzhijishu.com/v1/',
   ACCESS_TOKEN: '5890516ceca05bf50e44e8da65f48244',
