@@ -10,7 +10,13 @@
             </div>
           </el-col>
           <el-col :span="12">
-            <div class="fr"><span>管理员001</span></div>
+            <div class="fr">
+              <span class="fr">管理员001</span>
+              <span class="fr" style="margin-right: 10px;margin-top: 7px;"><img src="./assets/tx.png" alt=""></span>
+              <span class="fr" style="margin-right: 40px;font-size: 30px;">
+                <i class="iconfont icon-tongzhi"></i>
+              </span>
+            </div>
           </el-col>
         </el-row>
       </el-header>
