@@ -257,7 +257,7 @@ export default {
       let set = this.item.question.setting
 
       if (set.min && set.max) {
-        if (set.min == set.max) {
+        if (set.min === set.max) {
           return set.min + '个字'
         } else {
           return set.min + '到' + set.max + '个字'
@@ -284,42 +284,29 @@ export default {
       }
     },
     getAnswer () {
-      if (this.alias === 'radio')
-      {
+      if (this.alias === 'radio') {
         return this.radio
-      }
-      else if (this.alias === 'checkbox')
-      {
+      } else if (this.alias === 'checkbox') {
         return this.checkbox.join(',')
-      }
-      else if (this.alias === 'input') {
+      } else if (this.alias === 'input') {
         return this.input
-      }
-      else if (this.alias === 'inputMulti')
-      {
+      } else if (this.alias === 'inputMulti') {
         return _.map(this.inputMulti, (v) => {
           return {
             val: v
           }
         })
-      }
-      else if (this.alias === 'rate')
-      {
+      } else if (this.alias === 'rate') {
         return this.rate
-      }
-      else if (this.alias === 'rateMulti')
-      {
+      } else if (this.alias === 'rateMulti') {
         return _.map(this.rateMulti, (v) => {
           return {
             score: v
           }
         })
-      }
-      else if (this.alias === 'slider')
-      {
+      } else if (this.alias === 'slider') {
         return this.slider
-      }
-      else if (this.alias === 'sort') {
+      } else if (this.alias === 'sort') {
         return this.sort.join(',')
       }
     }

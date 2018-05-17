@@ -76,8 +76,7 @@
 </template>
 
 <script>
-import mylib from '../../mylib.js'
-
+// import mylib from '../../mylib.js'
 export default {
   components: {
   },

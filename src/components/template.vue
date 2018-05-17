@@ -95,6 +95,7 @@
 </template>
 <script>
 import mylib from '../mylib.js'
+import _ from 'lodash'
 import xzItem from './preview/QItem.vue'
 export default {
   data () {
@@ -159,7 +160,6 @@ export default {
 
           res.question.push(q)
           s.item.push(q.order)
-
         })
 
         s.item = s.item.join(',')
@@ -177,28 +177,28 @@ export default {
         cancelButtonText: '取消',
         inputValue: item.name,
         inputPattern: /\S/,
-         inputErrorMessage: '问卷名称不能为空'
+        inputErrorMessage: '问卷名称不能为空'
       }).then(({ value }) => {
-          let data = this.getData(item.view)
-          data['name'] = value
-          mylib.axios({
-            type: 'post',
-            url: 'questionnaire/create',
-            params: data,
-            done (res) {
-              this.$message({
-               type: 'success',
-               message: '创建成功'
-              });
-              location.href = '/#/edit/' + res.data.data
-            }
-          }, this)
-        }).catch(() => {
-          this.$message({
-           type: 'info',
-           message: '取消创建'
-          });
-      });
+        let data = this.getData(item.view)
+        data['name'] = value
+        mylib.axios({
+          type: 'post',
+          url: 'questionnaire/create',
+          params: data,
+          done (res) {
+            this.$message({
+              type: 'success',
+              message: '创建成功'
+            })
+            location.href = '/#/edit/' + res.data.data
+          }
+        }, this)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消创建'
+        })
+      })
     },
     search () {
       this.resetList()

@@ -266,7 +266,7 @@ export default {
       }
     },
     addQuestion (type) {
-      let typeData = mylib.TYPE_DATA[type]
+      // let typeData = mylib.TYPE_DATA[type]
       let secIndex = this.point[0]
       let quesIndex = this.point[1]
 

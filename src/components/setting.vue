@@ -177,22 +177,21 @@ export default {
      */
     publish (status) {
       if (this.timeNum === 1 && this.passwordNum === 1) {
-        var startTime = this.startTime.toLocaleString()
-        var endTime = this.endTime.toLocaleString()
-        var password = this.surePassword
+        let startTime = this.startTime.toLocaleString()
+        let endTime = this.endTime.toLocaleString()
+        let password = this.surePassword
+        let ipLimit = 0
         if (this.checked) {
-          var ipLimit = 1
-        } else {
-          var ipLimit = 0
+          ipLimit = 1
         }
-        var data = {
-          id: '12',
-          status: '0',
-          startTime: startTime,
-          endTime: endTime,
-          password: password,
-          ipLimit: ipLimit
-        }
+        // let data = {
+        //   id: '12',
+        //   status: '0',
+        //   startTime: startTime,
+        //   endTime: endTime,
+        //   password: password,
+        //   ipLimit: ipLimit
+        // }
         mylib.axios({
           type: 'post',
           url: 'questionnaire/editsetting',

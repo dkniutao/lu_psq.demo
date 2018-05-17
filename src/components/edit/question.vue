@@ -461,7 +461,7 @@ export default {
           if (v.question && v.option) {
             l['3'] = l['3'] || {}
             let temp = l['3'][v.question] ? l['3'][v.question].split(',') : []
-            let index= _.findIndex(temp, (t) => {
+            let index = _.findIndex(temp, (t) => {
               return v.option === t
             })
             if (index === -1) {
@@ -556,7 +556,7 @@ export default {
     },
     // 关联逻辑选择问题
     logicQuesChange (rule) {
-      let target = _.find(this.list, function(v) {
+      let target = _.find(this.list, (v) => {
         return v.order === rule.question
       })
       rule.option = ''
@@ -584,7 +584,7 @@ export default {
           }
           sec['question'].push(ques)
           this.section.splice(this.secIndex, 0, sec)
-        } else{
+        } else {
           // 块上面存在其他块
           let prevSec = this.section[this.secIndex - 1]
           prevSec['question'].push(ques)
@@ -604,8 +604,8 @@ export default {
         // 块下面没有其他块
         if (this.secIndex === this.section.length - 1) {
           this.sec.question.splice(this.quesIndex, 0, ques)
-          return
-        } else{
+          return false
+        } else {
           // 块下面存在其他块
           let nextSec = this.section[this.secIndex + 1]
           nextSec['question'].unshift(ques)
@@ -631,7 +631,7 @@ export default {
     },
     del () {
       // 提取目标问题
-      let ques = this.sec.question.splice(this.quesIndex, 1)[0]
+      return this.sec.question.splice(this.quesIndex, 1)[0]
     },
     copy () {
       let ques = this.sec.question[this.quesIndex]

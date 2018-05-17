@@ -215,16 +215,17 @@ export default {
       {
         'title': '请输入问题标题',
         'content': [
-        {
-          'key': 'A',
-          'title': '选项1',
-          'img': ''
-        },
-        {
-          'key': 'B',
-          'title': '选项2',
-          'img': ''
-        }]
+          {
+            'key': 'A',
+            'title': '选项1',
+            'img': ''
+          },
+          {
+            'key': 'B',
+            'title': '选项2',
+            'img': ''
+          }
+        ]
       }
     }],
     section: [

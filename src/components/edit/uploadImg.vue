@@ -61,8 +61,7 @@ export default {
     render (row) {
       this.row = row
       this.visible = true
-    },
-
+    }
   }
 }
 </script>

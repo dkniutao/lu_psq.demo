@@ -37,7 +37,7 @@
           label="来源"
           width="140">
         </el-table-column>
-        <el-table-column 
+        <el-table-column
           label="操作">
           <template slot-scope="scope">
             <div class="operate">
@@ -73,8 +73,8 @@ export default {
       search: '',
       originaData: [], // 表格数据
       currentPage: 1, // 当前页数
-      pageSize: 20, //每页展示数量
-      total: 1  //总条目数
+      pageSize: 20, // 每页展示数量
+      total: 1 // 总条目数
     }
   },
   computed: {

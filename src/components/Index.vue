@@ -204,7 +204,7 @@ export default {
   methods: {
     handleMoreOperate (operate) {
       if (typeof this[operate.type] === 'function') {
-        this[operate.type].call(this, operate.row)
+        this[operate.type](operate.row)
       }
     },
     // 删除
@@ -241,29 +241,29 @@ export default {
         cancelButtonText: '取消',
         inputValue: row.name,
         inputPattern: /\S/,
-         inputErrorMessage: '问卷名称不能为空'
+        inputErrorMessage: '问卷名称不能为空'
       }).then(({ value }) => {
-          mylib.axios({
-            type: 'post',
-            url: 'questionnaire/copy',
-            params: {
-              id: row.id,
-              name: value
-            },
-            done (res) {
-              this.$message({
-               type: 'success',
-               message: '复制成功'
-              });
-              this.renderTable()
-            }
-          }, this)
-        }).catch(() => {
-          this.$message({
-           type: 'info',
-           message: '取消复制'
-          });
-      });
+        mylib.axios({
+          type: 'post',
+          url: 'questionnaire/copy',
+          params: {
+            id: row.id,
+            name: value
+          },
+          done (res) {
+            this.$message({
+              type: 'success',
+              message: '复制成功'
+            })
+            this.renderTable()
+          }
+        }, this)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消复制'
+        })
+      })
     },
     // 设为模板
     template (row) {
@@ -272,7 +272,7 @@ export default {
         cancelButtonText: '取消',
         inputValue: row.name,
         inputPattern: /\S/,
-         inputErrorMessage: '模板名称不能为空'
+        inputErrorMessage: '模板名称不能为空'
       }).then(({ value }) => {
         mylib.axios({
           type: 'post',
@@ -283,21 +283,21 @@ export default {
           },
           done (res) {
             this.$message({
-             type: 'success',
-             message: '设置成功'
-            });
+              type: 'success',
+              message: '设置成功'
+            })
             this.renderTable()
           }
         }, this)
         return false
       }).catch(() => {
         this.$message({
-         type: 'info',
-         message: '取消设置'
-        });
-      });
+          type: 'info',
+          message: '取消设置'
+        })
+      })
     },
-     // 编辑
+    // 编辑
     edit (row) {
       location.href = '#/edit/' + row.id
     },
@@ -312,7 +312,7 @@ export default {
     // 设置文件状态
     setStatus (row, status) {
       let title = ['', '发布', '暂停']
-      this.$confirm('确认'+ title[status] + row.name + '？', '提示', {
+      this.$confirm('确认' + title[status] + row.name + '？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -361,7 +361,7 @@ export default {
         },
         done (res) {
           this.$message({
-            message:res.data.message,
+            message: res.data.message,
             type: 'success'
           })
           location.href = '#/edit/' + res.data.data

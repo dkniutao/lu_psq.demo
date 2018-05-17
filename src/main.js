@@ -13,7 +13,6 @@ import router from './router'
 import VueClipboard from 'vue-clipboard2'
 // import echarts from 'echarts'
 
-
 Vue.use(VueClipboard)
 
 Vue.use(VueQuillEditor)

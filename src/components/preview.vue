@@ -68,9 +68,9 @@ export default {
       console.log(answer)
     },
     getChinaNumber (num) {
-      const CNUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-      const UNIT = ['', '十', '百', '千', '万', '亿'];
-      const EXUNIT = ['', '万', '亿'];
+      const CNUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+      const UNIT = ['', '十', '百', '千', '万', '亿']
+      const EXUNIT = ['', '万', '亿']
       num = parseInt(num, 10)
       let arr = num.toString().split('').reverse()
       let chunk = []
@@ -78,7 +78,7 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         temp.push(arr[i])
 
-        if (i !== 0 && (i + 1) % 4 === 0 || i === arr.length - 1) {
+        if ((i !== 0 && (i + 1) % 4 === 0) || i === arr.length - 1) {
           chunk.push(temp)
           temp = []
         }
@@ -94,12 +94,12 @@ export default {
         res = temp + res
       }
       res = res
-      .replace(/零十/, '零')
-      .replace(/零百/, '零')
-      .replace(/零千/, '零')
-      .replace(/^一十/, '十')
-      .replace(/零+/, '零')
-      .replace(/零$/, '')
+        .replace(/零十/, '零')
+        .replace(/零百/, '零')
+        .replace(/零千/, '零')
+        .replace(/^一十/, '十')
+        .replace(/零+/, '零')
+        .replace(/零$/, '')
 
       return res
     }
@@ -114,8 +114,7 @@ export default {
         this.data = res.data
         // 设置跳题逻辑
         _.each(res.data.logic, (l) => {
-          if (l.action === '1')
-          {
+          if (l.action === '1') {
             this.logic[l.order] = this.logic[l.order] || {}
             this.logic[l.order]['all'] = l.rules
           } else if (l.action === '2') {

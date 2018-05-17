@@ -50,7 +50,7 @@
 
 <script>
 import mylib from '../../mylib.js'
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   components: {
   },
@@ -86,7 +86,7 @@ export default {
         w: '1000',
         h: '1000'
       }],
-      dialogTableVisible: false, // dialog 弹窗隐藏
+      dialogTableVisible: false // dialog 弹窗隐藏
     }
   },
   computed: {
@@ -155,13 +155,13 @@ export default {
       if (index === 0) {
         this.$alert('<div style="text-align:center"><img src="' + this.getQrCode(200, 200) + '"></div>', '扫码分享', {
           dangerouslyUseHTMLString: true
-        });
+        })
       } else if (index === 1) {
-        window.window.open ('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}')
+        window.window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&source={{SOURCE}}&desc={{DESC}}&pics={{IMAGE}}&summary={{SUMMARY}}')
       } else if (index === 2) {
-        window.window.open ('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}')
+        window.window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&desc={{DESC}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}')
       } else if (index === 3) {
-        window.window.open ('http://service.weibo.com/share/mobile.php?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&pic={{IMAGE}}&appkey={{WEIBOKEY}}')
+        window.window.open('http://service.weibo.com/share/mobile.php?url=' + encodeURIComponent(this.link) + '&title=' + encodeURIComponent(this.question.name) + '&pic={{IMAGE}}&appkey={{WEIBOKEY}}')
       }
     }
   }

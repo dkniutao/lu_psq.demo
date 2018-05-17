@@ -51,4 +51,3 @@ export default {
     border-bottom: 1px solid #e8ecf0;
   }
 </style>
-

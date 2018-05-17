@@ -97,7 +97,6 @@
 </template>
 <script>
 import mylib from '../../mylib.js'
-import _ from 'lodash'
 
 export default {
   props: ['point', 'type', 'typeName', 'secIndex', 'sec', 'section'],
@@ -158,7 +157,7 @@ export default {
     up () {
       // 在块首
       if (this.secIndex === 0) {
-        return
+        return false
       } else {
         // 不在块首
         let prevSec = this.section[this.secIndex - 1]
@@ -194,9 +193,9 @@ export default {
           prevSec.question.push(ques)
         }
       } else {
-        //是否是最后一个块
+        // 是否是最后一个块
         if (this.secIndex === this.section.length - 1) {
-          return
+          return false
         } else {
           // 如果不是则把下一个块的问题拿上来
           let nextSec = this.section[this.secIndex + 1]

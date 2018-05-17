@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import mylib from '../mylib.js'
 import XzQuestionContent from './ReleaseShare/QcontentShareRelease.vue'
 
 export default {
