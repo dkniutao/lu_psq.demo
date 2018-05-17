@@ -10,12 +10,12 @@
       :key="index">
       <div
         v-if="section.name"
-        v-html="(index + 1)  + '、' + section.name"
+        v-text="getChinaNumber(index + 1)  + '、' + section.name"
         class="psq-section-title psq-chunk">
       </div>
       <div
         v-if="section.description"
-        v-html="section.description"
+        v-text="section.description"
         class="psq-section-desc psq-chunk">
       </div>
 
@@ -44,6 +44,44 @@ export default {
   data () {
     return {
       data: {}
+    }
+  },
+  methods: {
+    getChinaNumber (num) {
+      const CNUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+      const UNIT = ['', '十', '百', '千', '万', '亿'];
+      const EXUNIT = ['', '万', '亿'];
+      num = parseInt(num, 10)
+      let arr = num.toString().split('').reverse()
+      let chunk = []
+      let temp = []
+      for (let i = 0; i < arr.length; i++) {
+        temp.push(arr[i])
+
+        if (i !== 0 && (i + 1) % 4 === 0 || i === arr.length - 1) {
+          chunk.push(temp)
+          temp = []
+        }
+      }
+      let res = ''
+      for (let i = 0; i < chunk.length; i++) {
+        let temp = ''
+        for (let j = 0; j < chunk[i].length; j++) {
+          temp = CNUM[chunk[i][j]] + UNIT[j] + temp
+        }
+        temp += EXUNIT[i]
+
+        res = temp + res
+      }
+      res = res
+      .replace(/零十/, '零')
+      .replace(/零百/, '零')
+      .replace(/零千/, '零')
+      .replace(/^一十/, '十')
+      .replace(/零+/, '零')
+      .replace(/零$/, '')
+
+      return res
     }
   },
   mounted () {

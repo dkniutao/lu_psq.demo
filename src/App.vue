@@ -13,8 +13,8 @@
             <div class="fr">
               <span class="fr">管理员001</span>
               <span class="fr" style="margin-right: 10px;margin-top: 7px;"><img src="./assets/tx.png" alt=""></span>
-              <span class="fr" style="margin-right: 40px;font-size: 30px;">
-                <i class="iconfont icon-tongzhi"></i>
+              <span class="fr" style="margin-right: 40px;">
+                <i style="font-size: 30px;" class="iconfont icon-tongzhi"></i>
               </span>
             </div>
           </el-col>

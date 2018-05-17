@@ -6,7 +6,7 @@
       <div class="item-title clearfix">
         <div
           class="title fl"
-          v-html="sec[modelType]">
+          v-text  ="sec[modelType]">
         </div>
       </div>
     </div>
@@ -68,11 +68,18 @@
       <!-- 标题和段落 -->
       <el-row>
         <el-col :span="24">
-          <quill-editor
+          <!-- <quill-editor
             :options="editorOption"
             v-model="sec[modelType]"
             ref="myQuillEditor">
-          </quill-editor>
+          </quill-editor> -->
+          <el-input
+            style="width: 100%"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入内容"
+            v-model="sec[modelType]">
+          </el-input>
         </el-col>
       </el-row>
     </div>
@@ -286,6 +293,7 @@ export default {
 .question-item .item-operate{margin-top:20px;}
 .question-item .item-edit{margin-top: 20px;}
 .question-item .item-submit{margin-top: 20px;}
+.item-edit .el-textarea__inner{width:100%;}
 /*基础 end*/
 
 /*悬浮 start*/
