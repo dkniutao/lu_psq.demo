@@ -43,7 +43,8 @@ export default {
   },
   data () {
     return {
-      data: {}
+      data: {},
+      logic: {}
     }
   },
   methods: {
@@ -92,6 +93,26 @@ export default {
       },
       done (res) {
         this.data = res.data
+        // 设置跳题逻辑
+        _.each(res.data.logic, (l) => {
+          if (l.action === '1')
+          {
+            this.logic[l.order] = this.logic[l.order] || {}
+            this.logic[l.order]['all'] = l.rules
+          } else if (l.action === '2') {
+            this.logic[l.order] = this.logic[l.order] || {}
+            this.logic[l.order] = _.extend(this.logic[l.order], l.rules)
+          } else if (l.action === '3') {
+            _.each(l.rules, (key, ques) => {
+              if (!(this.logic[ques] && this.logic[ques][key])) {
+                this.logic[ques] = this.logic[ques] || {}
+                this.logic[ques][key] = l.order
+              }
+            })
+          }
+        })
+
+        console.log(this.logic)
       }
     }, this)
   }
