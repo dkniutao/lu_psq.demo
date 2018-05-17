@@ -27,11 +27,12 @@
           :section="data.section"
           :key="Q.id"
           :logic="logic"
-          @find-logic="findLogic">
+          :ref="'ques_' + Q.order">
         </xz-item>
       </div>
     </div>
   </div>
+  <el-button @click="submit">提交</el-button>
 </div>
 </template>
 <script>
@@ -51,8 +52,20 @@ export default {
     }
   },
   methods: {
-    findLogic (ques) {
-      console.log(ques)
+    submit () {
+      let answer = []
+      _.each(this.data.section, (sec) => {
+        _.each(sec.questions, (ques) => {
+          let quesItem = this.$refs['ques_' + ques.order][0]
+          if (quesItem) {
+            answer.push({
+              order: ques.order,
+              answer: quesItem.getAnswer()
+            })
+          }
+        })
+      })
+      console.log(answer)
     },
     getChinaNumber (num) {
       const CNUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];

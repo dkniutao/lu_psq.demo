@@ -243,7 +243,7 @@
               填写此题后跳转到第
               <el-select v-model="logic_1_rule" style="width: 80px;">
                 <el-option
-                  v-for="(q, index) in nextQuesList"
+                  v-for="q in nextQuesList"
                   :key="q.order"
                   :value="q.order">
                   <span v-html="q.order + '.&nbsp;' + q.item.title"></span>
@@ -271,7 +271,7 @@
                   跳转第
                   <el-select v-model="rule.question" style="width: 80px;">
                     <el-option
-                      v-for="(q, index) in nextQuesList"
+                      v-for="q in nextQuesList"
                       :key="q.order"
                       :value="q.order">
                       <span v-html="q.order + '.&nbsp;' + q.item.title"></span>
@@ -305,7 +305,7 @@
                     style="width: 80px;"
                     @change="logicQuesChange(rule)">
                     <el-option
-                      v-for="(q, index) in beforeQuesList"
+                      v-for="q in beforeQuesList"
                       :key="q.order"
                       :value="q.order">
                       <span v-html="q.order + '.&nbsp;' + q.item.title"></span>

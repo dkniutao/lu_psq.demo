@@ -65,8 +65,8 @@
           <el-input
             type="textarea"
             :rows="item.question.setting.height"
-            :minlength="item.question.setting.min"
-            :maxlength="item.question.setting.max"
+            :minlength="item.question.setting.min || ''"
+            :maxlength="item.question.setting.max || ''"
             :placeholder="placeholder"
             v-model="input">
           </el-input>
@@ -91,8 +91,8 @@
                 type="textarea"
                 :placeholder="placeholder"
                 :rows="item.question.setting.height"
-                :minlength="item.question.setting.min"
-                :maxlength="item.question.setting.max">
+                :minlength="item.question.setting.min || ''"
+                :maxlength="item.question.setting.max || ''">
               </el-input>
             </el-form-item>
           </el-form>
@@ -281,6 +281,46 @@ export default {
         this.rate = ''
       } else if (this.alias === 'rateMulti') {
         this.rateMulti = []
+      }
+    },
+    getAnswer () {
+      if (this.alias === 'radio')
+      {
+        return this.radio
+      }
+      else if (this.alias === 'checkbox')
+      {
+        return this.checkbox.join(',')
+      }
+      else if (this.alias === 'input') {
+        return this.input
+      }
+      else if (this.alias === 'inputMulti')
+      {
+        return _.map(this.inputMulti, (v) => {
+          return {
+            val: v
+          }
+        })
+      }
+      else if (this.alias === 'rate')
+      {
+        return this.rate
+      }
+      else if (this.alias === 'rateMulti')
+      {
+        return _.map(this.rateMulti, (v) => {
+          return {
+            score: v
+          }
+        })
+      }
+      else if (this.alias === 'slider')
+      {
+        return this.slider
+      }
+      else if (this.alias === 'sort') {
+        return this.sort.join(',')
       }
     }
   }

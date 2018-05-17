@@ -8,7 +8,7 @@
 </div>
 <div class="table">
   <div class="table-list"
-  v-for="(item, index) in reportsdata.questions">
+  v-for="(item, index) in reportsdata.questions" :key="index">
     <div class="title"><span>第{{item.order}}题</span><span>{{item.question.title}}</span></div>
     <div class="list" v-if="item.type == 5">
       <el-table
@@ -437,14 +437,14 @@ export default {
         //       'effective': 6
         //   }
         // }
-    }
+      }
     }
   },
   computed: {
   },
   methods: {
-    formatter(row, column) {
-      return row.address;
+    formatter (row, column) {
+      return row.address
     }
   },
   created () {
