@@ -24,7 +24,10 @@
           class="psq-chunk"
           v-for="Q in section.questions"
           :item="Q"
-          :key="Q.id">
+          :section="data.section"
+          :key="Q.id"
+          :logic="logic"
+          @find-logic="findLogic">
         </xz-item>
       </div>
     </div>
@@ -48,6 +51,9 @@ export default {
     }
   },
   methods: {
+    findLogic (ques) {
+      console.log(ques)
+    },
     getChinaNumber (num) {
       const CNUM = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
       const UNIT = ['', '十', '百', '千', '万', '亿'];
@@ -111,8 +117,6 @@ export default {
             })
           }
         })
-
-        console.log(this.logic)
       }
     }, this)
   }

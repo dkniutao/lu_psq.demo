@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-show="!item.isHidden">
   <div class="item-title clearfix">
     <div
       class="order fl"
@@ -194,7 +194,7 @@ import _ from 'lodash'
 import mylib from '@/mylib.js'
 import xzSort from '@/components/pub/sort.vue'
 export default {
-  props: ['item'],
+  props: ['item', 'logic', 'section'],
   components: {
     xzSort
   },
@@ -208,6 +208,21 @@ export default {
       rateMulti: [],
       slider: 0,
       sort: []
+    }
+  },
+  watch: {
+    radio () {
+      _.each(this.section, (sec) => {
+        _.each(sec.questions, (ques) => {
+          this.$set(ques, 'isHidden', false)
+          let item = this.logic[this.item.order]
+          if (item && item[this.radio]) {
+            if (+ques.order < +item[this.radio] && +ques.order > +this.item.order) {
+              this.$set(ques, 'isHidden', true)
+            }
+          }
+        })
+      })
     }
   },
   computed: {
