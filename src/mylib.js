@@ -200,7 +200,7 @@ export default {
     },
     '7': {
       'alias': 'title',
-      'item': '<strong>请输入标题</strong>'
+      'item': '请输入标题'
     },
     '8': {
       'alias': 'desc',

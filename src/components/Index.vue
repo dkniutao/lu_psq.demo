@@ -323,7 +323,7 @@ export default {
           params: {
             id: row.id,
             status: status,
-            questionnaire_link: '/#/view/' + row.id
+            questionnaire_link: '/view/#/' + row.id
           },
           done (res) {
             this.$message({

@@ -38,6 +38,7 @@ export default new Router({
     }, {
       path: '/release/:id',
       name: 'Release',
+      props: true,
       component: Release
     }, {
       path: '/share/:id',
