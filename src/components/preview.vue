@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <el-button @click="submit">提交</el-button>
+  <!-- <el-button @click="submit">提交</el-button> -->
 </div>
 </template>
 <script>
